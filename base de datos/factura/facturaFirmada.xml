@@ -1,0 +1,108 @@
+<br />
+<b>Warning</b>:  file_get_contents(http://localhost/libreria/2103202101120700828300110010010000090280000002714.xml): failed to open stream: HTTP request failed! HTTP/1.1 404 Not Found
+ in <b>C:\xampp\htdocs\sokai-Beta-Actual\proyecto-sokai\base de datos\factura\src\leerFactura.php</b> on line <b>5</b><br />
+<br />
+<b>Fatal error</b>:  Uncaught Error: Call to a member function attributes() on bool in C:\xampp\htdocs\sokai-Beta-Actual\proyecto-sokai\base de datos\factura\src\leerFactura.php:15
+Stack trace:
+#0 {main}
+  thrown in <b>C:\xampp\htdocs\sokai-Beta-Actual\proyecto-sokai\base de datos\factura\src\leerFactura.php</b> on line <b>15</b><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature2389">
+<ds:SignedInfo Id="Signature-SignedInfo26342">
+<ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></ds:CanonicalizationMethod>
+<ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"></ds:SignatureMethod>
+<ds:Reference Id="SignedPropertiesID509116" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature2389-SignedProperties661778">
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+<ds:DigestValue>/6qRkLKRwqCAD6m/buNLYpV2VHs=</ds:DigestValue>
+</ds:Reference>
+<ds:Reference URI="#Certificate398429">
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+<ds:DigestValue>ELf9BfU0kIJcX0JsDQ1vk/MzFIs=</ds:DigestValue>
+</ds:Reference>
+<ds:Reference Id="Reference-ID-596449" URI="#comprobante">
+<ds:Transforms>
+<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform>
+</ds:Transforms>
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+<ds:DigestValue>PZiwCE7AEdpXk0n4Fvi4Y5YI9u8=</ds:DigestValue>
+</ds:Reference>
+</ds:SignedInfo>
+<ds:SignatureValue Id="SignatureValue565882">
+GTuvLDYzItyEFLvoeOoh6nJS9OqyONL/h/KEBvNCs1F80eXUyo1sE9E2tnbEPNEesjdf+qO/Ueup
+J8y+lJ+Ac/VtjfDYJWaJzdhWUaBGQNXw/VK+BNMhKgkwlucQznG7CfuzBoHUp60Ya8r2M7rHXK5T
+MxNF2SPBGpYJDlFgzZYIZIZaOFN/AUvTSV2kn7dGy3+sqqUZWHtSBSAveiYoW9hmDtRwfcsSQ7YL
+ZAMmZzNeHvNe+f46SUNhDo/Oe1NY9KD3FPYLSurLowI8DoY3YLivHcQ1wKxbL/lKzqMcw7iangey
+gu9Jnuv1sl60V4958hunKnfoLnkw5O23HMRxHg==
+</ds:SignatureValue>
+<ds:KeyInfo Id="Certificate398429">
+<ds:X509Data>
+<ds:X509Certificate>
+MIILzTCCCbWgAwIBAgIEZlgMuTANBgkqhkiG9w0BAQsFADCBmTELMAkGA1UEBhMCRUMxHTAbBgNV
+BAoMFFNFQ1VSSVRZIERBVEEgUy5BLiAyMTAwLgYDVQQLDCdFTlRJREFEIERFIENFUlRJRklDQUNJ
+T04gREUgSU5GT1JNQUNJT04xOTA3BgNVBAMMMEFVVE9SSURBRCBERSBDRVJUSUZJQ0FDSU9OIFNV
+QkNBLTIgU0VDVVJJVFkgREFUQTAeFw0yMTAzMTIyMjAzMTFaFw0yMzAzMTIyMjAzMTFaMIGaMSMw
+IQYDVQQDDBpHQUJSSUVMIElTUkFFTCBWRUdBIFJPTUVSTzEVMBMGA1UEBRMMMTIwMzIxMTcxMzEx
+MTAwLgYDVQQLDCdFTlRJREFEIERFIENFUlRJRklDQUNJT04gREUgSU5GT1JNQUNJT04xHTAbBgNV
+BAoMFFNFQ1VSSVRZIERBVEEgUy5BLiAyMQswCQYDVQQGEwJFQzCCASIwDQYJKoZIhvcNAQEBBQAD
+ggEPADCCAQoCggEBAKeSg8pV9v5aObLv9DmCLPrHhJP5KV9uBT1fYrT+xdTVtnVeNUAQht/Q0L00
+VKiC0QXoZZaPAyHfVpai2j64UPq9RDlb2lUIR7/NtGopHKNNBjRAPLdUmn8vKwGhsT+/6iQbIQio
+3Bwt9Ug/mxk9mS0oq1yXD5Gdt0g98Ex4Dz7xoM1Y+F0K85lIqhLOVqfaeIfKWPZnHo+Kg5DIkQ67
+L7njdhQmtne24WvZd7SvmUe6Iq60KCitvmaubZJ0buM+rlp3yTjadHJnCGm6QsjBo9vLGwcLZnQw
+mH6mrKOyfV/5uQQvSJRqA713iiQXQ+IUDJUKR1zc3lPyNZ/wsWNgui8CAwEAAaOCBxgwggcUMAwG
+A1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUjLrKEVd4JYAdawpLVb+NrmLdvY8wWQYIKwYBBQUHAQEE
+TTBLMEkGCCsGAQUFBzABhj1odHRwOi8vb2NzcGd3LnNlY3VyaXR5ZGF0YS5uZXQuZWMvZWpiY2Ev
+cHVibGljd2ViL3N0YXR1cy9vY3NwMIHPBgNVHS4EgccwgcQwgcGggb6ggbuGgbhsZGFwOi8vbGRh
+cHNkY2EyLnNlY3VyaXR5ZGF0YS5uZXQuZWMvQ049QVVUT1JJREFEIERFIENFUlRJRklDQUNJT04g
+U1VCQ0EtMiBTRUNVUklUWSBEQVRBLE9VPUVOVElEQUQgREUgQ0VSVElGSUNBQ0lPTiBERSBJTkZP
+Uk1BQ0lPTixPPVNFQ1VSSVRZIERBVEEgUy5BLiAyLEM9RUM/ZGVsdGFSZXZvY2F0aW9uTGlzdD9i
+YXNlMCEGA1UdEQQaMBiBFmpvcmdlYWxlMTNAaG90bWFpbC5jb20wggEGBgNVHSAEgf4wgfswWgYK
+KwYBBAGCpnICBzBMMEoGCCsGAQUFBwICMD4ePABDAGUAcgB0AGkAZgBpAGMAYQBkAG8AIABkAGUA
+IABQAGUAcgBzAG8AbgBhACAATgBhAHQAdQByAGEAbDCBnAYKKwYBBAGCpnICATCBjTCBigYIKwYB
+BQUHAgEWfmh0dHBzOi8vd3d3LnNlY3VyaXR5ZGF0YS5uZXQuZWMvd3AtY29udGVudC9kb3dubG9h
+ZHMvTm9ybWF0aXZhcy9QX2RlX0NlcnRpZmljYWRvcy9Qb2xpdGljYXMgZGUgQ2VydGlmaWNhZG8g
+UGVyc29uYSBOYXR1cmFsLnBkZjCCAqIGA1UdHwSCApkwggKVMIHloEGgP4Y9aHR0cDovL29jc3Bn
+dy5zZWN1cml0eWRhdGEubmV0LmVjL2VqYmNhL3B1YmxpY3dlYi9zdGF0dXMvb2NzcKKBn6SBnDCB
+mTE5MDcGA1UEAwwwQVVUT1JJREFEIERFIENFUlRJRklDQUNJT04gU1VCQ0EtMiBTRUNVUklUWSBE
+QVRBMTAwLgYDVQQLDCdFTlRJREFEIERFIENFUlRJRklDQUNJT04gREUgSU5GT1JNQUNJT04xHTAb
+BgNVBAoMFFNFQ1VSSVRZIERBVEEgUy5BLiAyMQswCQYDVQQGEwJFQzCBx6CBxKCBwYaBvmxkYXA6
+Ly9sZGFwc2RjYTIuc2VjdXJpdHlkYXRhLm5ldC5lYy9DTj1BVVRPUklEQUQgREUgQ0VSVElGSUNB
+Q0lPTiBTVUJDQS0yIFNFQ1VSSVRZIERBVEEsT1U9RU5USURBRCBERSBDRVJUSUZJQ0FDSU9OIERF
+IElORk9STUFDSU9OLE89U0VDVVJJVFkgREFUQSBTLkEuIDIsQz1FQz9jZXJ0aWZpY2F0ZVJldm9j
+YXRpb25MaXN0P2Jhc2UwgeCggd2ggdqGgddodHRwczovL3BvcnRhbC1vcGVyYWRvcjIuc2VjdXJp
+dHlkYXRhLm5ldC5lYy9lamJjYS9wdWJsaWN3ZWIvd2ViZGlzdC9jZXJ0ZGlzdD9jbWQ9Y3JsJmlz
+c3Vlcj1DTj1BVVRPUklEQUQgREUgQ0VSVElGSUNBQ0lPTiBTVUJDQS0yIFNFQ1VSSVRZIERBVEEs
+T1U9RU5USURBRCBERSBDRVJUSUZJQ0FDSU9OIERFIElORk9STUFDSU9OLE89U0VDVVJJVFkgREFU
+QSBTLkEuIDIsQz1FQzAdBgNVHQ4EFgQUa19phUwZTZXWnWddaU66WFYUfv4wKwYDVR0QBCQwIoAP
+MjAyMTAzMTIyMjAzMTFagQ8yMDIzMDMxMjIyMDMxMVowCwYDVR0PBAQDAgXgMBoGCisGAQQBgqZy
+AwEEDAwKMTIwNzAwODI4MzAZBgorBgEEAYKmcgMJBAsMCUxBVEFDVU5HQTARBgorBgEEAYKmcgMi
+BAMMAS4wLQYKKwYBBAGCpnIDBwQfDB0gUVVJVE8gU04gWSBNQVJRVUVTIERFIE1BRU5aQTAeBgor
+BgEEAYKmcgMCBBAMDkdBQlJJRUwgSVNSQUVMMB8GCisGAQQBgqZyAyAEEQwPMDAyMDAxMDAwMTY5
+NDU5MBEGCisGAQQBgqZyAyMEAwwBLjATBgorBgEEAYKmcgMhBAUMA1BGWDAXBgorBgEEAYKmcgMM
+BAkMB0VDVUFET1IwFAYKKwYBBAGCpnIDAwQGDARWRUdBMBEGCisGAQQBgqZyAx4EAwwBLjAdBgor
+BgEEAYKmcgMLBA8MDTEyMDcwMDgyODMwMDEwEQYKKwYBBAGCpnIDHQQDDAEuMBYGCisGAQQBgqZy
+AwQECAwGUk9NRVJPMBwGCisGAQQBgqZyAwgEDgwMNTkzOTk4MzI5Nzg1MA0GCSqGSIb3DQEBCwUA
+A4ICAQCasJ6M28BZuGdKMsO9krI6+U9znyUV/dkZxpH4qHUsIcV0Q60N5b07KPWQuC1FBJxifIXp
+XQk5cCnB36/gzmR+RBZNYJcrU1FyXxqD+iac+qg/KtvItOx+v+zVrNBrhzkGBltzGY9az5BHNrCe
+VCISwH9SPtJ33/2FY6TXztxzIZupaJqKSA8A8vALlSuOihhpLoUt08oN8OoEB+I0bp01uWzFZ5ss
+/jELNJ6ZnzmzQY9v4di0Vg/zjLuZqabpPW40udWWgA8RkKOIjBcf/7+aIa4ZNI7/i6qELAfmp7ck
+PN2GlCQweKB7Wb42c1+ke0/R3ZAF71tAM/W00TnMcO3SAUp/c9DJ6cyuqNcswlU16CZgOR+sFKWv
+rBFhYgrj8L+Bko0yoLxTRJPEaz5HjhZtkcgW3LIm5vCncMeoAa2KlHxx03CrLsVg8gXB/pWG4+6U
+3RBhaLHys+OkTSdL8LHzrzO+NH8gCCqJAi2VudRoW2TxsRyEpe5sogzPKfWG4ENZSWrUX00juvkp
+JzdL+q9SBShmOwq+Xx3vmDKSMFIWtUbklIQwLMIp4GwCqybH7+pDM0QQzcSMtlsPdWRpWMwM40UZ
+bo2XX/SqbEDkMwGTL2TJmiIxyEeGuBkGyFI3CMb7ONN+lAbUBOHxDW6VkFnT5b+7nnUwu2JJSD/e
+VOAMvg==
+</ds:X509Certificate>
+</ds:X509Data>
+<ds:KeyValue>
+<ds:RSAKeyValue>
+<ds:Modulus>
+p5KDylX2/lo5su/0OYIs+seEk/kpX24FPV9itP7F1NW2dV41QBCG39DQvTRUqILRBehllo8DId9W
+lqLaPrhQ+r1EOVvaVQhHv820aikco00GNEA8t1Safy8rAaGxP7/qJBshCKjcHC31SD+bGT2ZLSir
+XJcPkZ23SD3wTHgPPvGgzVj4XQrzmUiqEs5Wp9p4h8pY9mcej4qDkMiRDrsvueN2FCa2d7bha9l3
+tK+ZR7oirrQoKK2+Zq5tknRu4z6uWnfJONp0cmcIabpCyMGj28sbBwtmdDCYfqaso7J9X/m5BC9I
+lGoDvXeKJBdD4hQMlQpHXNzeU/I1n/CxY2C6Lw==
+</ds:Modulus>
+<ds:Exponent>AQAB</ds:Exponent>
+</ds:RSAKeyValue>
+</ds:KeyValue>
+</ds:KeyInfo>
+<ds:Object Id="Signature2389-Object819122"><etsi:QualifyingProperties Target="#Signature2389"><etsi:SignedProperties Id="Signature2389-SignedProperties661778"><etsi:SignedSignatureProperties><etsi:SigningTime>2021-05-14T18:02:32-05:00</etsi:SigningTime><etsi:SigningCertificate><etsi:Cert><etsi:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod><ds:DigestValue>meIRPFQXZEa/j/SHw2498Lqv3jo=</ds:DigestValue></etsi:CertDigest><etsi:IssuerSerial><ds:X509IssuerName>CN=AUTORIDAD DE CERTIFICACION SUBCA-2 SECURITY DATA,OU=ENTIDAD DE CERTIFICACION DE INFORMACION,O=SECURITY DATA S.A. 2,C=EC</ds:X509IssuerName><ds:X509SerialNumber>1717046457</ds:X509SerialNumber></etsi:IssuerSerial></etsi:Cert></etsi:SigningCertificate></etsi:SignedSignatureProperties><etsi:SignedDataObjectProperties><etsi:DataObjectFormat ObjectReference="#Reference-ID-596449"><etsi:Description>contenido comprobante</etsi:Description><etsi:MimeType>text/xml</etsi:MimeType></etsi:DataObjectFormat></etsi:SignedDataObjectProperties></etsi:SignedProperties></etsi:QualifyingProperties></ds:Object></ds:Signature><br />
+

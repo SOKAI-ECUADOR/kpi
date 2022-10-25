@@ -1,0 +1,164 @@
+[
+        {
+            "cod_retencion": "1",
+            "descrip_retencion": "I.R.F. Por  Pagar (1%)",
+            "porcen_retencion": "1",
+            "tipo_retencion": "Retencion Fuente Compras",
+            "tipoiva_retencion": "Credito Tributario",
+            "id_moneda": "1",
+            "id_impuesto": "13"
+        },
+        {
+            "cod_retencion": "2",
+            "descrip_retencion": "I.R.F. Por  Pagar (2%)",
+            "porcen_retencion": "2",
+            "tipo_retencion": "Retencion Fuente Compras",
+            "tipoiva_retencion": "Credito Tributario",
+            "id_moneda": "1",
+            "id_impuesto": "71"
+        },
+        {
+            "cod_retencion": "3",
+            "descrip_retencion": "I.R.F. Por  Pagar (8%)",
+            "porcen_retencion": "8",
+            "tipo_retencion": "Retencion Fuente Compras",
+            "tipoiva_retencion": "Credito Tributario",
+            "id_moneda": "1",
+            "id_impuesto": "2"
+        },
+        {
+            "cod_retencion": "4",
+            "descrip_retencion": "I.V.A. Retenido por Pagar (30%)",
+            "porcen_retencion": "30",
+            "tipo_retencion": "Retencion IVA Compras",
+            "tipoiva_retencion": "Credito Tributario",
+            "id_moneda": "1",
+            "id_impuesto": "125"
+        },
+        {
+            "cod_retencion": "5",
+            "descrip_retencion": "I.V.A. Retenido por Pagar (70%)",
+            "porcen_retencion": "70",
+            "tipo_retencion": "Retencion IVA Compras",
+            "tipoiva_retencion": "Credito Tributario",
+            "id_moneda": "1",
+            "id_impuesto": "126"
+        },
+        {
+            "cod_retencion": "6",
+            "descrip_retencion": "I.V.A. Retenido por Pagar (100%)",
+            "porcen_retencion": "100",
+            "tipo_retencion": "Retencion IVA Compras",
+            "tipoiva_retencion": "Credito Tributario",
+            "id_moneda": "1",
+            "id_impuesto": "127"
+        },
+        {
+            "cod_retencion": "7",
+            "descrip_retencion": "IVA. en Compras",
+            "porcen_retencion": "12",
+            "tipo_retencion": "Retencion IVA Compras",
+            "tipoiva_retencion": "Credito Tributario",
+            "id_moneda": "1",
+            "id_impuesto": null
+        },
+        {
+            "cod_retencion": "8",
+            "descrip_retencion": "I.R.F. por Cobrar (1%)",
+            "porcen_retencion": "1",
+            "tipo_retencion": "Retencion Fuente Ventas",
+            "tipoiva_retencion": "Credito Tributario",
+            "id_moneda": "1",
+            "id_impuesto": null
+        },
+        {
+            "cod_retencion": "9",
+            "descrip_retencion": "I.R.F. por Cobrar (2%)",
+            "porcen_retencion": "2",
+            "tipo_retencion": "Retencion Fuente Ventas",
+            "tipoiva_retencion": "Credito Tributario",
+            "id_moneda": "1",
+            "id_impuesto": null
+        },
+        {
+            "cod_retencion": "10",
+            "descrip_retencion": "I.R.F. por Cobrar (8%)",
+            "porcen_retencion": "8",
+            "tipo_retencion": "Retencion Fuente Ventas",
+            "tipoiva_retencion": "Credito Tributario",
+            "id_moneda": "1",
+            "id_impuesto": "20"
+        },
+        {
+            "cod_retencion": "11",
+            "descrip_retencion": "IVA. Retenido por Cobrar (30%)",
+            "porcen_retencion": "30",
+            "tipo_retencion": "Retencion IVA Ventas",
+            "tipoiva_retencion": "Credito Tributario",
+            "id_moneda": "1",
+            "id_impuesto": null
+        },
+        {
+            "cod_retencion": "12",
+            "descrip_retencion": "IVA. Retenido por Cobrar (70%)",
+            "porcen_retencion": "70",
+            "tipo_retencion": "Retencion IVA Ventas",
+            "tipoiva_retencion": "Credito Tributario",
+            "id_moneda": "1",
+            "id_impuesto": null
+        },
+        {
+            "cod_retencion": "13",
+            "descrip_retencion": "I.V.A. Retenido por Cobrar(100%)",
+            "porcen_retencion": "100",
+            "tipo_retencion": "Retencion IVA Ventas",
+            "tipoiva_retencion": "Credito Tributario",
+            "id_moneda": "1",
+            "id_impuesto": null
+        },
+        {
+            "cod_retencion": "14",
+            "descrip_retencion": "IVA. en Ventas",
+            "porcen_retencion": "12",
+            "tipo_retencion": "Retencion IVA Ventas",
+            "tipoiva_retencion": "Credito Tributario",
+            "id_moneda": "1",
+            "id_impuesto": null
+        },
+        {
+            "cod_retencion": "15",
+            "descrip_retencion": "I.R.F. Por  Pagar (10%) Honorarios",
+            "porcen_retencion": "10",
+            "tipo_retencion": "Retencion Fuente Compras",
+            "tipoiva_retencion": "Credito Tributario",
+            "id_moneda": "1",
+            "id_impuesto": "122"
+        },
+        {
+            "cod_retencion": "16",
+            "descrip_retencion": "Transacciones sin retenci¢n fuente",
+            "porcen_retencion": "0",
+            "tipo_retencion": "Retencion Fuente Compras",
+            "tipoiva_retencion": "Credito Tributario",
+            "id_moneda": "1",
+            "id_impuesto": "60"
+        },
+        {
+            "cod_retencion": "17",
+            "descrip_retencion": "I.R.F. Por  Pagar (8%) Arriendos",
+            "porcen_retencion": "8",
+            "tipo_retencion": "Retencion Fuente Compras",
+            "tipoiva_retencion": "Credito Tributario",
+            "id_moneda": "1",
+            "id_impuesto": "2"
+        },
+        {
+            "cod_retencion": "18",
+            "descrip_retencion": "Otras Retencioness",
+            "porcen_retencion": "0",
+            "tipo_retencion": "Retencion Fuente Compras",
+            "tipoiva_retencion": "Credito Tributario",
+            "id_moneda": "1",
+            "id_impuesto": null
+        }
+    ]

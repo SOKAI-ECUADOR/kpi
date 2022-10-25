@@ -1,0 +1,2336 @@
+import Vue from 'vue';
+import Router from 'vue-router';
+import store from './store/store';
+import $ from 'jquery';
+import Axios from 'axios';
+Vue.use(Router);
+console.log(store.state);
+var pep = [
+    {
+        value: 1,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 2,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value:3,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 4,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 5,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 6,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 7,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 8,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 9,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 10,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 11,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 12,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 13,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 14,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 15,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 16,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 17,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 18,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 19,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 20,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 21,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 22,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 23,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 24,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 25,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+    {
+        value: 26,
+        ver: 1,
+        editar: 1,
+        crear: 1,
+    },
+];
+
+/*//empresa
+var empresa_array_ver = $.grep(pep, function(e){ return e.value == 1; });
+if(empresa_array_ver){
+   var empresa_ver = result[0].ver;
+}
+var empresa_array_editar = $.grep(pep, function(e){ return e.value == 1; });
+if(empresa_array_editar){
+   var empresa_editar = result[0].crear;
+}
+var empresa_array_crear = $.grep(pep, function(e){ return e.value == 1; });
+if(empresa_array_crear){
+   var empresa_crear = result[0].editar;
+}*/
+
+var cont = [];
+//empresa
+if (pep[0].ver == 1) {
+    cont.push({
+        path: '/administrar/empresa',
+        name: 'empresa',
+        component: () =>
+            import('./views/administrarnegocio/PerfilNegocio.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Administrar'
+                },
+                {
+                    title: 'Empresa',
+                    active: true
+                },
+            ],
+            pageTitle: 'Empresa',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+if (pep[0].editar == 1) {
+    cont.push({
+        path: '/app/agregarEmpresa/:id',
+        name: 'editarEmpresa',
+        component: () =>
+            import('./views/administrarnegocio/AgregarEmpresa.vue'),
+        meta: {
+            rule: 'editor'
+        }
+    });
+}
+if (pep[0].crear == 1) {
+    cont.push({
+        path: '/app/agregarEmpresa',
+        name: 'agregarEmpresa',
+        component: () =>
+            import('./views/administrarnegocio/AgregarEmpresa.vue'),
+        meta: {
+            rule: 'editor'
+        }
+    });
+}
+//Establecimiento
+if (pep[1].ver == 1) {
+    cont.push({
+        path: '/administrar/establecimiento',
+        name: 'establecimiento',
+        component: () =>
+            import('./views/administrarnegocio/Establecimiento.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Administrar'
+                },
+                {
+                    title: 'Establecimiento',
+                    active: true
+                },
+            ],
+            pageTitle: 'Establecimiento',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+if (pep[1].editar == 1) {
+    cont.push({
+        path: '/agregar/agestable/:id',
+        name: 'editaragestable',
+        component: () =>
+            import('./views/administrarnegocio/agregarestab.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Administración'
+                },
+                {
+                    title: 'Establecimiento',
+                    active: true
+                },
+            ],
+            pageTitle: 'Editar agestable',
+            rule: 'editor',
+            secure: true
+
+        }
+
+    });
+}
+if (pep[1].crear == 1) {
+    cont.push({
+        path: '/agregar/agestable',
+        name: 'agestable',
+        component: () =>
+            import('./views/administrarnegocio/agregarestab.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Administración'
+                },
+                {
+                    title: 'Establecimiento',
+                    active: true
+                },
+            ],
+            pageTitle: 'Nuevo Establecimiento',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+//punto de emision
+if (pep[2].ver == 1) {
+    cont.push({
+        path: '/administrar/emision',
+        name: 'emision',
+        component: () =>
+            import('./views/administrarnegocio/PtoEmision.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Administrar'
+                },
+                {
+                    title: 'Emision',
+                    active: true
+                },
+            ],
+            pageTitle: 'Puntos de Emision',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+if (pep[2].crear == 1) {
+    cont.push({
+        path: '/agregar/ptoemision',
+        name: 'puntosemision',
+        component: () =>
+            import('./views/administrarnegocio/AgregarPuntoEmision.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Administración'
+                },
+                {
+                    title: 'Puntos de Emisión',
+                    active: true
+                },
+            ],
+            pageTitle: 'Nuevo Puntos de Emisión',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+if (pep[2].editar == 1) {
+    cont.push({
+        path: '/agregar/ptoemision/:id',
+        name: 'editarptemision',
+        component: () =>
+            import('./views/administrarnegocio/AgregarPuntoEmision.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Administración'
+                },
+                {
+                    title: 'Puntos de Emisión',
+                    active: true
+                },
+            ],
+            pageTitle: 'Editar Nuevo Puntos de Emisión',
+            rule: 'editor',
+            secure: true
+
+        }
+    });
+}
+//usuarios
+if (pep[3].ver == 1) {
+    cont.push({
+        path: '/administrar/usuarios',
+        name: 'usuarios',
+        component: () =>
+            import('./views/administrarnegocio/Usuario.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Administrar'
+                },
+                {
+                    title: 'Usuario',
+                    active: true
+                },
+            ],
+            pageTitle: 'Usuario',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+if (pep[3].editar == 1) {
+    cont.push({
+        path: '/app/agregarUsuario/:id',
+        name: 'agregarUsuarioid',
+        component: () =>
+            import('./views/administrarnegocio/AgregarUsuario.vue'),
+        meta: {
+            rule: 'editor'
+        }
+    });
+}
+if (pep[3].crear == 1) {
+    cont.push({
+        path: '/app/agregarUsuario',
+        name: 'agregarUsuario',
+        component: () =>
+            import('./views/administrarnegocio/AgregarUsuario.vue'),
+        meta: {
+            rule: 'editor'
+        }
+    });
+}
+//tipo comprobante
+if (pep[4].ver == 1) {
+    cont.push({
+        path: '/sri/tipcomprobante',
+        name: 'tipcomprobante',
+        component: () =>
+            import('./views/administrarnegocio/Tipocomprobante.vue'),
+        meta: {
+            rule: 'editor'
+        }
+    });
+}
+//impuestos retenciones
+if (pep[5].ver == 1) {
+    cont.push({
+        path: '/sri/imprentenciones',
+        name: 'imprentenciones',
+        component: () =>
+            import('./views/administrarnegocio/Renteciones.vue'),
+        meta: {
+            rule: 'editor'
+        }
+    });
+}
+//tipo sustento
+if (pep[6].ver == 1) {
+    cont.push({
+        path: '/sri/tiposustento',
+        name: 'tiposustento',
+        component: () =>
+            import('./views/administrarnegocio/Tiposustento.vue'),
+        meta: {
+            rule: 'editor'
+        }
+    });
+}
+//plan de cuentas
+if (pep[7].ver == 1) {
+    cont.push({
+        path: '/plan/cuentas',
+        name: 'cuentas',
+        component: () =>
+            import('./views/plancuentas/Plancuenta.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Contabilidad'
+                },
+                {
+                    title: 'Plan Cuentas',
+                    active: true
+                },
+            ],
+            pageTitle: 'Plan Cuentas',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+//asientos contable
+if (pep[8].ver == 1) {
+    cont.push({
+        path: '/plan/asientos',
+        name: 'asientos',
+        component: () =>
+            import('./views/asientos/Asientos.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Contabilidad'
+                },
+                {
+                    title: 'Asientos Contables',
+                    active: true
+                },
+            ],
+            pageTitle: 'Asientos Contables',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+//nota de credito
+if (pep[9].ver == 1) {
+    cont.push({
+        path: '/comprobante/notacred',
+        name: 'notacred',
+        component: () =>
+            import('./views/facturacion/NotaCredito.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Facturacion'
+                },
+                {
+                    title: 'Nota Credito',
+                    active: true
+                },
+            ],
+            pageTitle: 'Nota Credito',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+if (pep[9].crear == 1) {
+    cont.push({
+        path: '/agregar/notacredito',
+        name: 'notacredito',
+         component: () =>
+        import('./views/facturacion/AgregarNotaCredito.vue'),
+        meta: {
+            breadcrumb: [{
+                title: 'Home',
+                url: '/'
+            },
+            {
+                title: 'Facturacion'
+            },
+            {
+                title: 'Nota Credito',
+                active: true
+            },
+        ],
+        pageTitle: 'Nuevo Nota Credito',
+        rule: 'editor',
+        secure: true
+       }
+   });
+}
+//facturas
+if (pep[10].ver == 1) {
+    cont.push({
+        path: '/facturacion/facturasventa',
+        name: 'facturasventa',
+        component: () =>
+            import('./views/facturacion/Facturas.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Facturacion'
+                },
+                {
+                    title: 'Facturas',
+                    active: true
+                },
+            ],
+            pageTitle: 'Facturas',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+if (pep[10].editar == 1) {
+    cont.push({
+        path: '/agregar/factura/:id',
+        name: 'editarfactura',
+        component: () =>
+            import('./views/facturacion/AgregarFactura.vue'),
+        meta: {
+            rule: 'editor'
+        }
+    });
+}
+if (pep[10].crear == 1) {
+    cont.push({
+        path: '/agregar/factura',
+        name: 'factura',
+        component: () =>
+            import('./views/facturacion/AgregarFactura.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Facturacion'
+                },
+                {
+                    title: 'Cliente',
+                    active: true
+                },
+            ],
+            pageTitle: 'Crear factura',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+//proforma
+if (pep[11].ver == 1) {
+    cont.push({
+        path: '/facturacion/proforma',
+        name: 'proforma',
+        component: () =>
+            import('./views/facturacion/Proforma.vue'),
+        meta: {
+            breadcrumb: [
+                { title: 'Home', url: '/' },
+                { title: 'Facturacion' },
+                { title: 'Proforma', active: true },
+            ],
+            pageTitle: 'Proforma',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+if (pep[11].crear == 1) {
+    cont.push({
+        path: '/facturacion/agregarproforma',
+        name: 'agregarproforma',
+        component: () =>
+            import('./views/facturacion/AgregarProforma.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Facturacion'
+                },
+                {
+                    title: 'Proforma',
+                    active: true
+                },
+            ],
+            pageTitle: 'Proforma',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+if (pep[11].editar == 1) {
+    cont.push({
+        path: '/facturacion/agregarproforma/:id',
+        name: 'Editar Proforma',
+        component: () =>
+            import('./views/facturacion/AgregarProforma.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Facturacion'
+                },
+                {
+                    title: 'Editar Proforma',
+                    active: true
+                },
+            ],
+            pageTitle: 'Editar Proforma',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+//pago Clinete
+if (pep[12].ver == 1) {
+    cont.push({
+        path: '/plan/pago',
+        name: 'pago',
+        component: () =>
+            import('./views/pagocliente/PagoCliente.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Facturacion'
+                },
+                {
+                    title: 'Pago Clientes',
+                    active: true
+                },
+            ],
+            pageTitle: 'Pago Cliente',
+            rule: 'editor',
+
+        }
+    });
+}
+//cliente
+if (pep[13].ver == 1) {
+    cont.push({
+        path: '/administrar/contacto',
+        name: 'contacto',
+        component: () =>
+            import('./views/administrarnegocio/Contacto.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Facturacion'
+                },
+                {
+                    title: 'Cliente',
+                    active: true
+                },
+            ],
+            pageTitle: 'Cliente',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+if (pep[13].crear == 1) {
+    cont.push({
+        path: '/agregar/cliente',
+        name: 'cliente',
+        component: () =>
+            import('./views/administrarnegocio/AgregarCliente.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Facturacion'
+                },
+                {
+                    title: 'Cliente',
+                    active: true
+                },
+            ],
+            pageTitle: 'Nuevo Cliente',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+if (pep[13].editar == 1) {
+    cont.push({
+        path: '/agregar/cliente/:id',
+        name: 'clienteid',
+        component: () =>
+            import('./views/administrarnegocio/AgregarCliente.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Facturacion'
+                },
+                {
+                    title: 'Cliente',
+                    active: true
+                },
+            ],
+            pageTitle: 'Nuevo Cliente',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+//vendedor
+if (pep[14].ver == 1) {
+    cont.push({
+        path: '/facturacion/vendedor',
+        name: 'vendedor',
+        component: () =>
+            import('./views/facturacion/Vendedor.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Facturacion'
+                },
+                {
+                    title: 'Vendedor',
+                    active: true
+                },
+            ],
+            pageTitle: 'Vendedor',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+if (pep[14].crear == 1) {
+    cont.push({
+        path: '/agregar/vendedor',
+        name: 'agregarvendedor',
+        component: () =>
+            import('./views/facturacion/AgregarVendedor.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Facturacion'
+                },
+                {
+                    title: 'Vendedor',
+                    active: true
+                },
+            ],
+            pageTitle: 'Nuevo Vendedor',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+if (pep[14].editar == 1) {
+    cont.push({
+        path: '/agregar/vendedor/:id',
+        name: 'vendedorid',
+        component: () =>
+            import('./views/facturacion/AgregarVendedor.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Facturacion'
+                },
+                {
+                    title: 'Vendedor',
+                    active: true
+                },
+            ],
+            pageTitle: 'Nuevo Vendedor',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+//bodega
+if (pep[15].ver == 1) {
+    cont.push({
+        path: '/inventario/bodega',
+        name: 'bodega',
+        component: () =>
+            import('./views/inventario/Bodega.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Inventario'
+                },
+                {
+                    title: 'Bodega',
+                    active: true
+                },
+            ],
+            pageTitle: 'Bodega',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+if (pep[15].editar == 1) {
+    cont.push({
+        path: '/inventario/bodega/gestionbodega/:id',
+        name: 'gestionbodega',
+        component: () =>
+            import('./views/inventario/GestionBodega.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Inventario'
+                },
+                {
+                    title: 'Bodega'
+                },
+                {
+                    title: 'Gestion Bodega',
+                    active: true
+                },
+            ],
+            pageTitle: 'Gestion Bodega',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+//catalogo
+if (pep[16].ver == 1) {
+    cont.push({
+        path: '/inventario/catalogo',
+        name: 'catalogo',
+        component: () =>
+            import('./views/inventario/Catalogo.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Inventario'
+                },
+                {
+                    title: 'Catalogo',
+                    active: true
+                },
+            ],
+            pageTitle: 'Catalogo',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+if (pep[16].crear == 1) {
+    cont.push({
+        path: '/app/agregarCatalogo',
+        name: 'agregarCatalogo',
+        component: () =>
+            import('./views/inventario/AgregaCatalogo.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Inventario'
+                },
+                {
+                    title: 'Catalogo',
+                    active: true
+                },
+            ],
+            pageTitle: 'Agregar Catalogo',
+            rule: 'editor',
+            secure: true
+
+        }
+    });
+}
+if (pep[16].editar == 1) {
+    cont.push({
+        path: '/app/agregarCatalogo/:id',
+        name: 'editarCatalogo',
+        component: () =>
+            import('./views/inventario/AgregaCatalogo.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Inventario'
+                },
+                {
+                    title: 'Catalogo',
+                    active: true
+                },
+            ],
+            pageTitle: 'Editar Catalogo',
+            rule: 'editor',
+            secure: true
+
+        }
+    });
+}
+//nomina
+if (pep[17].ver == 1) {
+    cont.push({
+        path: '/nomina/listar',
+        name: 'listar',
+        component: () =>
+            import('./views/administrarnegocio/Nomina.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Nomina'
+                },
+                {
+                    title: 'Listar Empleados',
+                    active: true
+                },
+            ],
+            pageTitle: 'Empleados',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+if (pep[17].crear == 1) {
+    cont.push({
+        path: '/empleado/agregar',
+        name: 'empleado',
+        component: () =>
+            import('./views/administrarnegocio/AgregarNomina.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Nomina'
+                },
+                {
+                    title: 'Empleados',
+                    active: true
+                },
+            ],
+            pageTitle: 'Empleado',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+if (pep[17].editar == 1) {
+    cont.push({
+        path: '/empleado/agregar/:id',
+        name: 'empleadoid',
+        component: () =>
+            import('./views/administrarnegocio/AgregarNomina.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Nomina'
+                },
+                {
+                    title: 'Empleados',
+                    active: true
+                },
+            ],
+            pageTitle: 'Empleado',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+//proveedor
+if (pep[18].ver == 1) {
+    cont.push({
+        path: '/proveedor/lista',
+        name: 'listaProveedor',
+        component: () =>
+            import('./views/proveedor/Proveedor.vue'),
+        meta: {
+            rule: 'editor'
+        }
+    });
+}
+if (pep[18].crear == 1) {
+    cont.push({
+        path: '/proveedor/agregarProveedor',
+        name: 'agregarProveedor',
+        component: () =>
+            import('./views/proveedor/AgregarProveedor.vue'),
+        meta: {
+            rule: 'editor'
+        }
+    });
+}
+if (pep[18].editar == 1) {
+    cont.push({
+        path: '/proveedor/agregarproveedor/:id',
+        name: 'agregarProveedorid',
+        component: () =>
+            import('./views/proveedor/AgregarProveedor.vue'),
+        meta: {
+            rule: 'editor'
+        }
+    });
+}
+//facturas compra
+if (pep[19].ver == 1) {
+    cont.push({
+        path: '/facturacion/facturascompra',
+        name: 'facturascompra',
+        component: () =>
+            import('./views/facturacion/FacturaCompra.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Facturacion'
+                },
+                {
+                    title: 'Facturas',
+                    active: true
+                },
+            ],
+            pageTitle: 'Facturas',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+if (pep[19].crear == 1) {
+    cont.push({
+        path: '/facturacion/Agregarcompra',
+        name: 'compra',
+        component: () =>
+            import('./views/facturacion/AgregarFactcompra.vue'),
+        meta: {
+            rule: 'editor'
+        }
+    });
+}
+if (pep[19].editar == 1) {
+    cont.push({
+        path: '/facturacion/Agregarcompra/:id',
+        name: 'editcompra',
+        component: () =>
+            import('./views/facturacion/AgregarFactcompra.vue'),
+        meta: {
+            rule: 'editor'
+        }
+    });
+}
+//importacion
+if (pep[20].ver == 1) {
+    cont.push({
+        path: '/compras/importacion',
+        name: 'importacion',
+        component: () =>
+            import('./views/proveedor/Importacion.vue'),
+        meta: {
+            rule: 'editor'
+        }
+    });
+}
+//cuentas por pagar
+if (pep[21].ver == 1) {
+    cont.push({
+        path: '/cuenta/pagar',
+        name: 'pagar',
+        component: () =>
+            import('./views/ctasxpagar/CtasxPagar.vue'),
+        meta: {
+            rule: 'editor'
+        }
+    });
+}
+//formula
+if (pep[22].ver == 1) {
+    cont.push({
+        path: '/formula',
+        name: 'Formula',
+        component: () =>
+            import('./views/produccion/Formula.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Fórmula'
+                },
+            ],
+            pageTitle: 'Fórmula',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+//proceso producion
+if (pep[23].ver == 1) {
+    cont.push({
+        path: '/proceso-produccion',
+        name: 'Proceso-produccion',
+        component: () =>
+            import('./views/produccion/ProcesoProd.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Proceso de Produccion'
+                },
+            ],
+            pageTitle: 'Proceso',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+//activos fijos
+if (pep[24].ver == 1) {
+    cont.push({
+        path: '/activos/fijos',
+        name: 'fijos',
+        component: () =>
+            import('./views/administrarnegocio/ActivoFijo.vue'),
+        meta: {
+            breadcrumb: [{
+                    title: 'Home',
+                    url: '/'
+                },
+                {
+                    title: 'Activos'
+                },
+                {
+                    title: 'Activo Fijo',
+                    active: true
+                },
+            ],
+            pageTitle: 'Activos Fijos',
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+//activos fijos
+if (pep[25].ver == 1) {
+    cont.push({
+        path: 'app/calendario',
+        name: 'calendario',
+        component: () =>
+            import('./views/app/Calendario.vue'),
+        meta: {
+            rule: 'editor',
+            secure: true
+        }
+    });
+}
+
+const router = new Router({
+    mode: 'history',
+    base: "/",
+    scrollBehavior() {
+        return {
+            x: 0,
+            y: 0
+        };
+    },
+    routes: [
+        {
+            path: '',
+            component: () =>
+                import('./layouts/main/Main.vue'),
+            children:cont,
+            /*children: [
+                {
+                    path: '/',
+                    name: 'inicio',
+                    component: () =>
+                        import('./views/Inicio.vue'),
+                    meta: {
+                        rule: 'editor', 
+                        secure: true
+                    },
+                },
+                {
+                    path: 'menu/configuracion',
+                    name: 'configuracion',
+                    component: () =>
+                        import('./views/menu/Configuracion.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Menú' },
+                            { title: 'Configuración', active: true },
+                        ],
+                        pageTitle: 'Configuración',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: 'menu/perfil',
+                    name: 'perfil',
+                    component: () =>
+                        import('./views/menu/Perfil.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Menú' },
+                            { title: 'Mi perfil', active: true },
+                        ],
+                        pageTitle: 'Perfil',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+    
+                {
+                    path: 'app/calendario',
+                    name: 'calendario',
+                    component: () =>
+                        import('./views/app/Calendario.vue'),
+                    meta: {
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/facturacion/facturasventa',
+                    name: 'facturasventa',
+                    component: () =>
+                        import('./views/facturacion/Facturas.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Facturacion' },
+                            { title: 'Facturas', active: true },
+                        ],
+                        pageTitle: 'Facturas',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/facturacion/proforma',
+                    name: 'proforma',
+                    component: () =>
+                        import('./views/facturacion/Proforma.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Facturacion' },
+                            { title: 'Proforma', active: true },
+                        ],
+                        pageTitle: 'Proforma',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/facturacion/agregarproforma',
+                    name: 'agregarproforma',
+                    component: () =>
+                        import('./views/facturacion/AgregarProforma.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Facturacion' },
+                            { title: 'Agregar Proforma', active: true },
+                        ],
+                        pageTitle: 'Agregar Proforma',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/facturacion/agregarproforma/:id',
+                    name: 'Editar Proforma',
+                    component: () =>
+                        import('./views/facturacion/AgregarProforma.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Facturacion' },
+                            { title: 'Editar Proforma', active: true },
+                        ],
+                        pageTitle: 'Editar Proforma',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+    
+                    path: '/facturacion/facturascompra',
+                    name: 'facturascompra',
+                    component: () =>
+                        import('./views/facturacion/FacturaCompra.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Facturacion' },
+                            { title: 'Facturas', active: true },
+                        ],
+                        pageTitle: 'Facturas',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: 'facturacion/Agregarcompra',
+                    name: 'compra',
+                    component: () =>
+                        import('./views/facturacion/AgregarFactcompra.vue'),
+                    meta: {
+                        rule: 'editor'
+                    }
+                },
+                {
+                    path: 'facturacion/Agregarcompra/:id',
+                    name: 'editcompra',
+                    component: () =>
+                        import('./views/facturacion/AgregarFactcompra.vue'),
+                    meta: {
+                        rule: 'editor'
+                    }
+                },
+                {
+                    path: '/comprobante/notacred',
+                    name: 'notacred',
+                    component: () =>
+                        import('./views/facturacion/NotaCredito.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Facturacion' },
+                            { title: 'Nota Credito', active: true },
+                        ],
+                        pageTitle: 'Nota Credito',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/comprobante/notadeb',
+                    name: 'notadeb',
+                    component: () =>
+                        import('./views/facturacion/NotaDebito.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Comprobantes' },
+                            { title: 'Nota Debito', active: true },
+                        ],
+                        pageTitle: 'Nota Debito',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/facturacion/retencion',
+                    name: 'retencion',
+                    component: () =>
+                        import('./views/facturacion/Retencion.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'facturacion' },
+                            { title: 'Retencion', active: true },
+                        ],
+                        pageTitle: 'Retencion',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/facturacion/guia',
+                    name: 'guia',
+                    component: () =>
+                        import('./views/facturacion/GuiaRemision.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'facturacion' },
+                            { title: 'Guia Remision', active: true },
+                        ],
+                        pageTitle: 'Guia Remision',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                /*
+                {
+                    path: '/reporte/comprobante',
+                    name: 'comprobante',
+                    component: () =>
+                        import('./views/reportes/Comprobante.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Reportes' },
+                            { title: 'Comprobantes', active: true },
+                        ],
+                        pageTitle: 'Comprobantes',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/reporte/venta',
+                    name: 'venta',
+                    component: () =>
+                        import('./views/reportes/Venta.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Reportes' },
+                            { title: 'Ventas', active: true },
+                        ],
+                        pageTitle: 'Ventas',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/plan/pago',
+                    name: 'pago',
+                    component: () =>
+                        import('./views/pagocliente/PagoCliente.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Facturacion' },
+                            { title: 'Pago Clientes', active: true },
+                        ],
+                        pageTitle: 'Pago Cliente',
+                        rule: 'editor',
+    
+                    }
+                },
+                {
+                    path: '/plan/cuentas',
+                    name: 'cuentas',
+                    component: () =>
+                        import('./views/plancuentas/Plancuenta.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Contabilidad' },
+                            { title: 'Plan Cuentas', active: true },
+                        ],
+                        pageTitle: 'Plan Cuentas',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/plan/asientos/',
+                    name: 'asientos',
+                    component: () =>
+                        import('./views/asientos/Asientos.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Contabilidad' },
+                            { title: 'Asientos', active: true },
+                        ],
+                        pageTitle: 'Asientos',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+    
+                //vendedores
+                {
+    
+                    path: '/facturacion/vendedor',
+                    name: 'vendedor',
+                    component: () =>
+                        import('./views/facturacion/Vendedor.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Facturacion' },
+                            { title: 'Vendedor', active: true },
+                        ],
+                        pageTitle: 'Vendedor',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+    
+                {
+    
+                    path: '/agregar/vendedor',
+                    name: 'agregarvendedor',
+                    component: () =>
+                        import('./views/facturacion/AgregarVendedor.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Facturacion' },
+                            { title: 'Vendedor', active: true },
+                        ],
+                        pageTitle: 'Nuevo Vendedor',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+    
+                {
+    
+                    path: '/agregar/vendedor/:id',
+                    name: 'vendedorid',
+                    component: () =>
+                        import('./views/facturacion/AgregarVendedor.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Facturacion' },
+                            { title: 'Vendedor', active: true },
+                        ],
+                        pageTitle: 'Nuevo Vendedor',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/agregar/cliente',
+                    name: 'cliente',
+                    component: () =>
+                        import('./views/administrarnegocio/AgregarCliente.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Facturacion' },
+                            { title: 'Cliente', active: true },
+                        ],
+                        pageTitle: 'Nuevo Cliente',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/agregar/cliente/:id',
+                    name: 'clienteid',
+                    component: () =>
+                        import('./views/administrarnegocio/AgregarCliente.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Facturacion' },
+                            { title: 'Cliente', active: true },
+                        ],
+                        pageTitle: 'Nuevo Cliente',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+    
+                //creo factura
+                {
+                    path: '/agregar/factura',
+                    name: 'factura',
+                    component: () =>
+                        import('./views/facturacion/AgregarFactura.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Facturacion' },
+                            { title: 'Cliente', active: true },
+                        ],
+                        pageTitle: 'Crear factura',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+    
+                //creo nota de Credito
+                {
+                    path: '/agregar/notacredito',
+                    name: 'notacredito',
+                    component: () =>
+                        import('./views/facturacion/AgregarNotaCredito.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Facturacion' },
+                            { title: 'Nota Credito', active: true },
+                        ],
+                        pageTitle: 'Nuevo Nota Credito',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+    
+                {
+                    path: '/administrar/empresa',
+                    name: 'empresa',
+                    component: () =>
+                        import('./views/administrarnegocio/PerfilNegocio.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Administrar' },
+                            { title: 'Empresa', active: true },
+                        ],
+                        pageTitle: 'Empresa',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/administrar/establecimiento',
+                    name: 'establecimiento',
+                    component: () =>
+                        import('./views/administrarnegocio/Establecimiento.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Administrar' },
+                            { title: 'Establecimiento', active: true },
+                        ],
+                        pageTitle: 'Establecimiento',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+    
+                {
+                    path: '/administrar/emision',
+                    name: 'emision',
+                    component: () =>
+                        import('./views/administrarnegocio/PtoEmision.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Administrar' },
+                            { title: 'Emision', active: true },
+                        ],
+                        pageTitle: 'Puntos de Emision',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/administrar/subfactura',
+                    name: 'subfactura',
+                    component: () =>
+                        import('./views/administrarnegocio/SubFactura.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Administrar' },
+                            { title: 'Factura', active: true },
+                        ],
+                        pageTitle: 'Subir Factura',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                //inventario
+                {
+                    path: '/inventario/bodega',
+                    name: 'bodega',
+                    component: () =>
+                        import('./views/inventario/Bodega.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Inventario' },
+                            { title: 'Bodega', active: true },
+                        ],
+                        pageTitle: 'Bodega',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/inventario/bodega/gestionbodega/:id',
+                    name: 'gestionbodega',
+                    component: () =>
+                        import('./views/inventario/GestionBodega.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Inventario' },
+                            { title: 'Bodega' },
+                            { title: 'Gestion Bodega', active: true },
+                        ],
+                        pageTitle: 'Gestion Bodega',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/inventario/catalogo',
+                    name: 'catalogo',
+                    component: () =>
+                        import('./views/inventario/Catalogo.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Inventario' },
+                            { title: 'Catalogo', active: true },
+                        ],
+                        pageTitle: 'Catalogo',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/app/agregarCatalogo',
+                    name: 'agregarCatalogo',
+                    component: () =>
+                        import('./views/inventario/AgregaCatalogo.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Inventario' },
+                            { title: 'Catalogo', active: true },
+                        ],
+                        pageTitle: 'Agregar Catalogo',
+                        rule: 'editor',
+                        secure: true
+    
+                    }
+                },
+                {
+                    path: '/app/agregarCatalogo/:id',
+                    name: 'editarCatalogo',
+                    component: () =>
+                        import('./views/inventario/AgregaCatalogo.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Inventario' },
+                            { title: 'Catalogo', active: true },
+                        ],
+                        pageTitle: 'Editar Catalogo',
+                        rule: 'editor',
+                        secure: true
+    
+                    }
+                },
+    
+                //nomina
+                {
+                    path: '/empleado/agregar',
+                    name: 'empleado',
+                    component: () =>
+                        import('./views/administrarnegocio/AgregarNomina.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Nomina' },
+                            { title: 'Empleados', active: true },
+                        ],
+                        pageTitle: 'Empleado',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/empleado/agregar/:id',
+                    name: 'empleadoid',
+                    component: () =>
+                        import('./views/administrarnegocio/AgregarNomina.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Nomina' },
+                            { title: 'Empleados', active: true },
+                        ],
+                        pageTitle: 'Empleado',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+    
+                {
+                    path: '/nomina/listar',
+                    name: 'listar',
+                    component: () =>
+                        import('./views/administrarnegocio/Nomina.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Nomina' },
+                            { title: 'Listar Empleados', active: true },
+                        ],
+                        pageTitle: 'Empleados',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+    
+    
+                //contacto
+                {
+                    path: '/administrar/contacto',
+                    name: 'contacto',
+                    component: () =>
+                        import('./views/administrarnegocio/Contacto.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Facturacion' },
+                            { title: 'Cliente', active: true },
+                        ],
+                        pageTitle: 'Cliente',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                //creo puntos de emision
+                {
+                    path: '/agregar/ptoemision',
+                    name: 'puntosemision',
+                    component: () =>
+                        import('./views/administrarnegocio/AgregarPuntoEmision.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Administración' },
+                            { title: 'Puntos de Emisión', active: true },
+                        ],
+                        pageTitle: 'Nuevo Puntos de Emisión',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/agregar/ptoemision/:id',
+                    name: 'editarptemision',
+                    component: () =>
+                        import('./views/administrarnegocio/AgregarPuntoEmision.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Administración' },
+                            { title: 'Puntos de Emisión', active: true },
+                        ],
+                        pageTitle: 'Editar Nuevo Puntos de Emisión',
+                        rule: 'editor',
+                        secure: true
+    
+                    }
+                },
+                {
+                    path: '/agregar/agestable',
+                    name: 'agestable',
+                    component: () =>
+                        import('./views/administrarnegocio/agregarestab.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Administración' },
+                            { title: 'Establecimiento', active: true },
+                        ],
+                        pageTitle: 'Nuevo Establecimiento',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/agregar/agestable/:id',
+                    name: 'editaragestable',
+                    component: () =>
+                        import('./views/administrarnegocio/agregarestab.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Administración' },
+                            { title: 'Establecimiento', active: true },
+                        ],
+                        pageTitle: 'Editar agestable',
+                        rule: 'editor',
+                        secure: true
+    
+                    }
+                },
+                {
+                    path: '/administrar/subcontacto',
+                    name: 'subcontacto',
+                    component: () =>
+                        import('./views/facturacion/SubirCliente.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Facturacion' },
+                            { title: 'Cliente', active: true },
+                        ],
+                        pageTitle: 'Subir Cliente',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/administrar/usuarios',
+                    name: 'usuarios',
+                    component: () =>
+                        import('./views/administrarnegocio/Usuario.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Administrar' },
+                            { title: 'Usuario', active: true },
+                        ],
+                        pageTitle: 'Usuario',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/activos/fijos',
+                    name: 'fijos',
+                    component: () =>
+                        import('./views/administrarnegocio/ActivoFijo.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Activos' },
+                            { title: 'Activo Fijo', active: true },
+                        ],
+                        pageTitle: 'Activos Fijos',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/administrar/nomina',
+                    name: 'nomina',
+                    component: () =>
+                        import('./views/administrarnegocio/Nomina.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Inventario' },
+                            { title: 'Nomina', active: true },
+                        ],
+                        pageTitle: 'Activos Fijos',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+    
+                //produccion
+                {
+                    path: '/formula',
+                    name: 'Formula',
+                    component: () =>
+                        import('./views/produccion/Formula.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Fórmula' },
+                        ],
+                        pageTitle: 'Fórmula',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/produccion/agregarformula',
+                    name: 'agregarformula',
+                    component: () =>
+                        import('./views/produccion/AgregarFormula.vue'),
+                    meta: {
+                        //pageTitle: 'Agregar Fómula de Producción',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/proceso-produccion',
+                    name: 'Proceso-produccion',
+                    component: () =>
+                        import('./views/produccion/ProcesoProd.vue'),
+                    meta: {
+                        breadcrumb: [
+                            { title: 'Home', url: '/' },
+                            { title: 'Proceso de Produccion' },
+                        ],
+                        pageTitle: 'Proceso',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                {
+                    path: '/produccion/agregarformula',
+                    name: 'agregarformula',
+                    component: () =>
+                        import('./views/produccion/AgregarFormula.vue'),
+                    meta: {
+                        //pageTitle: 'Agregar Fómula de Producción',
+                        rule: 'editor',
+                        secure: true
+                    }
+                },
+                //empresa
+                {
+                    path: 'app/agregarEmpresa',
+                    name: 'agregarEmpresa',
+                    component: () =>
+                        import('./views/administrarnegocio/AgregarEmpresa.vue'),
+                    meta: {
+                        rule: 'editor'
+                    }
+                },
+                {
+                    path: 'app/agregarUsuario',
+                    name: 'agregarUsuario',
+                    component: () =>
+                        import('./views/administrarnegocio/AgregarUsuario.vue'),
+                    meta: {
+                        rule: 'editor'
+                    }
+                },
+                {
+                    path: 'app/agregarUsuario/:id',
+                    name: 'agregarUsuarioid',
+                    component: () =>
+                        import('./views/administrarnegocio/AgregarUsuario.vue'),
+                    meta: {
+                        rule: 'editor'
+                    }
+                },
+                {
+                    path: '/app/agregarEmpresa/:id',
+                    name: 'editarEmpresa',
+                    component: () =>
+                        import('./views/administrarnegocio/AgregarEmpresa.vue'),
+                    meta: {
+                        rule: 'editor'
+                    }
+                },
+                {
+                    path: 'app/agregarCtaCobrar/:id',
+                    name: 'agregarCtaCobrar',
+                    component: () =>
+                        import('./views/pagocliente/AgregarCtaCobrar.vue'),
+                    meta: {
+                        rule: 'editor'
+                    }
+                },
+                {
+                    path: 'app/Empresa',
+                    name: 'empresaUsuario',
+                    component: () =>
+                        import('./views/administrarnegocio/EmpresaUsu.vue'),
+                    meta: {
+                        rule: 'editor'
+                    }
+                },
+                {
+                    path: 'facturacion/Agregarcompra',
+                    name: 'compra',
+                    component: () => import('./views/facturacion/AgregarFactcompra.vue'),
+                    meta: {
+                      rule: 'editor'
+                    }
+                },
+                {
+                    path: '/proveedor/lista',
+                    name: 'listaProveedor',
+                    component: () =>
+                        import('./views/proveedor/Proveedor.vue'),
+                    meta: {
+                        rule: 'editor'
+                    }
+                },
+                {
+                    path: '/proveedor/agregarProveedor',
+                    name: 'agregarProveedor',
+                    component: () =>
+                        import('./views/proveedor/AgregarProveedor.vue'),
+                    meta: {
+                        rule: 'editor'
+                    }
+                },
+                {
+                    path: '/proveedor/agregarproveedor/:id',
+                    name: 'agregarProveedorid',
+                    component: () =>
+                        import('./views/proveedor/AgregarProveedor.vue'),
+                    meta: {
+                        rule: 'editor'
+                    }
+                },
+                {
+                    path: '/agregar/factura/:id',
+                    name: 'editarfactura',
+                    component: () =>
+                        import('./views/facturacion/AgregarFactura.vue'),
+                    meta: {
+                        rule: 'editor'
+                    }
+                },
+    
+                    //importacion
+                    {
+                        path: '/compras/importacion',
+                        name: 'importacion',
+                        component: () =>
+                            import ('./views/proveedor/Importacion.vue'),
+                        meta: {
+                            rule: 'editor'
+                        }
+                    },
+                    //cuentas por pagar
+                    {
+                        path: '/cuenta/pagar',
+                        name: 'pagar',
+                        component: () =>
+                            import ('./views/ctasxpagar/CtasxPagar.vue'),
+                        meta: {
+                            rule: 'editor'
+                        }
+                    },
+    
+    
+                //tipo-comprobante
+                {
+                    path: '/sri/tipcomprobante',
+                    name: 'tipcomprobante',
+                    component: () =>
+                        import('./views/administrarnegocio/Tipocomprobante.vue'),
+                    meta: {
+                        rule: 'editor'
+                    }
+                },
+                //retenciones
+                {
+                    path: '/sri/imprentenciones',
+                    name: 'imprentenciones',
+                    component: () =>
+                        import('./views/administrarnegocio/Renteciones.vue'),
+                    meta: {
+                        rule: 'editor'
+                    }
+                },
+                //tipo-sustento
+                {
+                    path: '/sri/tiposustento',
+                    name: 'tiposustento',
+                    component: () =>
+                        import('./views/administrarnegocio/Tiposustento.vue'),
+                    meta: {
+                        rule: 'editor'
+                    }
+                },
+    
+    
+            ],*/
+        },
+        {
+            path: '',
+            component: () =>
+                import('@/layouts/full-page/FullPage.vue'),
+            children: [{
+                    path: '/login',
+                    name: 'page-login',
+                    component: () =>
+                        import('@/views/Login.vue'),
+                    meta: {
+                        rule: 'editor',
+                        guest: true
+                    }
+                },
+                {
+                    path: '/registro',
+                    name: 'registro',
+                    component: () =>
+                        import('@/views/Registro.vue'),
+                    meta: {
+                        rule: 'editor',
+                        guest: true
+                    }
+                },
+                {
+                    path: '/error404',
+                    name: 'error404',
+                    component: () =>
+                        import('@/views/errores/Error404.vue'),
+                    meta: {
+                        rule: 'editor',
+                        guest: true
+                    }
+                }
+            ]
+
+        },
+    ],
+});
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.secure)) {
+        if (!store.state.Token) {
+            next({
+                path: '/login',
+            });
+        } else {
+            next();
+        }
+    } else if (to.matched.some(record => record.meta.guest)) {
+        if (!store.state.Token) {
+            next();
+        } else {
+            next({
+                path: '/',
+            });
+        }
+    } else {
+        next();
+    }
+});
+export default router;

@@ -1,0 +1,152 @@
+[
+        {
+            "cod_tipcomprob": "01",
+            "descrip_tipcomprob": "Factura",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "02",
+            "descrip_tipcomprob": "Nota o boleta de venta",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "03",
+            "descrip_tipcomprob": "Liquidación de compra de Bienes o Prestación de servicios",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "04",
+            "descrip_tipcomprob": "Nota de crédito",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "05",
+            "descrip_tipcomprob": "Nota de débito",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "07",
+            "descrip_tipcomprob": "Comprobante de Retención",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "08",
+            "descrip_tipcomprob": "Boletos o entradas a espectáculos públicos",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "09",
+            "descrip_tipcomprob": "Tiquetes o vales emitidos por máquinas registradoras",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "10",
+            "descrip_tipcomprob": "Pasajes expedidos por empresas de aviación",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "11",
+            "descrip_tipcomprob": "Documentos emitidos por instituciones financieras",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "12",
+            "descrip_tipcomprob": "Comprobante de venta emitido en el Exterior",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "13",
+            "descrip_tipcomprob": "Formulario Único de Exportación (FUE) o Declaración Aduanera Única (DAU) o Declaración Andina de Valor (DAV)",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "14",
+            "descrip_tipcomprob": "Documentos autorizados utilizados en ventas excepto N/C N/D ",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "15",
+            "descrip_tipcomprob": "Comprobantes de Pago de Cuotas o Aportes",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "16",
+            "descrip_tipcomprob": "Documentos por Servicios Administrativos emitidos por Inst. del Estado",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "17",
+            "descrip_tipcomprob": "Carta de Porte Aéreo",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "18",
+            "descrip_tipcomprob": "RECAP",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "19",
+            "descrip_tipcomprob": "Nota de Crédito TC",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "20",
+            "descrip_tipcomprob": "Nota de Débito TC",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "21",
+            "descrip_tipcomprob": "Comprobante de venta emitido por reembolso",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "22",
+            "descrip_tipcomprob": "Documento agente de retención Combustibles",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "23",
+            "descrip_tipcomprob": "Liquidacion para Explotacion y Exploracion de Hidrocarburos",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "24",
+            "descrip_tipcomprob": "Comprobante de Contribuciones y Aportes",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "25",
+            "descrip_tipcomprob": "Liquidación por reclamos de aseguradoras",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "26",
+            "descrip_tipcomprob": "Nota de Crédito por Reembolso Emitida por Intermediario",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "27",
+            "descrip_tipcomprob": "Nota de Débito por Reembolso Emitida por Intermediario",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "28",
+            "descrip_tipcomprob": "Proveedor Directo de Exportador Bajo Régimen Especial",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "29",
+            "descrip_tipcomprob": "A Inst. Estado y Empr. Públicas que percibe ingreso exento de Imp. Renta",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "30",
+            "descrip_tipcomprob": "N/C A Inst. Estado y Empr. Públicas que percibe ingreso exento de Imp. Renta",
+            "id_empresa": "1"
+        },
+        {
+            "cod_tipcomprob": "31",
+            "descrip_tipcomprob": "N/D A Inst. Estado y Empr. Públicas que percibe ingreso exento de Imp. Renta",
+            "id_empresa": "1"
+        }
+]

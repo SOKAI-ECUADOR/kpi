@@ -1,0 +1,42 @@
+ [
+        {
+            "cod_sustento": "00",
+            "descrip_sustento": " No aplica"
+        },
+        {
+            "cod_sustento": "01",
+            "descrip_sustento": "Crédito Tributario para declaración de IVA (servicios y bienes distintos de inventarios y activos fijos)"
+        },
+        {
+            "cod_sustento": "02",
+            "descrip_sustento": "Costo o Gasto para declaración de IR (servicios y bienes distintos de inventarios y activos fijos)"
+        },
+        {
+            "cod_sustento": "03",
+            "descrip_sustento": " Activo Fijo - Crédito Tributario para declaración de IVA"
+        },
+        {
+            "cod_sustento": "04",
+            "descrip_sustento": " Activo Fijo - Costo o Gasto para declaración de IR"
+        },
+        {
+            "cod_sustento": "05",
+            "descrip_sustento": "Liquidación Gastos de Viaje, hospedaje y alimentación Gastos IR (a nombre de empleados y no de la empresa)"
+        },
+        {
+            "cod_sustento": "06",
+            "descrip_sustento": " Inventario - Crédito Tributario para declaración de IVA"
+        },
+        {
+            "cod_sustento": "07",
+            "descrip_sustento": " Inventario - Costo o Gasto para declaración de IR"
+        },
+        {
+            "cod_sustento": "08",
+            "descrip_sustento": " Valor pagado para solicitar Reembolso de Gasto (intermediario)"
+        },
+        {
+            "cod_sustento": "09",
+            "descrip_sustento": "Reembolso por Siniestros"
+        }
+]

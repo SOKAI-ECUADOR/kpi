@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><factura id="comprobante" version="1.0.0"><infoTributaria><ambiente>1</ambiente><tipoEmision>1</tipoEmision><razonSocial>SOLMOCONTADORES SOCIEDAD DE HECHO</razonSocial><nombreComercial>SOLMOCONTADORES</nombreComercial><ruc>0930087465001</ruc><claveAcceso>0401202001093008746500110010010000000612809280919</claveAcceso><codDoc>01</codDoc><estab>001</estab><ptoEmi>001</ptoEmi><secuencial>000000061</secuencial><dirMatriz>COLON Y DIEGO DE ALMAGRO</dirMatriz></infoTributaria><infoFactura><fechaEmision>04/01/2020</fechaEmision><dirEstablecimiento>COLON Y DIEGO DE ALMAGRO</dirEstablecimiento><obligadoContabilidad>NO</obligadoContabilidad><tipoIdentificacionComprador>05</tipoIdentificacionComprador><razonSocialComprador>diana</razonSocialComprador><identificacionComprador>1723521215</identificacionComprador><direccionComprador>UYIUI</direccionComprador><totalSinImpuestos>0.50</totalSinImpuestos><totalDescuento>0.00</totalDescuento><totalConImpuestos><totalImpuesto><codigo>2</codigo><codigoPorcentaje>2</codigoPorcentaje><baseImponible>0.50</baseImponible><tarifa>12</tarifa><valor>0.06</valor></totalImpuesto></totalConImpuestos><propina>0.00</propina><importeTotal>0.56</importeTotal><moneda>DOLAR</moneda><pagos><pago><formaPago>19</formaPago><total>0.06</total><plazo>1</plazo><unidadTiempo>Dias</unidadTiempo></pago><pago><formaPago>19</formaPago><total>0.50</total><plazo>2</plazo><unidadTiempo>Dias</unidadTiempo></pago></pagos></infoFactura><detalles><detalle><codigoPrincipal>002</codigoPrincipal><descripcion>producto2</descripcion><cantidad>1</cantidad><precioUnitario>0.50</precioUnitario><descuento>0</descuento><precioTotalSinImpuesto>0.5</precioTotalSinImpuesto><impuestos><impuesto><codigo>2</codigo><codigoPorcentaje>2</codigoPorcentaje><tarifa>12</tarifa><baseImponible>0.50</baseImponible><valor>0.06</valor></impuesto></impuestos></detalle></detalles><infoAdicional><campoAdicional nombre="Direccion">UYIUI</campoAdicional><campoAdicional nombre="Telefono">54656</campoAdicional><campoAdicional nombre="Email">fgg@gmail.com</campoAdicional></infoAdicional><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature404588">
+<ds:SignedInfo Id="Signature-SignedInfo473673">
+<ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></ds:CanonicalizationMethod>
+<ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"></ds:SignatureMethod>
+<ds:Reference Id="SignedPropertiesID90540" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature404588-SignedProperties628103">
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+<ds:DigestValue>4QhLmheb+7vundurammdSE/pBjA=</ds:DigestValue>
+</ds:Reference>
+<ds:Reference URI="#Certificate137388">
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+<ds:DigestValue>yjCyA2+DeI185/iCdJQozONrksc=</ds:DigestValue>
+</ds:Reference>
+<ds:Reference Id="Reference-ID-300530" URI="#comprobante">
+<ds:Transforms>
+<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform>
+</ds:Transforms>
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+<ds:DigestValue>5V26sOSOxOvyn9S8ZAGQmjQSYoo=</ds:DigestValue>
+</ds:Reference>
+</ds:SignedInfo>
+<ds:SignatureValue Id="SignatureValue977696">
+ffi5ZM8YiZBLo8m5xE8D44RhTgFBZkv4l4yhzZc64b51jix0EdBdjJo1cvY002HmfvOhplIotdiW
+JViQxnugmqc5IwoOr7WOiOCeehOV045UdxrcZCZ+iRdpuKI0PnU4G7tHEo2dFqKrcIr3d1gTkYZa
+iAePJR994F7kqQD+f7LdBcqQ9ojjEEsFjnpQNRW0q+fnvigMebzbsxrVeQi6JqkoJ4CbNYkHOq4Z
+vTrMg9B+oNdS7iIpe5X+j5dXyZkhOpihxMe7vJYShiJ7JyHQ4Uafcg3rV5iS/UfoQfYkA+eTJreq
+fz8cmBeafjBjjKXpDzrDJKCAHhYSJAtB/9FkQw==
+</ds:SignatureValue>
+<ds:KeyInfo Id="Certificate137388">
+<ds:X509Data>
+<ds:X509Certificate>
+MIIJsjCCB5qgAwIBAgIEW2FdzDANBgkqhkiG9w0BAQsFADCBoTELMAkGA1UEBhMCRUMxIjAgBgNV
+BAoTGUJBTkNPIENFTlRSQUwgREVMIEVDVUFET1IxNzA1BgNVBAsTLkVOVElEQUQgREUgQ0VSVElG
+SUNBQ0lPTiBERSBJTkZPUk1BQ0lPTi1FQ0lCQ0UxDjAMBgNVBAcTBVFVSVRPMSUwIwYDVQQDExxB
+QyBCQU5DTyBDRU5UUkFMIERFTCBFQ1VBRE9SMB4XDTE5MTAxNzE2MzE0MFoXDTIxMTAxNzE3MDE0
+MFowgbgxCzAJBgNVBAYTAkVDMSIwIAYDVQQKExlCQU5DTyBDRU5UUkFMIERFTCBFQ1VBRE9SMTcw
+NQYDVQQLEy5FTlRJREFEIERFIENFUlRJRklDQUNJT04gREUgSU5GT1JNQUNJT04tRUNJQkNFMQ4w
+DAYDVQQHEwVRVUlUTzE8MBEGA1UEBRMKMDAwMDQxMzI5MTAnBgNVBAMTIERBTk5ZIEpBVklFUiBR
+VUlOVFVOQSBFU01FUkFMREFTMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlMsS+bBz
+oAoGHfUzOP1oye/Xnvrd6ypp4zXWjjKeUEs7etmdAVKQSFWOBkS8gj4PhFqbPVKITC5G5X9PTEQF
+CTYid5qrhdTMEF/ci2gQhHiussZbaR2Wq9bljOnM1RRh67/UuFA3Le+xywFypvFwTVNr95radz1m
+EoEXu3ObW92q/1RarrQ5g2BWFJy8GK8AZvr3eQdPnGzT29AeiaFD6JiGCOPfAJVJ2eyu6qBEdMfu
+uIFgGfrjF/PDjXXwgYDvVvY7lnpmPUdCtp7HvuI4jtqkfFw/14IFjFvaFOg67fca4Z/50jwaMYbl
+UnNUaRqy0XS2dxKci88e22zYkpQYdQIDAQABo4IE1zCCBNMwCwYDVR0PBAQDAgeAMGYGA1UdIARf
+MF0wWwYLKwYBBAGCqDsCAQEwTDBKBggrBgEFBQcCARY+aHR0cDovL3d3dy5lY2kuYmNlLmVjL3Bv
+bGl0aWNhLWNlcnRpZmljYWRvL3BlcnNvbmEtbmF0dXJhbC5wZGYwgZEGCCsGAQUFBwEBBIGEMIGB
+MD4GCCsGAQUFBzABhjJodHRwOi8vb2NzcC5lY2kuYmNlLmVjL2VqYmNhL3B1YmxpY3dlYi9zdGF0
+dXMvb2NzcDA/BggrBgEFBQcwAYYzaHR0cDovL29jc3AxLmVjaS5iY2UuZWMvZWpiY2EvcHVibGlj
+d2ViL3N0YXR1cy9vY3NwMBoGCisGAQQBgqg7AwEEDBMKMDkzMDA4NzQ2NTAcBgorBgEEAYKoOwMC
+BA4TDERBTk5ZIEpBVklFUjAYBgorBgEEAYKoOwMDBAoTCFFVSU5UVU5BMBoGCisGAQQBgqg7AwQE
+DBMKRVNNRVJBTERBUzAxBgorBgEEAYKoOwMHBCMTIUlHTkFDSU8gREUgUVVFWkFEQSBOMjU0MyBZ
+IE1VTklWRTAZBgorBgEEAYKoOwMIBAsTCTA0MjI2MDgwMzAVBgorBgEEAYKoOwMJBAcTBVF1aXRv
+MBcGCisGAQQBgqg7AwwECRMHRUNVQURPUjAdBgorBgEEAYKoOwMLBA8TDTA5MzAwODc0NjUwMDEw
+IAYKKwYBBAGCqDsDMwQSExBTT0ZUV0FSRS1BUkNISVZPMCMGA1UdEQQcMBqBGGluZm9Ac29sbW9j
+b250YWRvcmVzLmNvbTCCAd8GA1UdHwSCAdYwggHSMIIBzqCCAcqgggHGhoHVbGRhcDovL2JjZXFs
+ZGFwc3VicDEuYmNlLmVjL2NuPUNSTDg1Nixjbj1BQyUyMEJBTkNPJTIwQ0VOVFJBTCUyMERFTCUy
+MEVDVUFET1IsbD1RVUlUTyxvdT1FTlRJREFEJTIwREUlMjBDRVJUSUZJQ0FDSU9OJTIwREUlMjBJ
+TkZPUk1BQ0lPTi1FQ0lCQ0Usbz1CQU5DTyUyMENFTlRSQUwlMjBERUwlMjBFQ1VBRE9SLGM9RUM/
+Y2VydGlmaWNhdGVSZXZvY2F0aW9uTGlzdD9iYXNlhjRodHRwOi8vd3d3LmVjaS5iY2UuZWMvQ1JM
+L2VjaV9iY2VfZWNfY3JsZmlsZWNvbWIuY3JspIG1MIGyMQswCQYDVQQGEwJFQzEiMCAGA1UEChMZ
+QkFOQ08gQ0VOVFJBTCBERUwgRUNVQURPUjE3MDUGA1UECxMuRU5USURBRCBERSBDRVJUSUZJQ0FD
+SU9OIERFIElORk9STUFDSU9OLUVDSUJDRTEOMAwGA1UEBxMFUVVJVE8xJTAjBgNVBAMTHEFDIEJB
+TkNPIENFTlRSQUwgREVMIEVDVUFET1IxDzANBgNVBAMTBkNSTDg1NjArBgNVHRAEJDAigA8yMDE5
+MTAxNzE2MzE0MFqBDzIwMjExMDE3MTcwMTQwWjAfBgNVHSMEGDAWgBRIot8jHx34LFF6jAPNSTKl
+CcGUqzAdBgNVHQ4EFgQUmrloXRaA2KD2eNuDrHUqj5dJsacwCQYDVR0TBAIwADAZBgkqhkiG9n0H
+QQAEDDAKGwRWOC4xAwIEsDANBgkqhkiG9w0BAQsFAAOCAgEAe7RgXezroCCYOm6nvuWmWy3+iAB5
+k4hI3AgXUuTEe4QeE9pscVUZFwWcP/kVzv/JnPKAR7nE/gIb+MSClkDkkb1djyg9O9Mg2go2Ioz/
+A/it3YcwBRv7qY05eXFXg73fdndpHyWG2vK5FuzG8HvTdU33XRPN3nPEqwtWvbSOBUWRCzCv9CnM
+cLfMK19OMb0ykHzeJbkP83Xk3gUpiI4Izz9XHendwZ1C9wp944lDorBrJQ+yJglXY40uxe7ovZyB
+K/br1S9TIrE+AlrvQL2spWgb7RDgvISfIGoWGG8vlclgAQSbnClTh0Q+XF21Gnryvvz/CUHbGtCd
+uTlg0vGc0S9jeVi5NYfmPLF8ebxrs0Qxcc8JjX/bTSCot8Cgt1nfRCaVc8UfobwoAjNat90tv+xk
+ITIw8NoPFtElKtT+AWw49jPzlnNTIApjdzUow5sxDuCHHzTtuHhb71ueWcZHnY2wyNXD0Cj9mxn/
+iQZlxFiD5eLtoqAmRkOSCsOyXRvEV/1l+vwqrc2hm7Cl5am3MFmLeHN7UdaKQfCt5D9atxnPQ7sc
+Sgw4AJGt1YHqU8fuvXXot2xFbu66wUPxX4mkCqWswqLXohlkU+7SCxmODr+DpurOsxCiVmgDHruN
+fLIgoHeN/ZR2D88URui7PhYzhXdm+XdgV/Hargbt+PKdfGc=
+</ds:X509Certificate>
+</ds:X509Data>
+<ds:KeyValue>
+<ds:RSAKeyValue>
+<ds:Modulus>
+lMsS+bBzoAoGHfUzOP1oye/Xnvrd6ypp4zXWjjKeUEs7etmdAVKQSFWOBkS8gj4PhFqbPVKITC5G
+5X9PTEQFCTYid5qrhdTMEF/ci2gQhHiussZbaR2Wq9bljOnM1RRh67/UuFA3Le+xywFypvFwTVNr
+95radz1mEoEXu3ObW92q/1RarrQ5g2BWFJy8GK8AZvr3eQdPnGzT29AeiaFD6JiGCOPfAJVJ2eyu
+6qBEdMfuuIFgGfrjF/PDjXXwgYDvVvY7lnpmPUdCtp7HvuI4jtqkfFw/14IFjFvaFOg67fca4Z/5
+0jwaMYblUnNUaRqy0XS2dxKci88e22zYkpQYdQ==
+</ds:Modulus>
+<ds:Exponent>AQAB</ds:Exponent>
+</ds:RSAKeyValue>
+</ds:KeyValue>
+</ds:KeyInfo>
+<ds:Object Id="Signature404588-Object754042"><etsi:QualifyingProperties Target="#Signature404588"><etsi:SignedProperties Id="Signature404588-SignedProperties628103"><etsi:SignedSignatureProperties><etsi:SigningTime>2020-01-04T03:31:54-05:00</etsi:SigningTime><etsi:SigningCertificate><etsi:Cert><etsi:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod><ds:DigestValue>ipDge4XS0dasVTc7BY+GxWUNTL0=</ds:DigestValue></etsi:CertDigest><etsi:IssuerSerial><ds:X509IssuerName>CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC</ds:X509IssuerName><ds:X509SerialNumber>1533107660</ds:X509SerialNumber></etsi:IssuerSerial></etsi:Cert></etsi:SigningCertificate></etsi:SignedSignatureProperties><etsi:SignedDataObjectProperties><etsi:DataObjectFormat ObjectReference="#Reference-ID-300530"><etsi:Description>contenido comprobante</etsi:Description><etsi:MimeType>text/xml</etsi:MimeType></etsi:DataObjectFormat></etsi:SignedDataObjectProperties></etsi:SignedProperties></etsi:QualifyingProperties></ds:Object></ds:Signature></factura>

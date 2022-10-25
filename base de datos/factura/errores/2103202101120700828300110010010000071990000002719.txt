@@ -1,0 +1,31 @@
+Servicio: Validar Comprobante
+Clave Acceso: 2103202101120700828300110010010000071990000002719
+Respuesta: Array
+(
+    [estado] => DEVUELTA
+    [comprobantes] => Array
+        (
+            [comprobante] => Array
+                (
+                    [claveAcceso] => 2103202101120700828300110010010000071990000002719
+                    [mensajes] => Array
+                        (
+                            [mensaje] => Array
+                                (
+                                    [identificador] => 90
+                                    [mensaje] => LIMITE DE INTENTOS NO AUTORIZADOS POR DIA
+                                    [informacionAdicional] => La clave de acceso 2103202101120700828300110010010000071990000002719 ha superado el limite diario permitido para un comprobante no autorizado (3 intentos), para la fecha: Thu Mar 25 11:52:48 GMT-05:00 2021. Corrija los errores e intente nuevamente al dia siguiente.
+                                    [tipo] => ERROR
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+
+
+__________________________________________________________________
+

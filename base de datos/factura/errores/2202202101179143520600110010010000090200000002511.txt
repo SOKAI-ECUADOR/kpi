@@ -1,0 +1,118 @@
+Servicio: Autorizacion Comprobante
+Clave Acceso: 2202202101179143520600110010010000090200000002511
+Respuesta: Array
+(
+    [claveAccesoConsultada] => 2202202101179143520600110010010000090200000002511
+    [numeroComprobantes] => 1
+    [autorizaciones] => Array
+        (
+            [autorizacion] => Array
+                (
+                    [estado] => NO AUTORIZADO
+                    [fechaAutorizacion] => 2021-03-07T23:59:08-05:00
+                    [ambiente] => PRUEBAS
+                    [comprobante] => <?xml version="1.0" encoding="UTF-8"?><factura id="comprobante" version="1.0.0"><infoTributaria><ambiente>1</ambiente><tipoEmision>1</tipoEmision><razonSocial>DIANA KARINA GUERRA LOPEZ</razonSocial><nombreComercial>GYG</nombreComercial><ruc>1791435206001</ruc><claveAcceso>2202202101179143520600110010010000090200000002511</claveAcceso><codDoc>01</codDoc><estab>001</estab><ptoEmi>001</ptoEmi><secuencial>000009020</secuencial><dirMatriz>PASAJE A LOTE 2 S/N Y 4 DE MARZO</dirMatriz></infoTributaria><infoFactura><fechaEmision>22/02/2021</fechaEmision><dirEstablecimiento>PASAJE A LOTE 2 S/N Y 4 DE MARZO</dirEstablecimiento><obligadoContabilidad>SI</obligadoContabilidad><tipoIdentificacionComprador>04</tipoIdentificacionComprador><razonSocialComprador>Alexandra Albornoz Ortiz</razonSocialComprador><identificacionComprador>0490041877001</identificacionComprador><direccionComprador>Conjunto Brasil 2 Casa 32</direccionComprador><totalSinImpuestos>159.6</totalSinImpuestos><totalDescuento>0</totalDescuento><totalConImpuestos><totalImpuesto><codigo>2</codigo><codigoPorcentaje>0</codigoPorcentaje><baseImponible>42.6</baseImponible><tarifa>0</tarifa><valor>0.00</valor></totalImpuesto><totalImpuesto><codigo>2</codigo><codigoPorcentaje>2</codigoPorcentaje><baseImponible>117</baseImponible><tarifa>0</tarifa><valor>14.04</valor></totalImpuesto></totalConImpuestos><propina>0.00</propina><importeTotal>173.64</importeTotal><moneda>DOLAR</moneda><pagos><pago><formaPago>20</formaPago><total>173.64</total><plazo>1</plazo><unidadTiempo>Dias</unidadTiempo></pago></pagos><valorRetIva>0.00</valorRetIva><valorRetRenta>0.00</valorRetRenta></infoFactura><detalles><detalle><codigoPrincipal>30</codigoPrincipal><codigoAuxiliar>30</codigoAuxiliar><descripcion>Pulpa de LIMON</descripcion><cantidad>20</cantidad><precioUnitario>0.3400</precioUnitario><descuento>0</descuento><precioTotalSinImpuesto>6.8000</precioTotalSinImpuesto><detallesAdicionales><detAdicional nombre="denominacion_tipo_producto" valor="Tipo Producto"></detAdicional><detAdicional nombre="denominacion_categoria" valor="Categoria"></detAdicional></detallesAdicionales><impuestos><impuesto><codigo>2</codigo><codigoPorcentaje>0</codigoPorcentaje><tarifa>0</tarifa><baseImponible>6.8000</baseImponible><valor>0</valor></impuesto></impuestos></detalle><detalle><codigoPrincipal>56</codigoPrincipal><codigoAuxiliar>56</codigoAuxiliar><descripcion>Pulpa de FRUTILLA</descripcion><cantidad>20</cantidad><precioUnitario>1.7900</precioUnitario><descuento>0</descuento><precioTotalSinImpuesto>35.8000</precioTotalSinImpuesto><detallesAdicionales><detAdicional nombre="denominacion_tipo_producto" valor="Tipo Producto"></detAdicional><detAdicional nombre="denominacion_categoria" valor="Categoria"></detAdicional></detallesAdicionales><impuestos><impuesto><codigo>2</codigo><codigoPorcentaje>0</codigoPorcentaje><tarifa>0</tarifa><baseImponible>35.8000</baseImponible><valor>0</valor></impuesto></impuestos></detalle><detalle><codigoPrincipal>58</codigoPrincipal><codigoAuxiliar>58</codigoAuxiliar><descripcion>Pulpa de GUANABANA</descripcion><cantidad>25</cantidad><precioUnitario>2.4900</precioUnitario><descuento>0</descuento><precioTotalSinImpuesto>62.2500</precioTotalSinImpuesto><detallesAdicionales><detAdicional nombre="denominacion_tipo_producto" valor="Tipo Producto"></detAdicional><detAdicional nombre="denominacion_categoria" valor="Categoria"></detAdicional></detallesAdicionales><impuestos><impuesto><codigo>2</codigo><codigoPorcentaje>2</codigoPorcentaje><tarifa>12</tarifa><baseImponible>62.2500</baseImponible><valor>7.47</valor></impuesto></impuestos></detalle><detalle><codigoPrincipal>59</codigoPrincipal><codigoAuxiliar>59</codigoAuxiliar><descripcion>Pulpa de MORA</descripcion><cantidad>25</cantidad><precioUnitario>2.1900</precioUnitario><descuento>0</descuento><precioTotalSinImpuesto>54.7500</precioTotalSinImpuesto><detallesAdicionales><detAdicional nombre="denominacion_tipo_producto" valor="Tipo Producto"></detAdicional><detAdicional nombre="denominacion_categoria" valor="Categoria"></detAdicional></detallesAdicionales><impuestos><impuesto><codigo>2</codigo><codigoPorcentaje>2</codigoPorcentaje><tarifa>12</tarifa><baseImponible>54.7500</baseImponible><valor>6.57</valor></impuesto></impuestos></detalle></detalles><infoAdicional><campoAdicional nombre="Direccion">Conjunto Brasil 2 Casa 32</campoAdicional><campoAdicional nombre="Telefono">2419867</campoAdicional><campoAdicional nombre="Email">facturacionelectronica1993@gmail.com</campoAdicional></infoAdicional><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature44914">
+<ds:SignedInfo Id="Signature-SignedInfo628777">
+<ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></ds:CanonicalizationMethod>
+<ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"></ds:SignatureMethod>
+<ds:Reference Id="SignedPropertiesID880413" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature44914-SignedProperties874024">
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+<ds:DigestValue>AQVDB7ptEX98NHG75BXfRhGMh/4=</ds:DigestValue>
+</ds:Reference>
+<ds:Reference URI="#Certificate964105">
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+<ds:DigestValue>PXXjc51mHAaOSnJ7Hb1x+F2yHuE=</ds:DigestValue>
+</ds:Reference>
+<ds:Reference Id="Reference-ID-263208" URI="#comprobante">
+<ds:Transforms>
+<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform>
+</ds:Transforms>
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+<ds:DigestValue>oCHLX2bfXQhI52q3nWp/IuXocqo=</ds:DigestValue>
+</ds:Reference>
+</ds:SignedInfo>
+<ds:SignatureValue Id="SignatureValue270627">
+Fhc0u7GkZfZ7yZUrEifDDiiuEwuMYNzyTunxIRKcOp17IqMyGCRVOQJgTWTg1lNHck9zeq9wc3lW
+NNCWyruQpEKKvahBU1/7fufx8j7/m4VFp/uLh4TNR3QQekkDC256/46vIxN89e6NFa9ugkulcFqr
+5F8e4iuidePErL/itcUwySW1xD23zwyxuUah8jlaoWRfBKGCHsLggg8r0jE2eTOaGMSfkRfcv42a
+7J3f16W78I1L5dqcbE5smglMqaEgYdXiwig7rjbXvnMQSAg0KWVz9ip1hzuY8YMvT26iZMOcKjCL
+JQGTbE4tOy8g1Ww6++OIYJPhbdvqJGc0ztT/DA==
+</ds:SignatureValue>
+<ds:KeyInfo Id="Certificate964105">
+<ds:X509Data>
+<ds:X509Certificate>
+MIIIMjCCBhqgAwIBAgIIA42EoYCMNSIwDQYJKoZIhvcNAQELBQAwgbUxCzAJBgNVBAYTAkVDMREw
+DwYDVQQHDAhETSBRVUlUTzEhMB8GA1UECgwYQ09OU0VKTyBERSBMQSBKVURJQ0FUVVJBMUQwQgYD
+VQQLDDtTVUJESVJFQ0NJT04gTkFDSU9OQUwgREUgU0VHVVJJREFEIERFIExBIElORk9STUFDSU9O
+IEROVElDUzEqMCgGA1UEAwwhRU5USURBRCBERSBDRVJUSUZJQ0FDSU9OIElDRVJULUVDMB4XDTIw
+MDgyNTE1MzMwOFoXDTIyMDgyNjE1MzMwOFowgYwxCzAJBgNVBAYTAkVDMQ4wDAYDVQQHDAVRVUlU
+TzEuMCwGA1UECgwlU09VVEggQU1FUklDQU4gVE9VUlMgU09VVEhUT1VSU0EgUy5BLjETMBEGA1UE
+BRMKMTcxMzY3MjUyMzEoMCYGA1UEAwwfQU5EUkVBIFZFUk9OSUNBIEZJRVJSTyBNT05UQUxWTzCC
+ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAPXZhK4qFn5qWUv1kHNEmVNDrfFWbE7tWJaX
+CueV1mex7tIK01P6cCuv32BS3AWwNl+5LqK3qWbInmSA89CavxJCT5qNQ9e74WGezAoqjwgiYE96
+VF5NdO+NLcqmRfSewbOgvnICjZzW5VjkvcN3J0yP4SPz7Susq5rJWsnOyFwcV3coukdZx+mRtk/z
+XcFGmTQS6YuSRE6snaZ3pVYyuyt7r24o8neVj19Br5LB1ntZ5fwbYWEo5Mat96ggGagAtHJXfh1S
+MSxB/uPi6xubHfFblnYa4L5WKhu3Fr13m4gYBn0Vl1nt9lrQhEwNJDGzdFifycuzCh01aUHp1Jw1
+z7cCAwEAAaOCA2swggNnMIIB/wYDVR0RBIIB9jCCAfKBIGplc3Bpbm9zYUBzb3V0aGFtZXJpY2Fu
+dG91cnMuY29toBsGCysGAQQBgtVhAQMBoAwMCjE3MTM2NzI1MjOgIAYLKwYBBAGC1WEBAwKgEQwP
+QU5EUkVBIFZFUk9OSUNBoBcGCysGAQQBgtVhAQMDoAgMBkZJRVJST6AZBgsrBgEEAYLVYQEDBKAK
+DAhNT05UQUxWT6AYBgsrBgEEAYLVYQEDBaAJDAdQUklWQURPoCoGCysGAQQBgtVhAQMHoBsMGVdI
+WU1QRVIgTjE3LTcwIFkgT1JFTExBTUGgHgYLKwYBBAGC1WEBAwigDwwNKzU5Mzk5OTAwNTIwN6AW
+BgsrBgEEAYLVYQEDCaAHDAVRVUlUT6A2BgsrBgEEAYLVYQEDCqAnDCVTT1VUSCBBTUVSSUNBTiBU
+T1VSUyBTT1VUSFRPVVJTQSBTLkEuoB4GCysGAQQBgtVhAQMLoA8MDTE3OTE0MzUyMDYwMDGgGAYL
+KwYBBAGC1WEBAwygCQwHRUNVQURPUqA2BgsrBgEEAYLVYQEDMqAnDCVQRVJTT05BIEpVUklESUNB
+LCBSRVBSRVNFTlRBTlRFIExFR0FMoCAGCysGAQQBgtVhAQMzoBEMD0FSQ0hJVk8gUEtDUyMxMqAR
+BgsrBgEEAYLVYQEDNKACDAAwOAYIKwYBBQUHAQEELDAqMCgGCCsGAQUFBzABhhxodHRwOi8vb2Nz
+cC5pY2VydC5mamUuZ29iLmVjMB0GA1UdDgQWBBR48o0iSK0nLZVo0Vzqzj+iHfEnvDAJBgNVHRME
+AjAAMB8GA1UdIwQYMBaAFC8ievhebZSOakAUN8dua3LpOsI/MHIGA1UdIARrMGkwZwYOKwYBBAGC
+1WEBAgECAgEwVTBTBggrBgEFBQcCARZHaHR0cDovL3d3dy5pY2VydC5mamUuZ29iLmVjL2RwYy9k
+ZWNsYXJhY2lvbl9wcmFjdGljYXNfY2VydGlmaWNhY2lvbi5wZGYwOgYDVR0fBDMwMTAvoC2gK4Yp
+aHR0cDovL3d3dy5pY2VydC5mamUuZ29iLmVjL2NybC9pY2VydC5jcmwwDgYDVR0PAQH/BAQDAgbA
+MB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcDBDANBgkqhkiG9w0BAQsFAAOCAgEArbaM3V8n
+RJ7NynXZFv2W5Fcd4JZkXISWvtgfGvI44uVISwWUvZk8/4Ws03tj/hzHm0A2j5bqduPv3ZcheRIa
+SzCvzbkxU7KCMaQsAif4C4tEHwv69avGLjITR9wcm2dYMON9GvAWlJQfJk6DiijolE+Ok2YoLkez
+sPeaeRZ788jDVKhV2Xkd3OOlPsn4h5UA537xB0+4tc47tj2aZgf5JUfLg52dPKLBtmEKLDxKreE2
+UpBGVxjCk/0mRDkdbZ0ddJKHvuN4J0DVOoQtd02SpD9ZdCr1A8/7ZMmaNSyzhEjtSwywDkYE2LP4
+BpcEi1pWR0QAYS3YyKDj70dEbIxx2U4qK1ewkO10nrfAf+WhULcBbaqTUYuRLZxbxUlGqHZPWrRp
+S15abMAJfgceGtqD9Wx3qMaAvMNakvc4fuTT+TWsIYS3d9+tqah91zGTHN5qOZCfs3Km9Au7Vxc8
+zdbLdt59VaW0PCAF/ubmaxmgDLbu5G4szeb/Wd2dpWDaa+8dqTYB3LLmYZHXY/ouSRG4t4M2ppV8
+grhZSK2pqabxBRFXzTJLeIHIgCH80BaagNebnIwBK/rbkE555NIYk4WzvwhljOVqXSy/SwcC5Pze
+ew1/nXHckqG9FHRyLA/Tikt4FyHKZbJO39L2X1Y4o3rsrAVOEXnz/GRgyd+yQtsm4Bw=
+</ds:X509Certificate>
+</ds:X509Data>
+<ds:KeyValue>
+<ds:RSAKeyValue>
+<ds:Modulus>
+9dmErioWfmpZS/WQc0SZU0Ot8VZsTu1YlpcK55XWZ7Hu0grTU/pwK6/fYFLcBbA2X7kuorepZsie
+ZIDz0Jq/EkJPmo1D17vhYZ7MCiqPCCJgT3pUXk10740tyqZF9J7Bs6C+cgKNnNblWOS9w3cnTI/h
+I/PtK6yrmslayc7IXBxXdyi6R1nH6ZG2T/NdwUaZNBLpi5JETqydpnelVjK7K3uvbijyd5WPX0Gv
+ksHWe1nl/BthYSjkxq33qCAZqAC0cld+HVIxLEH+4+LrG5sd8VuWdhrgvlYqG7cWvXebiBgGfRWX
+We32WtCETA0kMbN0WJ/Jy7MKHTVpQenUnDXPtw==
+</ds:Modulus>
+<ds:Exponent>AQAB</ds:Exponent>
+</ds:RSAKeyValue>
+</ds:KeyValue>
+</ds:KeyInfo>
+<ds:Object Id="Signature44914-Object185655"><etsi:QualifyingProperties Target="#Signature44914"><etsi:SignedProperties Id="Signature44914-SignedProperties874024"><etsi:SignedSignatureProperties><etsi:SigningTime>2021-03-07T23:59:06-05:00</etsi:SigningTime><etsi:SigningCertificate><etsi:Cert><etsi:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod><ds:DigestValue>kfHoHQ2wdgUqbMb/4QP/sW8QgEQ=</ds:DigestValue></etsi:CertDigest><etsi:IssuerSerial><ds:X509IssuerName>CN=ENTIDAD DE CERTIFICACION ICERT-EC,L=DM QUITO,OU=SUBDIRECCION NACIONAL DE SEGURIDAD DE LA INFORMACION DNTICS,O=CONSEJO DE LA JUDICATURA,C=EC</ds:X509IssuerName><ds:X509SerialNumber>256006583011259680</ds:X509SerialNumber></etsi:IssuerSerial></etsi:Cert></etsi:SigningCertificate></etsi:SignedSignatureProperties><etsi:SignedDataObjectProperties><etsi:DataObjectFormat ObjectReference="#Reference-ID-263208"><etsi:Description>contenido comprobante</etsi:Description><etsi:MimeType>text/xml</etsi:MimeType></etsi:DataObjectFormat></etsi:SignedDataObjectProperties></etsi:SignedProperties></etsi:QualifyingProperties></ds:Object></ds:Signature></factura>
+
+                    [mensajes] => Array
+                        (
+                            [mensaje] => Array
+                                (
+                                    [identificador] => 39
+                                    [mensaje] => FIRMA INVALIDA
+                                    [informacionAdicional] => La firma es invalida [Firma inválida. El certificado firmante no es válido.]
+                                    [tipo] => ERROR
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+
+
+__________________________________________________________________
+

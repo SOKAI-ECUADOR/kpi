@@ -1,0 +1,884 @@
+[
+        {
+            "cod_imp": "304",
+            "descrip_imp": "Servicios predomina el intelecto no relacionados con el título profesional",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "8",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "304A",
+            "descrip_imp": "Comisiones y demás pagos por servicios predomina intelecto no relacionados con el título profesional",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "8",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "304B",
+            "descrip_imp": "Pagos a notarios y registradores de la propiedad y mercantil por sus actividades ejercidas como tales",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "8",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "304C",
+            "descrip_imp": "Pagos a deportistas, entrenadores, árbitros, miembros del cuerpo técnico por sus actividades ejercidas como tales",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "8",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "304D",
+            "descrip_imp": "Pagos a artistas por sus actividades ejercidas como tales",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "8",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "304E",
+            "descrip_imp": "Honorarios y demás pagos por servicios de docencia",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "8",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "307",
+            "descrip_imp": "Servicios predomina la mano de obra",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "2",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "308",
+            "descrip_imp": "Utilización o aprovechamiento de la imagen o renombre",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "10",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "309",
+            "descrip_imp": "Servicios prestados por medios de comunicación y agencias de publicidad",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "1.75",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "310",
+            "descrip_imp": "Servicio de transporte privado de pasajeros o transporte público o privado de carga",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "1",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "311",
+            "descrip_imp": "Por pagos a través de liquidación de compra (nivel cultural o rusticidad)",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "2",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "312",
+            "descrip_imp": "Transferencia de bienes muebles de naturaleza corporal",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "1.75",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "312A",
+            "descrip_imp": "Compra de bienes de origen agrícola, avícola, pecuario, apícola, cunícula, bioacuático, forestal y carnes en estado natural",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "1",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "314A",
+            "descrip_imp": "Regalías por concepto de franquicias de acuerdo a Ley de Propiedad Intelectual - pago a personas naturales",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "8",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "314B",
+            "descrip_imp": "Cánones, derechos de autor,  marcas, patentes y similares de acuerdo a Ley de Propiedad Intelectual – pago a personas naturales",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "8",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "314C",
+            "descrip_imp": "Regalías por concepto de franquicias de acuerdo a Ley de Propiedad Intelectual  - pago a sociedades",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "8",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "314D",
+            "descrip_imp": "Cánones, derechos de autor,  marcas, patentes y similares de acuerdo a Ley de Propiedad Intelectual – pago a sociedades",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "8",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "319",
+            "descrip_imp": "Cuotas de arrendamiento mercantil, inclusive la de opción de compra",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "1.75",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "320",
+            "descrip_imp": "Por arrendamiento bienes inmuebles",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "8",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "3440",
+            "descrip_imp": "Otras retenciones aplicables el 2,75%",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "2.75",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "323",
+            "descrip_imp": "Por rendimientos financieros pagados a naturales y sociedades  (No a IFIs)",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "2",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "323 M",
+            "descrip_imp": "Por RF: Inversiones en títulos valores en renta fija gravados ",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "2",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "323 N",
+            "descrip_imp": "Por RF: Inversiones en títulos valores en renta fija exentos",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "323 O",
+            "descrip_imp": "Por RF: Intereses pagados a bancos y otras entidades sometidas al control de la Superintendencia de Bancos y de la Economía Popular y Solidaria",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "323 P",
+            "descrip_imp": "Por RF: Intereses pagados por entidades del sector público a favor de sujetos pasivos",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "2",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "323A",
+            "descrip_imp": "Por RF: depósitos Cta. Corriente",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "2",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "323B1",
+            "descrip_imp": "Por RF:  depósitos Cta. Ahorros Sociedades",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "2",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "323E",
+            "descrip_imp": "Por RF: depósito a plazo fijo  gravados",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "2",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "323E2",
+            "descrip_imp": "Por RF: depósito a plazo fijo exentos",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "323F",
+            "descrip_imp": "Por rendimientos financieros: operaciones de reporto - repos",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "2",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "323G",
+            "descrip_imp": "Por RF: inversiones (captaciones) rendimientos distintos de aquellos pagados a IFIs",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "2",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "323H",
+            "descrip_imp": "Por RF: obligaciones",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "2",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "323I",
+            "descrip_imp": "Por RF: bonos convertible en acciones",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "2",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "323Q",
+            "descrip_imp": "Por RF: Otros intereses y rendimientos financieros gravados ",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "2",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "323R",
+            "descrip_imp": "Por RF: Otros intereses y rendimientos financieros exentos",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "324A",
+            "descrip_imp": "Por RF: Intereses en operaciones de crédito entre instituciones del sistema financiero y entidades economía popular y solidaria. ",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "1",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "324B",
+            "descrip_imp": "Por RF: Por inversiones entre instituciones del sistema financiero y entidades economía popular y solidaria. ",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "1",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "325",
+            "descrip_imp": "Anticipo dividendos",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "325A",
+            "descrip_imp": "Dividendos anticipados préstamos accionistas, beneficiarios o partícipes",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "326",
+            "descrip_imp": "Dividendos distribuidos que correspondan al impuesto a la renta único establecido en el art. 27 de la lrti",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "327",
+            "descrip_imp": "Dividendos distribuidos a personas naturales residentes cuando la sociedad que distribuye aplicó tarifa del 22% IR",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "328",
+            "descrip_imp": "Dividendos distribuidos a sociedades residentes",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "329",
+            "descrip_imp": "dividendos distribuidos a fideicomisos residentes",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "330",
+            "descrip_imp": "Dividendos gravados distribuidos en acciones (reinversión de utilidades sin derecho a reducción tarifa IR) cuando la sociedad que distribuye aplicó tarifa del 22% IR",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "331",
+            "descrip_imp": "Dividendos exentos distribuidos en acciones (reinversión de utilidades con derecho a reducción tarifa IR) ",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "332",
+            "descrip_imp": "Otras compras de bienes y servicios no sujetas a retención",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "332A",
+            "descrip_imp": "Por la enajenación ocasional de acciones o participaciones y títulos valores",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "332B",
+            "descrip_imp": "Compra de bienes inmuebles",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "332C",
+            "descrip_imp": "Transporte público de pasajeros",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "332D",
+            "descrip_imp": "Pagos en el país por transporte de pasajeros o transporte internacional de carga, a compañías nacionales o extranjeras de aviación o marítimas",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "332E",
+            "descrip_imp": "Valores entregados por las cooperativas de transporte a sus socios",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "332F",
+            "descrip_imp": "Compraventa de divisas distintas al dólar de los Estados Unidos de América",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "332G",
+            "descrip_imp": "Pagos con tarjeta de crédito ",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "332H",
+            "descrip_imp": "Pago al exterior tarjeta de crédito reportada por la Emisora de tarjeta de crédito, solo recap",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "332I",
+            "descrip_imp": "Pago a través de convenio de debito (Clientes IFI`s)",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "333",
+            "descrip_imp": "Enajenación de derechos representativos de capital y otros derechos cotizados en bolsa ecuatoriana",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "334",
+            "descrip_imp": "Enajenación de derechos representativos de capital y otros derechos no cotizados en bolsa ecuatoriana",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "1",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "335",
+            "descrip_imp": "Por loterías, rifas, apuestas y similares",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "15",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "336",
+            "descrip_imp": "Por venta de combustibles a comercializadoras",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "337",
+            "descrip_imp": "Por venta de combustibles a distribuidores",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "338",
+            "descrip_imp": "Compra local de banano a productor",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "339",
+            "descrip_imp": "Liquidación impuesto único a la venta local de banano de producción propia",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "100",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "340",
+            "descrip_imp": "Impuesto único a la exportación de banano de producción propia - componente 1",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "341",
+            "descrip_imp": "Impuesto único a la exportación de banano de producción propia - componente 2",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "2",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "342",
+            "descrip_imp": "Impuesto único a la exportación de banano producido por terceros",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "2",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "342A",
+            "descrip_imp": "Impuesto único a la exportación de banano producido por terceros de Asociaciones de micro y pequeños productores hasta 1000 cajas por semana por cada socio.",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "2",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "342B",
+            "descrip_imp": "Impuesto único a la exportación de banano producido por terceros de Asociaciones de micro, pequeños y medianos productores",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "1",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "343A",
+            "descrip_imp": "Por energía eléctrica",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "1",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "343B",
+            "descrip_imp": "Por actividades de construcción de obra material inmueble, urbanización, lotización o actividades similares",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "1",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "344",
+            "descrip_imp": "Otras retenciones aplicables el 2%",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "2",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "344A",
+            "descrip_imp": "Pago local tarjeta de crédito reportada por la Emisora de tarjeta de crédito, solo recap",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "2",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "346A",
+            "descrip_imp": "Ganancias de capital",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "10",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "500",
+            "descrip_imp": "Pago al exterior - Rentas Inmobiliarias",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "501",
+            "descrip_imp": "Pago al exterior - Beneficios Empresariales",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "502",
+            "descrip_imp": "Pago al exterior - Servicios Empresariales",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "503",
+            "descrip_imp": "Pago al exterior - Navegación Marítima y/o aérea",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "504",
+            "descrip_imp": "Pago al exterior- Dividendos distribuidos a personas naturales",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "504A",
+            "descrip_imp": "Pago al exterior - Dividendos a sociedades no paraíso fiscal cuyo beneficiario efectivo sea una PN residente en el Ecuador- Cuando la sociedad que distribuye aplicó tarifa del 22% IR",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "504B",
+            "descrip_imp": "Pago al exterior - Anticipo dividendos",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "504C",
+            "descrip_imp": "Pago al exterior - Dividendos anticipados préstamos accionistas, beneficiarios o partícipes",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "504D",
+            "descrip_imp": "Pago al exterior - Dividendos a fideicomisos no paraíso fiscal cuyo beneficiario efectivo sea una PN residente en el Ecuador- Cuando la sociedad que distribuye aplicó tarifa del 22% IR",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "504E",
+            "descrip_imp": "Pago al exterior- Dividendos distribuidos a personas naturales (paraísos fiscales)",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "504F",
+            "descrip_imp": "Pago al exterior - Dividendos a sociedades  (paraísos fiscales)",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "13",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "504G",
+            "descrip_imp": "Pago al exterior - Anticipo dividendos  (paraísos fiscales)",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "25",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "504H",
+            "descrip_imp": "Pago al exterior - Dividendos a fideicomisos  (paraísos fiscales)",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "13",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "505",
+            "descrip_imp": "Pago al exterior - Rendimientos financieros",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "505A",
+            "descrip_imp": "Pago al exterior – Intereses de créditos de Instituciones Financieras del exterior",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "505B",
+            "descrip_imp": "Pago al exterior – Intereses de créditos de gobierno a gobierno",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "505C",
+            "descrip_imp": "Pago al exterior – Intereses de créditos de organismos multilaterales",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "505D",
+            "descrip_imp": "Pago al exterior - Intereses por financiamiento de proveedores externos",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "505E",
+            "descrip_imp": "Pago al exterior - Intereses de otros créditos externos",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "505F",
+            "descrip_imp": "Pago al exterior - Otros Intereses y Rendimientos Financieros",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "35",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "509",
+            "descrip_imp": "Pago al exterior - Cánones, derechos de autor,  marcas, patentes y similares",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "509A",
+            "descrip_imp": "Pago al exterior - Regalías por concepto de franquicias",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "510",
+            "descrip_imp": "Pago al exterior - Ganancias de capital",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "511",
+            "descrip_imp": "Pago al exterior - Servicios profesionales independientes",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "512",
+            "descrip_imp": "Pago al exterior - Servicios profesionales dependientes",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "513",
+            "descrip_imp": "Pago al exterior - Artistas",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "513A",
+            "descrip_imp": "Pago al exterior - Deportistas",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "514",
+            "descrip_imp": "Pago al exterior - Participación de consejeros",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "515",
+            "descrip_imp": "Pago al exterior - Entretenimiento Público",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "516",
+            "descrip_imp": "Pago al exterior - Pensiones",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "517",
+            "descrip_imp": "Pago al exterior - Reembolso de Gastos",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "518",
+            "descrip_imp": "Pago al exterior - Funciones Públicas",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "519",
+            "descrip_imp": "Pago al exterior - Estudiantes",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "520",
+            "descrip_imp": "Pago al exterior - Otros conceptos de ingresos gravados",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "520A",
+            "descrip_imp": "Pago al exterior - Pago a proveedores de servicios hoteleros y turísticos en el exterior",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "520B",
+            "descrip_imp": "Pago al exterior - Arrendamientos mercantil internacional",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "520D",
+            "descrip_imp": "Pago al exterior - Comisiones por exportaciones y por promoción de turismo receptivo",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "520E",
+            "descrip_imp": "Pago al exterior - Por las empresas de transporte marítimo o aéreo y por empresas pesqueras de alta mar, por su actividad.",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "520F",
+            "descrip_imp": "Pago al exterior - Por las agencias internacionales de prensa",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "520G",
+            "descrip_imp": "Pago al exterior - Contratos de fletamento de naves para empresas de transporte aéreo o marítimo internacional",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "521",
+            "descrip_imp": "Pago al exterior - Enajenación de derechos representativos de capital y otros derechos ",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "5",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "522A",
+            "descrip_imp": "Pago al exterior - Servicios técnicos, administrativos o de consultoría y regalías con convenio de doble tributación",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "100",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "522B",
+            "descrip_imp": "Pago al exterior - Servicios técnicos, administrativos o de consultoría y regalías sin convenio de doble tributación",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "522C",
+            "descrip_imp": "Pago al exterior - Servicios técnicos, administrativos o de consultoría y regalías en paraísos fiscales",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "35",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "523A",
+            "descrip_imp": "Pago al exterior - Seguros y reaseguros (primas y cesiones)  con convenio de doble tributación",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "100",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "523B",
+            "descrip_imp": "Pago al exterior - Seguros y reaseguros (primas y cesiones) sin convenio de doble tributación",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "22",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "523C",
+            "descrip_imp": "Pago al exterior - Seguros y reaseguros (primas y cesiones) en paraísos fiscales",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "35",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "524",
+            "descrip_imp": "Pago al exterior - Otros pagos al exterior no sujetos a retención ",
+            "tipo_imp": "Fuente",
+            "porcen_imp": "0",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "721",
+            "descrip_imp": "Retención del 10%",
+            "tipo_imp": "Iva",
+            "porcen_imp": "10",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "723",
+            "descrip_imp": "Retención del 20%",
+            "tipo_imp": "Iva",
+            "porcen_imp": "20",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "725",
+            "descrip_imp": "Retención del 30%",
+            "tipo_imp": "Iva",
+            "porcen_imp": "30",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "727",
+            "descrip_imp": "Retención del 50%",
+            "tipo_imp": "Iva",
+            "porcen_imp": "50",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "729",
+            "descrip_imp": "Retención del 70%",
+            "tipo_imp": "Iva",
+            "porcen_imp": "70",
+            "id_empresa": "1"
+        },
+        {
+            "cod_imp": "731",
+            "descrip_imp": "Retención del 100%",
+            "tipo_imp": "Iva",
+            "porcen_imp": "100",
+            "id_empresa": "1"
+        }
+    ]
