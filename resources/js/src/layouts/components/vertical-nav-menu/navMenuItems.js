@@ -190,14 +190,7 @@ if (store.state.Roles.length) {
     if (catalogo_array_ver.length) {
         catalogo_ver = catalogo_array_ver[0].ver;
     }
-    //nomina
-    var nomina_ver = false;
-    var nomina_array_ver = $.grep(pep, function(e) {
-        return e.value == 19;
-    });
-    if (nomina_array_ver.length) {
-        nomina_ver = nomina_array_ver[0].ver;
-    }
+ 
     //proveedor
     var proveedor_ver = false;
     var proveedor_array_ver = $.grep(pep, function(e) {
@@ -214,14 +207,7 @@ if (store.state.Roles.length) {
     if (facturas_compra_array_ver.length) {
         facturas_compra_ver = facturas_compra_array_ver[0].ver;
     }
-    //importacion
-    var importacion_compra_ver = false;
-    var importacion_compra_array_ver = $.grep(pep, function(e) {
-        return e.value == 22;
-    });
-    if (importacion_compra_array_ver.length) {
-        importacion_compra_ver = importacion_compra_array_ver[0].ver;
-    }
+ 
     //cuentas por pagar
     var cuentas_pagar_compra_ver = false;
     var cuentas_pagar_compra_array_ver = $.grep(pep, function(e) {
@@ -230,47 +216,7 @@ if (store.state.Roles.length) {
     if (cuentas_pagar_compra_array_ver.length) {
         cuentas_pagar_compra_ver = cuentas_pagar_compra_array_ver[0].ver;
     }
-    //formula
-    var formula_compra_ver = false;
-    var formula_compra_array_ver = $.grep(pep, function(e) {
-        return e.value == 24;
-    });
-    if (formula_compra_array_ver.length) {
-        formula_compra_ver = formula_compra_array_ver[0].ver;
-    }
-    //proceso producion
-    var proceso_produccion_compra_ver = false;
-    var proceso_produccion_compra_array_ver = $.grep(pep, function(e) {
-        return e.value == 25;
-    });
-    if (proceso_produccion_compra_array_ver.length) {
-        proceso_produccion_compra_ver =
-            proceso_produccion_compra_array_ver[0].ver;
-    }
-    //activos fijos
-    var activos_fijos_compra_ver = false;
-    var activos_fijos_compra_array_ver = $.grep(pep, function(e) {
-        return e.value == 26;
-    });
-    if (activos_fijos_compra_array_ver.length) {
-        activos_fijos_compra_ver = activos_fijos_compra_array_ver[0].ver;
-    }
-    //depreciacion
-    var depreciacion_ver = false;
-    var depreciacion_array_ver = $.grep(pep, function(e) {
-        return e.value == 66;
-    });
-    if (depreciacion_array_ver.length) {
-        depreciacion_ver = depreciacion_array_ver[0].ver;
-    }
-    //seguro
-    var seguro_ver = false;
-    var seguro_array_ver = $.grep(pep, function(e) {
-        return e.value == 72;
-    });
-    if (seguro_array_ver.length) {
-        seguro_ver = seguro_array_ver[0].ver;
-    }
+ 
     //seguimiento
     var seguimiento_ver = false;
     var seguimiento_array_ver = $.grep(pep, function(e) {
@@ -279,15 +225,8 @@ if (store.state.Roles.length) {
     if (seguimiento_array_ver.length) {
         seguimiento_ver = seguimiento_array_ver[0].ver;
     }
-    //mobiliario
-    var mobiliario_ver = false;
-    var mobiliario_array_ver = $.grep(pep, function(e) {
-        return e.value == 73;
-    });
-    if (mobiliario_array_ver.length) {
-        mobiliario_ver = mobiliario_array_ver[0].ver;
-    }
-    console.log("prueba");
+
+   
     //calendario
     var calendario_compra_ver = false;
     var calendario_compra_array_ver = $.grep(pep, function(e) {
@@ -736,554 +675,38 @@ if (
                             slug: "balance_inicial",
                             i18n: "balance_inicial"
                         }
-                        // {
-                        //     url: "/administrar/sri/codigo-impuesto",
-                        //     name: "Codigo_Impuesto",
-                        //     slug: "codigo-impuesto",
-                        //     icon: "BriefcaseIcon",
-                        //     i18n: "Codigo_Impuesto"
-                        // },
-                        // {
-                        //     url: "/administrar/sri/codigo-ice",
-                        //     name: "Codigo_ICE",
-                        //     slug: "codigo-ice",
-                        //     icon: "BriefcaseIcon",
-                        //     i18n: "Codigo_ICE"
-                        // },
-                        // {
-                        //     url: "/administrar/sri/tipo-comprobante",
-                        //     name: "Comprobantes",
-                        //     slug: "tipcomprobante",
-                        //     icon: "BriefcaseIcon",
-                        //     i18n: "Tipo_Comprobante"
-                        // },
-                        // {
-                        //     url: "/administrar/sri/impuestos-rentenciones",
-                        //     name: "ImpRetencion",
-                        //     slug: "imprentenciones",
-                        //     icon: "BriefcaseIcon",
-                        //     i18n: "Retenciones"
-                        // },
-                        // {
-                        //     url: "/administrar/sri/tipo-sustento",
-                        //     name: "Sustento",
-                        //     slug: "tiposustento",
-                        //     icon: "BriefcaseIcon",
-                        //     i18n: "Tipo_Sustento"
-                        // },
-                        // {
-                        //     url: "/administrar/sri/forma_pagos_sri",
-                        //     name: "forma_pagos_sri",
-                        //     slug: "forma_pagos_sri",
-                        //     i18n: "forma_pagos_sri"
-                        // }
+                        
                     ]
                 }
             ]
         });
     }
-    if (
-        asientos_ver == 1 ||
-        cuentas_ver == 1 ||
-        concillacion_bancaria_ver == 1 ||
-        anexo_sri_ver == 1 ||
-        indices_financieros_ver == 1 ||
-        reporteria_contabilidad_ver == 1
-    ) {
-        cont.push({
-            url: null,
-            name: "Contabilidad",
-            icon: "PieChartIcon",
-            i18n: "Contabilidad",
-            submenu: [{
-                    url: "/contabilidad/plan-cuentas",
-                    name: "PLanCuentas",
-                    slug: "cuentas",
-                    icon: "BriefcaseIcon",
-                    i18n: "Plan_Cuentas"
-                },
-                {
-                    url: "/contabilidad/asientos-contables",
-                    name: "AsientosContables",
-                    slug: "asientos",
-                    icon: "BriefcaseIcon",
-                    i18n: "Asientos_Contables"
-                },
-                {
-                    url: "/contabilidad/concillacion-bancaria",
-                    name: "ConcillacionBancaria",
-                    slug: "ConcillacionBancaria",
-                    icon: "BriefcaseIcon",
-                    i18n: "Concillacion bancaria"
-                },
-                {
-                    url: null,
-                    name: "anexoSri",
-                    //slug: "anexo-sri",
-                    // icon: "BriefcaseIcon",
-                    i18n: "Anexo SRI",
-                    submenu: [{
-                            url: "/contabilidad/anexo-sri/anexo-ats",
-                            name: "Anexo_ATS",
-                            slug: "anexo-ats",
-                            icon: "BriefcaseIcon",
-                            i18n: "Anexo ATS"
-                        },
-                        {
-                            url: "/contabilidad/anexo-sri/anexo-ice",
-                            name: "Anexo_ICE",
-                            slug: "anexo-ice",
-                            icon: "BriefcaseIcon",
-                            i18n: "Anexo ICE"
-                        },
-                        {
-                            url: "/contabilidad/anexo-sri/anexo-rdep",
-                            name: "Anexo_RDEP",
-                            slug: "anexo-rdep",
-                            icon: "BriefcaseIcon",
-                            i18n: "Anexo RDEP"
-                        },
-                        {
-                            url: "/contabilidad/anexo-sri/anexo-rdep",
-                            name: "Anexo_IBP",
-                            slug: "anexo-ibp",
-                            icon: "BriefcaseIcon",
-                            i18n: "Anexo IBP"
-                        }
-                    ]
-                },
-                // {
-                //     url: "/contabilidad/indices-financieros",
-                //     name: "indicesFinancieros",
-                //     slug: "indicesFinancieros",
-                //     icon: "BriefcaseIcon",
-                //     i18n: "Indices financieros"
-                // },
-                {
-                    url: "/contabilidad/reportes",
-                    name: "reportes",
-                    slug: "reportes",
-                    icon: "BriefcaseIcon",
-                    i18n: "Reportes"
-                }
-            ]
-        });
-    }
-    if (
-        vendedor_ver == 1 ||
-        cliente_ver == 1 ||
-        pago_cliente_ver == 1 ||
-        proforma_ver == 1 ||
-        factura_ver == 1 ||
-        credito_ver == 1 ||
-        reporteria_ver == 1 ||
-        nota_debito_ver == 1 ||
-        factura_acumulada_ver==1 ||
-        guia_remision_ver==1
-    ) {
-        cont.push({
-            url: null,
-            name: "Facturacion",
-            icon: "DollarSignIcon",
-            i18n: "Facturacion",
-            submenu: [{
-                    url: "/facturacion/clientes",
-                    name: "Contactos",
-                    slug: "contacto",
-                    i18n: "Clientes"
-                },
-                {
-                    url: "/facturacion/vendedor",
-                    name: "Vendedor",
-                    slug: "vendedor",
-                    i18n: "Vendedor"
-                },
-                {
-                    url: "/facturacion/proforma",
-                    name: "Proforma",
-                    slug: "proforma",
-                    i18n: "Proforma"
-                },
-                {
-                    url: "/facturacion/factura-venta",
-                    name: "Factura",
-                    slug: "facturasventa",
-                    i18n: "Factura_Venta"
-                },
-                {
-                    url: "/facturacion/factura_acumulada",
-                    name: "FacturaAcumulada",
-                    slug: "facturaAcumulada",
-                    i18n: "Nota_Venta"
-                },
-                {
-                    url: "/facturacion/nota-credito",
-                    name: "NotaCredito",
-                    slug: "notacred",
-                    i18n: "Nota Credito"
-                },
-                {
-                    url: "/facturacion/nota-debito",
-                    name: "NotaDebito",
-                    slug: "notadebito",
-                    i18n: "Nota Debito"
-                },
-                {
-                    url: "/facturacion/cuentas-por-cobrar",
-                    name: "PagoCliente",
-                    slug: "pago",
-                    icon: "CreditCardIcon",
-                    i18n: "CobroClientes"
-                },
-                {
-                    url: "/facturacion/guia_remision",
-                    name: "GuiaRemision",
-                    slug: "guia",
-                    icon: "CreditCardIcon",
-                    i18n: "GuiaRemision"
-                },
-                {
-                    url: "/facturacion/reporteria",
-                    name: "Reporteria",
-                    slug: "reporteria",
-                    i18n: "Reporteria"
-                }
-            ]
-        });
-    }
-    if (
-        cuentas_pagar_compra_ver == 1 ||
-        facturas_compra_ver == 1 ||
-        proveedor_ver == 1 ||
-        orden_compra_ver == 1 ||
-        liquidacion_compra_ver == 1 ||
-        nota_de_credito_ver == 1 ||
-        nota_de_debito_ver == 1 ||
-        reporteria_campras_ver == 1
-    ) {
-        cont.push({
-            url: null,
-            name: "Proveedor",
-            icon: "ShoppingCartIcon",
-            slug: "lista",
-            i18n: "Compras",
-            submenu: [{
-                    url: "/compras/proveedor",
-                    name: "Proveedor",
-                    //icon: "CreditCardIcon",
-                    slug: "lista",
-                    i18n: "Proveedor"
-                },
-                {
-                    url: "/compras/orden-compra",
-                    name: "Ordencompra",
-                    slug: "compra",
-                    i18n: "Orden_Compra"
-                },
-                {
-                    url: "/compras/factura-compra",
-                    name: "FacturaCompra",
-                    slug: "facturascompra",
-                    i18n: "Factura_Compra"
-                },
-                {
-                    url: "/compras/liquidacion-compra",
-                    name: "liquidacion-compra",
-                    slug: "liquidacion-compra",
-                    i18n: "Liquidacion Compra"
-                },
-                {
-                    url: "/compras/nota-credito",
-                    name: "nota-credito",
-                    slug: "nota-credito",
-                    i18n: "Nota de credito"
-                },
-                {
-                    url: "/compras/nota-debito",
-                    name: "nota-debito",
-                    slug: "nota-debito",
-                    i18n: "Nota de debito"
-                },
-                {
-                    url: "/compras/cuentas-por-pagar",
-                    name: "Cuentapagar",
-                    slug: "pagar",
-                    i18n: "PagoProveedores"
-                },
-                {
-                    url: "/compras/reportes",
-                    name: "reportes",
-                    slug: "reportes",
-                    i18n: "Reportes"
-                }
-            ]
-        });
-    }
-    if (
-        catalogo_ver == 1 ||
-        bodega_ver == 1
-    ) {
-        cont.push({
-            url: null,
-            name: "Inventario",
-            icon: "SlidersIcon",
-            i18n: "Inventario",
-            submenu: [{
-                    url: "/inventario/bodega",
-                    name: "Bodega",
-                    slug: "Bodega",
-                    i18n: "Bodega"
-                },
-                {
-                    url: "/inventario/catalogo",
-                    name: "Catalogo",
-                    slug: "catalogo",
-                    i18n: "Catalogo"
-                },
-                {
-                    url: "/inventario/reportes",
-                    name: "reportes",
-                    slug: "reportes",
-                    i18n: "Reportes"
-                }
-            ]
-        });
-    }
-    if (
-        nomina_ver == 1 ||
-        ingreso_egreso_ver == 1 ||
-        parametrizacion_ver == 1 ||
-        rol_pago_ver == 1 ||
-        asignar_ingreso_ver == 1 ||
-        rol_provision_ver == 1 ||
-        departamento_ver == 1 ||
-        area_trabajo_ver == 1 ||
-        pago_empleado_ver == 1 ||
-        cargo_ver == 1 ||
-        grupo_ocupacional_ver == 1 ||
-        informacion_basica_ver == 1 ||
-        detalle_cargo_ver == 1 ||
-        cargas_ver == 1 ||
-        reporteria_nomina_ver == 1
-    ) {
-        cont.push({
-            url: null,
-            name: "Nomina",
-            icon: "UsersIcon",
-            i18n: "Nomina",
-            submenu: [
-                /*{
-                    url: "/nomina/departamento",
-                    name: "departaento",
-                    slug: "departaento",
-                    i18n: "Departamento"
-                },
-                {
-                    url: "/nomina/area-trabajo",
-                    name: "area-trabajo",
-                    slug: "area-trabajo",
-                    i18n: "Area de trabajo"
-                },
-                {
-                    url: "/nomina/cargo",
-                    name: "cargo",
-                    slug: "cargo",
-                    i18n: "Cargo"
-                },
-                {
-                    url: "/nomina/grupo-ocupacional",
-                    name: "grupo-ocupacional",
-                    slug: "grupo-ocupacional",
-                    i18n: "Grupo ocupacional"
-                },
-                {
-                    url: "/nomina/informacion-basica",
-                    name: "informacion-basica",
-                    slug: "informacion-basica",
-                    i18n: "Informacion basica"
-                },
-                {
-                    url: "/nomina/detalle-cargo",
-                    name: "detalle-cargo",
-                    slug: "detalle-cargo",
-                    i18n: "Detalle del cargo"
-                },
-                {
-                    url: "/nomina/cargas",
-                    name: "cargas",
-                    slug: "cargas",
-                    i18n: "Cargas"
-                },*/
-                {
-                    url: "/nomina/empleados",
-                    name: "listarempleados",
-                    slug: "listarempleados",
-                    i18n: "Empleados"
-                },
-                {
-                    url: "/nomina/ingreso-egreso",
-                    name: "listaringreso-egreso",
-                    slug: "listaringreso-egreso",
-                    i18n: "Ingresos_Egresos"
-                },
-                {
-                    url: "/nomina/asignar-ingreso",
-                    name: "listarasignar-ingreso",
-                    slug: "asignar-ingreso",
-                    i18n: "Asignar_Ingresos"
-                },
-
-                {
-                    url: "/nomina/rol-pagos",
-                    name: "listarrol-pagos",
-                    slug: "listarrol-pagos",
-                    i18n: "Rol_Pagos"
-                },
-                {
-                    url: "/nomina/rol-pago-provisiones",
-                    name: "listarrol-provision",
-                    slug: "listarrol-provision",
-                    i18n: "Rol_Provision"
-                },
-                {
-                    url: "/nomina/pago-empleado",
-                    name: "listarpago-empleado",
-                    slug: "pago-empleado",
-                    i18n: "Pago_Empleado"
-                },
-                {
-                    url: "/nomina/parametrizacion",
-                    name: "listarparametrizacion",
-                    slug: "parametrizacion",
-                    i18n: "Parametrizacion"
-                },
-                {
-                    url: "/nomina/reporteria",
-                    name: "listarreporteria_nomina",
-                    slug: "listarreporteria_nomina",
-                    i18n: "Reporteria_Nomina"
-                }
-
-            ]
-        });
-    }
-    if (importacion_compra_ver == 1) {
-        cont.push({
-            url: null,
-            name: "Importacion",
-            slug: "importacion",
-            icon: "SendIcon",
-            i18n: "Importacion",
-            submenu: [{
-                    url: "/importacion/registro-importacion",
-                    name: "RegImportacion",
-                    slug: "importacion",
-                    i18n: "Reguistro_Importacion"
-                },
-                {
-                    url: "/importacion/liquidacion",
-                    name: "Liquidacion",
-                    slug: "Liquidacion",
-                    i18n: "Liquidacion"
-                }
-            ]
-        });
-    }
-    if (
-        proceso_produccion_compra_ver == 1 ||
-        formula_compra_ver == 1
-    ) {
-        cont.push({
-            url: null,
-            name: "Produccion",
-            icon: "LayersIcon",
-            i18n: "Produccion",
-            submenu: [{
-                    url: "/produccion/formula",
-                    name: "Formula",
-                    slug: "formula",
-                    i18n: "Formula"
-                },
-                {
-                    url: "/produccion/proceso-produccion",
-                    name: "Proceso-produccion",
-                    slug: "proceso-produccion",
-                    i18n: "Proceso_Produccion"
-                }
-            ]
-        });
-    }
-    if (
-        activos_fijos_compra_ver == 1 ||
-        depreciacion_ver == 1
-    ) {
-        cont.push({
-            url: null,
-            name: "ActivosFijos",
-            icon: "MonitorIcon",
-            slug: "fijos",
-            i18n: "Activos_Fijos",
-            submenu: [{
-                    url: "/activos-fijos/registro",
-                    name: "RegistroActivoFijo",
-                    slug: "registroActivoFijo",
-                    i18n: "RegistroActivoFijo"
-                },
-                {
-                    url: "/activos-fijos/depreciacion",
-                    name: "Depreciacion",
-                    slug: "depreciacion",
-                    i18n: "Depreciacion"
-                }
-            ]
-        });
-    }
-    if(seguro_ver == 1){
-        cont.push({
-            url: null,
-            name: "Salud",
-            icon: "ActivityIcon",
-            slug: "salud",
-            i18n: "Salud",
-            submenu: [{
-                    url: "/salud/seguro",
-                    name: "Seguro",
-                    slug: "seguro",
-                    i18n: "Seguro"
-                },
-            ]
-        });
-    }
+        
     if (seguimiento_ver == 1) {
         cont.push({
             url: null,
             name: "Seguimiento",
             slug: "seguimiento",
             icon: "SlackIcon",
-            i18n: "KPI",
-            submenu: [{
-                    url: "/mobiliario/vehiculo",
-                    name: "Vehiculo",
+            i18n: "Módulo Activos",
+            submenu: [
+                {
+                url: "/verificacion_activos/activos",
+                name: "Verificador Activos",
+                slug: "Bodega",
+                i18n: "Verificador Activos"
+                },
+                {
+                    url: "/verificacion_activos/actas",
+                    name: "Verificador Actas",
                     slug: "Bodega",
-                    i18n: "Vehiculo"
+                    i18n: "Verificador Actas"
                 },
                 {
-                    url: "/mobiliario/maquina",
-                    name: "Maquina",
-                    slug: "catalogo",
-                    i18n: "Maquina"
-                },
-                {
-                    url: "/mobiliario/enseres",
-                    name: "mobiliario",
-                    slug: "reportes",
-                    i18n: "Mobiliario"
-                },
-                {
-                    url: "/mobiliario/libro",
-                    name: "libro",
-                    slug: "proforma",
-                    i18n: "Libro"
+                    url: "/verificacion_activos/inmuebles",
+                    name: "Verificador Inmuebles",
+                    slug: "Bodega",
+                    i18n: "Verificador Inmuebles"
                 }
             ]
         });

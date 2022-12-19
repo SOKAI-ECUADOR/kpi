@@ -1632,6 +1632,48 @@ Route::post('/api/guardartipomobiliario', 'MobiliarioController@storetipo');
 Route::post('/api/editartipomobiliario', 'MobiliarioController@updatetipo');
 Route::delete('/api/eliminartipomobiliario/{id}', 'MobiliarioController@deletetipo');
 
+// Inicio Modulo Actas de Asignacion de Activos
+
+Route::get('/api/listaractascargaarchivo/{id}', 'ActaCargaArchivoController@indexactascargaarchivo');
+Route::get('/api/listaractasasignacionactivos/{id}', 'ActaAsignacionActivoController@indexactasasignacionactivos');
+
+Route::post('/api/guardaractaasignacionactivo', 'ActaAsignacionActivoController@storeactaasignacionactivos');
+
+
+
+// Inmuebles
+Route::post('/api/guardarinmueble', 'ActaInmuebleController@guardarinmueble');
+Route::get('/api/buscaractainmuebles/{id}/{buscar?}', 'ActaInmuebleController@buscaractainmuebles');
+Route::get('/api/buscaractainmueble/{id}', 'ActaInmuebleController@buscaractainmueble');
+Route::post('/api/editaractainmueble', 'ActaInmuebleController@editaractainmueble');
+Route::get('/api/buscaractainmuebleimagenes/{inmueble_id}', 'ActaInmuebleController@buscaractainmuebleimagenes');
+Route::post('/api/agregaractainmuebleimagen', 'ActaInmuebleController@agregaractainmuebleimagen');
+Route::delete('/api/eliminaractainmuebleimagen/{id}', 'ActaInmuebleController@eliminaractainmuebleimagen');
+Route::get('/api/buscaractainmuebleimagen/{id}', 'ActaInmuebleController@buscaractainmuebleimagen');
+Route::post('/api/editaractainmuebleimagen', 'ActaInmuebleController@editaractainmuebleimagen');
+Route::get('/api/buscaractaprovincias', 'ActaProvinciaController@buscaractaprovincias');
+Route::get('/api/buscaractacantonesxprovincia/{provincia_id}', 'ActaCantonController@buscaractacantonesxprovincia');
+Route::get('/api/buscaractacantones', 'ActaCantonController@buscaractacantones');
+Route::get('/api/buscaractaciudadesxprovincia/{provincia_id}', 'ActaCiudadController@buscaractaciudadesxprovincia');
+Route::get('/api/buscaractaparroquiaxcanton/{canton_id}', 'ActaParroquiaController@buscaractaparroquiaxcanton');
+Route::get('/api/reporte_inmueble_pdf/{acta_inmueble_id}', 'ActaInmuebleController@reporte_inmueble_pdf');
+Route::get('/api/buscaractaimagenestipos', 'ActaInmuebleController@buscaractaimagenestipos');
+
+
+Route::get('/api/listaractasasignacionactivos/{id}', 'ActaAsignacionActivoController@indexactasasignacionactivos');
+Route::get('/api/actaresponsables/{id}/{buscar?}', 'ActaAsignacionActivoController@indexuser');
+Route::get('/api/buscaractaasignacionactivo/{id}', 'ActaAsignacionActivoController@buscaractaasignacionactivo');
+
+Route::get('/api/actaagencia/{id}/{buscar?}', 'ActaAgenciaController@indexactaagencia');
+Route::get('/api/actaactivotipo/{id}/{buscar?}', 'ActaActivoTipoController@indexactaactivotipo');
+Route::get('/api/actaestado/{origen}/{buscar?}', 'ActaEstadoController@indexactaestado');
+Route::get('/api/actaactivounidad', 'ActaActivoUnidadController@indexactaactivounidad');
+Route::get('/api/actaactivonombrenivel2/{acta_tipo_id}/{buscar?}', 'ActaActivoNombreNivel2Controller@indexactaactivonombrenivel2');
+Route::get('/api/actaactivonombrenivel3/{acta_activo_nombre_nivel_2_id}/{buscar?}', 'ActaActivoNombreNivel3Controller@indexactaactivonombrenivel3');
+Route::get('/api/actaactivonombrenivel4/{acta_activo_nombre_nivel_3_id}/{buscar?}', 'ActaActivoNombreNivel4Controller@indexactaactivonombrenivel4');
+
+// Fin Modulo Actas de Asignacion de Activos
+
 //mobiliario vehiculo
 Route::get('/api/vehiculomobiliario/{id}/{buscar?}', 'MobiliarioController@indexvehiculo');
 Route::get('/api/buscarvehiculomobiliario/{id}', 'MobiliarioController@buscarvehiculo');

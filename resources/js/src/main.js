@@ -15,11 +15,20 @@ import App from './App.vue';
 import Vuesax from 'vuesax';
 
 // Vue select
-import vSelect from 'vue-select'
+import vSelect from 'vue-select';
+
+import CKEditor from 'ckeditor4-vue';
+
+import { LMap, LTileLayer, LMarker, LPopup } from 'vue2-leaflet';
+import 'leaflet/dist/leaflet.css';
 
 // Components
-Vue.component('v-select',vSelect)
-
+Vue.component('v-select',vSelect);
+Vue.use(CKEditor);
+Vue.component('l-map', LMap);
+Vue.component('l-tile-layer', LTileLayer);
+Vue.component('l-marker', LMarker);
+Vue.component('l-popup', LPopup);
 Vue.use(Vuesax);
 
 // axios
