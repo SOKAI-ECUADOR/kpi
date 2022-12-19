@@ -2903,6 +2903,11 @@ const routesAndValue = [{
         },
 
     },
+
+
+
+
+    
     {
         nombre: "SeguimientoCliente",
         value: 73,
@@ -2932,6 +2937,76 @@ const routesAndValue = [{
                 name: "proforma",
                 component: () =>
                     import ("../views/Seguimiento/Obligacion/ListaObligaciones.vue"),
+                meta: {
+                    rule: "editor",
+                    secure: true
+                }
+            },
+            {
+                path: "/verificacion_activos/actas",
+                name: "activo",
+                component: () =>
+                    import ("../views/VerificacionActivos/ListaActas.vue"),
+                meta: {
+                    rule: "editor",
+                    breadcrumb: [{
+                            title: "Home",
+                            url: "/"
+                        },
+                        {
+                            title: "Buscador",
+                            active: true
+                        }
+                    ],
+                    pageTitle: "Buscador de Actas de Asignación de Activos",
+                    secure: true
+                }
+            },
+            {
+                path: "/verificacion_activos/activos",
+                name: "activo",
+                component: () =>
+                    import ("../views/VerificacionActivos/ListaActivos.vue"),
+                meta: {
+                    rule: "editor",
+                    breadcrumb: [{
+                            title: "Home",
+                            url: "/"
+                        },
+                        {
+                            title: "Buscador",
+                            active: true
+                        }
+                    ],
+                    pageTitle: "Buscador de Activos",
+                    secure: true
+                }
+            },
+            {
+                path: "/verificacion_activos/inmuebles",
+                name: "activo",
+                component: () =>
+                    import ("../views/VerificacionActivos/ListaInmuebles.vue"),
+                meta: {
+                    rule: "editor",
+                    breadcrumb: [{
+                            title: "Home",
+                            url: "/"
+                        },
+                        {
+                            title: "Buscador",
+                            active: true
+                        }
+                    ],
+                    pageTitle: "Buscador de Inmuebles",
+                    secure: true
+                }
+            },
+            {
+                path: "/verificacion_activos/agregar_activo",
+                name: "activo",
+                component: () =>
+                    import ("../views/VerificacionActivos/AgregarActivo.vue"),
                 meta: {
                     rule: "editor",
                     secure: true
@@ -3002,6 +3077,78 @@ const routesAndValue = [{
                     ],
                     pageTitle: "Nuevo Cliente",
                     rule: "editor",
+                    secure: true
+                }
+            },
+            {
+                path: "/verificacion_activos/agregar_acta",
+                name: "activo",
+                component: () =>
+                    import ("../views/VerificacionActivos/AgregarActa.vue"),
+                meta: {
+                    rule: "editor",
+                    breadcrumb: [{
+                            title: "Home",
+                            url: "/"
+                        },
+                        {
+                            title: "Buscador Actas Asignación de Activos",
+                            url: "/verificacion_activos/actas"
+                        },
+                        {
+                            title: "Agregar",
+                            active: true
+                        }
+                    ],
+                    pageTitle: "Acta de Asignación de Activos",
+                    secure: true
+                }
+            },
+            {
+                path: "/verificacion_activos/agregar_carga",
+                name: "activo",
+                component: () =>
+                    import ("../views/VerificacionActivos/AgregarCarga.vue"),
+                meta: {
+                    rule: "editor",
+                    breadcrumb: [{
+                            title: "Home",
+                            url: "/"
+                        },
+                        {
+                            title: "Buscador Activos",
+                            url: "/verificacion_activos/activos"
+                        },
+                        {
+                            title: "Agregar",
+                            active: true
+                        }
+                    ],
+                    pageTitle: "Carga de Activos desde archivo formato EXCEL",
+                    secure: true
+                }
+            },
+            {
+                path: "/verificacion_activos/agregar_inmueble",
+                name: "activo",
+                component: () =>
+                    import ("../views/VerificacionActivos/AgregarInmueble.vue"),
+                meta: {
+                    rule: "editor",
+                    breadcrumb: [{
+                            title: "Home",
+                            url: "/"
+                        },
+                        {
+                            title: "Buscador Inmuebles",
+                            url: "/verificacion_activos/inmuebles"
+                        },
+                        {
+                            title: "Agregar",
+                            active: true
+                        }
+                    ],
+                    pageTitle: "Ingreso de Inmuebles",
                     secure: true
                 }
             },
@@ -3131,6 +3278,55 @@ const routesAndValue = [{
                     secure: true
                 }
             },
+            {
+                path: "/verificacion_activos/agregar_acta/:id/editar",
+                name: "acta-editar",
+                component: () =>
+                    import ("../views/VerificacionActivos/AgregarActa.vue"),
+                meta: {
+                    rule: "editor",
+                    breadcrumb: [{
+                            title: "Home",
+                            url: "/"
+                        },
+                        {
+                            title: "Buscador Actas Asignación de Activos",
+                            url: "/verificacion_activos/actas"
+                        },
+                        {
+                            title: "Editar",
+                            active: true
+                        }
+                    ],
+                    pageTitle: "Acta de Asignación de Activos",
+                    secure: true
+                }
+            },
+            {
+                path: "/verificacion_activos/agregar_inmueble/:id/editar",
+                name: "inmueble-editar",
+                component: () =>
+                    import ("../views/VerificacionActivos/AgregarInmueble.vue"),
+                meta: {
+                    rule: "editor",
+                    breadcrumb: [{
+                            title: "Home",
+                            url: "/"
+                        },
+                        {
+                            title: "Buscador de Inmuebles",
+                            url: "/verificacion_activos/inmuebles"
+                        },
+                        {
+                            title: "Editar",
+                            active: true
+                        }
+                    ],
+                    pageTitle: "Editar Inmueble",
+                    secure: true
+                }
+            },
+            
             {
                 path: "/mobiliario/maquina/:id/editar",
                 name: "maquina-editar",
