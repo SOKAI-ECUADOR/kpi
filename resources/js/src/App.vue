@@ -78,7 +78,8 @@ export default {
                 .format("YYYY/MM/DD");
             let fecha_actual = moment().format("YYYY/MM/DD");
             let fecha_recuperada = localStorage.getItem("fecha_actual");
-            if (fecha_actual != fecha_recuperada) {
+           
+            /*if (fecha_actual != fecha_recuperada) {
                 //verifica si la fecha es un mes siguiente o menor a la fecha actual para mostrar el error
                 if (fecha_expiracion_mes <= fecha_actual) {
                     this.$toast.error(
@@ -102,7 +103,8 @@ export default {
                     );
                     //localStorage.setItem("fecha_actual", fecha_actual);
                 }
-            }
+            }*/
+
         },
         // sesion() {
         //     setInterval(function() {
