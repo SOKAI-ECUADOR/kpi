@@ -51,15 +51,11 @@ class CuentaProduccionController extends Controller
                                         LEFT JOIN establecimiento on establecimiento.id_establecimiento=proceso_produccion.id_establecimiento
                                         LEFT JOIN proyecto on proyecto.id_proyecto=proceso_produccion.id_proyecto
                                         where id_proceso_produccion=$id");
-        $proceso_ingrediente=DB::select("SELECT proceso_ingrediente.*,producto.cod_principal,producto.cod_alterno,producto.nombre, bodega.nombre AS bodega, proyecto.descripcion AS proyecto from proceso_ingrediente
+        $proceso_ingrediente=DB::select("SELECT proceso_ingrediente.*,producto.cod_principal,producto.cod_alterno,producto.nombre from proceso_ingrediente
                                         INNER JOIN proceso_produccion
                                         ON proceso_produccion.id_proceso_produccion=proceso_ingrediente.id_proceso_produccion
                                         INNER JOIN producto
                                         ON producto.id_producto=proceso_ingrediente.id_producto
-                                        INNER JOIN bodega
-                                        ON proceso_ingrediente.id_bodega=bodega.id_bodega
-                                        INNER JOIN proyecto
-                                        ON proceso_ingrediente.id_proyecto=proyecto.id_proyecto
                                         where proceso_ingrediente.id_proceso_produccion=$id");
         $proceso_producir=DB::select("SELECT proceso_producto.*,producto.cod_principal,producto.cod_alterno,producto.nombre,bodega.nombre as nombre_bodega,formula_produccion.nombre_form as nombre_formula from proceso_producto
                                         INNER JOIN proceso_produccion

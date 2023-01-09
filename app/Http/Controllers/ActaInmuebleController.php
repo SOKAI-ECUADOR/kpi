@@ -30,13 +30,45 @@ class ActaInmuebleController extends Controller
 {
     
     //listar actainmueble
-    public function buscaractainmuebles(Request $request, $id){
-        $buscar = $request->buscar;
-        $empresa = $id;
+    public function buscaractainmuebles(Request $request){
+        
+        $acta_inmueble_numero_inmueble = $request-> acta_inmueble_numero_inmueble;
+        $acta_inmueble_estado = $request-> acta_inmueble_estado;
+        $acta_inmueble_empresa = $request-> acta_inmueble_empresa;
+        $acta_inmueble_fecha_inicio = $request-> acta_inmueble_fecha_inicio;
+        $acta_inmueble_fecha_fin = $request-> acta_inmueble_fecha_fin;
+        $where = [];
+
+
+
+        if ($acta_inmueble_numero_inmueble != null) 
+            $where[] = ['acta_inmueble.numero_interno', '=',$acta_inmueble_numero_inmueble];
+        
+        if ($acta_inmueble_estado != '') 
+            $where[] = ['acta_inmueble.acta_estado_id', '=',$acta_inmueble_estado];
+
+        if ($acta_inmueble_empresa != '') 
+            $where[] = ['acta_inmueble.empresa_id', '=',$acta_inmueble_empresa];    
+
+        $start_date_convert = null;
+        $end_date_convert = null;
+    
+        if ($acta_inmueble_fecha_inicio != null)
+            $start_date_convert = Carbon::createFromFormat('Y-m-d', $acta_inmueble_fecha_inicio)->startOfDay();
+        
+        if ($acta_inmueble_fecha_fin != null) {
+            $end_date_convert = Carbon::createFromFormat('Y-m-d', $acta_inmueble_fecha_fin)->endOfDay();   
+            $end_date_convert = $end_date_convert->addDays(1);
+        }
 
         $recupera = DB::table('acta_inmueble')
                 ->join('acta_estado', 'acta_estado.id', '=', 'acta_inmueble.acta_estado_id')
-                ->where("acta_inmueble.empresa_id", "=", $empresa)
+                ->where($where)
+                ->Where(function ($query) use ($start_date_convert, $end_date_convert) {
+                    if($start_date_convert == null || $end_date_convert == null)
+                        return null;
+                    $query->WhereBetween('acta_inmueble.fcrea', [$start_date_convert, $end_date_convert]);
+                })
                 ->select(
                     'acta_inmueble.id as id',
                     'acta_inmueble.nombre as nombre',
@@ -45,8 +77,6 @@ class ActaInmuebleController extends Controller
                     'acta_inmueble.fcrea as fecha_creacion'
                     )
                     ->orderByRaw('acta_inmueble.id ASC')->get();
-
-        
         return [
             'recupera' => $recupera
         ];
@@ -979,10 +1009,6 @@ class ActaInmuebleController extends Controller
 
         $acta_inmueble = DB::table('acta_inmueble')
         ->join('acta_estado', 'acta_estado.id', '=', 'acta_inmueble.acta_estado_id')
-        ->join('acta_provincia', 'acta_provincia.id', '=', 'acta_inmueble.acta_provincia_id')
-        ->join('acta_canton', 'acta_canton.id', '=', 'acta_inmueble.acta_canton_id')
-        ->join('acta_ciudad', 'acta_ciudad.id', '=', 'acta_inmueble.acta_ciudad_id')
-        ->join('acta_parroquia', 'acta_parroquia.id', '=', 'acta_inmueble.acta_parroquia_id')
         ->join('user', 'user.id', '=', 'acta_inmueble.user_id')
         ->where("acta_inmueble.id", "=", $id)
         ->select(
@@ -998,10 +1024,10 @@ class ActaInmuebleController extends Controller
             'acta_inmueble.tipo_bien_descripcion as tipo_bien_descripcion',
             'acta_inmueble.tipo_bien_descripcion_detalle as tipo_bien_descripcion_detalle',
             'acta_inmueble.ubicacion as ubicacion',
-            'acta_provincia.id as ubicacion_provincia_id',
-            'acta_canton.id as ubicacion_canton_id',
-            'acta_ciudad.id as ubicacion_ciudad_id',
-            'acta_parroquia.id as ubicacion_parroquia_id',
+            'acta_inmueble.acta_provincia_id as ubicacion_provincia_id',
+            'acta_inmueble.acta_canton_id as ubicacion_canton_id',
+            'acta_inmueble.acta_ciudad_id as ubicacion_ciudad_id',
+            'acta_inmueble.acta_parroquia_id as ubicacion_parroquia_id',
             'acta_inmueble.ubicacion_barrio as ubicacion_barrio',
             'acta_inmueble.ubicacion_manzana as ubicacion_manzana',
             'acta_inmueble.ubicacion_lote as ubicacion_lote',
@@ -1093,6 +1119,18 @@ class ActaInmuebleController extends Controller
                             'acta_inmueble_resumen_valoracion.propiedades as propiedades'
                         )->get()->first();            
 
+                $acta_inmueble_flujos = DB::table('acta_inmueble_flujo')
+                    ->join('user', 'user.id', '=', 'acta_inmueble_flujo.user_id')
+                    ->where("acta_inmueble_flujo.acta_inmueble_id", "=", $id)
+                    ->orderByRaw('acta_inmueble_flujo.id ASC')
+                    ->select(
+                        'acta_inmueble_flujo.id as id',
+                        'acta_inmueble_flujo.detalle as detalle',
+                        'user.nombres as nombres_usuario',
+                        'user.apellidos as apellidos_usuario',
+                        'acta_inmueble_flujo.fcrea as fecha_creacion',
+                    )->get();             
+
         return [
             'acta_inmueble' => $acta_inmueble,
             'acta_inmueble_municipio' => $acta_inmueble_municipio,
@@ -1103,11 +1141,15 @@ class ActaInmuebleController extends Controller
             'acta_inmueble_edificacion' => $acta_inmueble_edificacion,
             'acta_inmueble_criterio_valoracion' => $acta_inmueble_criterio_valoracion,
             'acta_inmueble_resumen_valoracion' => $acta_inmueble_resumen_valoracion,
+            'acta_inmueble_flujos' => $acta_inmueble_flujos,
+
         ];
     }
         
     //editar acta inmueble
     public function editaractainmueble(Request $request){
+
+        $cambio_estado = 0;
 
         $inmueble = ActaInmueble::find($request->id);
         $inmueble->nombre=$request->nombre;
@@ -1129,16 +1171,24 @@ class ActaInmuebleController extends Controller
         $inmueble->ubicacion_lote=$request->inmueble_lote;
         $inmueble->ubicacion_latitud=$request->inmueble_latitud;
         $inmueble->ubicacion_longitud=$request->inmueble_longitud;
-        $inmueble->acta_estado_id=$request->inmueble_estado;
+
+        if($inmueble->acta_estado_id != $request->inmueble_estado) {
+            $cambio_estado = 1;
+            $inmueble->acta_estado_id=$request->inmueble_estado;
+        }        
+        
         $inmueble->ubicacion_predio=$request->inmueble_predio;
         $inmueble->save();
 
         $actainmuebleflujo = new ActaInmuebleFlujo();
         $estado = ActaEstado::find($request->inmueble_estado);
-        $actainmuebleflujo-> detalle = "Estado actual ".$estado->nombre;
-        $actainmuebleflujo-> acta_inmueble_id = $request->id;
-        $actainmuebleflujo-> user_id = $request->user_id;
-        $actainmuebleflujo->save();
+
+        if($cambio_estado == 1) {
+            $actainmuebleflujo-> detalle = "Estado actual ".$estado->nombre;
+            $actainmuebleflujo-> acta_inmueble_id = $request->id;
+            $actainmuebleflujo-> user_id = $request->user_id;
+            $actainmuebleflujo->save();
+        }
 
         $actainmueblemunicipio = ActaInmuebleMunicipio::where('acta_inmueble_id',"=",$request->id)->first();
         $actainmueblemunicipio-> detalle = $request->inmueble_datos_municipales_detalle;
@@ -1180,7 +1230,6 @@ class ActaInmuebleController extends Controller
 
         $actainmuebleentorno = ActaInmuebleEntorno ::where('acta_inmueble_id',"=",$request->id)->first();
         
-
         $acta_inmueble_entorno_propiedades = [   
             'detalle' => $request -> inmueble_entorno_detalle,
             'entorno' => $request -> inmueble_entorno_listado,
@@ -1194,8 +1243,61 @@ class ActaInmuebleController extends Controller
         $actainmuebleentorno -> propiedades = $acta_inmueble_entorno_propiedades; 
         $actainmuebleentorno -> save();
         
+        $actainmuebleterreno = ActaInmuebleTerreno ::where('acta_inmueble_id',"=",$request->id)->first();
+        
+        $acta_inmueble_terreno_propiedades = [   
+            'localizacion' => $request -> inmueble_terreno_localizacion,
+            'caracteristicas_fisicas' => $request -> inmueble_terreno_caracteristicas_fisicas,
+            'cerramiento' => $request -> inmueble_terreno_cerramiento,     
+            'linderos' => $request -> inmueble_terreno_linderos_dimensiones,
+            'area_terreno' => $request -> inmueble_terreno_linderos_dimensiones_area,
+        ];
+
+        $actainmuebleterreno -> propiedades = $acta_inmueble_terreno_propiedades; 
+        $actainmuebleterreno -> save();
+
+        $actainmuebleedificacion = ActaInmuebleEdificacion ::where('acta_inmueble_id',"=",$request->id)->first();
+        
+        $acta_inmueble_edificacion_propiedades = [   
+            'caracteristicas' => $request -> inmueble_edificacion_caracteristicas,
+            'areas_edificacion' => $request -> inmueble_edificacion_areas_edificacion,
+            'areas_edificacion_total' => $request -> inmueble_edificacion_areas_edificacion_total,     
+            'areas_edificacion_otros' => $request -> inmueble_edificacion_areas_edificacion_otros,
+            'areas_edificacion_otros_total' => $request -> inmueble_edificacion_areas_edificacion_otros_total,
+            'resumen_infraestructura' => $request -> inmueble_edificacion_resumen_infraestructura,
+            'conservacion_mantenimiento' => $request -> inmueble_edificacion_conservacion_mantenimiento,
+            'descripcion_funcional' => $request -> inmueble_edificacion_descripcion_funcional,     
+        ];
+
+        $actainmuebleedificacion -> propiedades = $acta_inmueble_edificacion_propiedades; 
+        $actainmuebleedificacion -> save();
+
+        $actainmueblecriteriovaloracion = ActaInmuebleCriterioValoracion ::where('acta_inmueble_id',"=",$request->id)->first();
+        
+        $acta_inmueble_criterios_valoracion_propiedades = [   
+            'criterios_valoracion' => $request -> inmueble_criterio_valoracion_listado,
+            'criterios_valoracion_calificacion' => $request -> inmueble_criterio_valoracion_calificacion_listado,
+            'valoracion_terreno' => $request -> inmueble_criterio_valoracion_terreno_listado,     
+            'valoracion_terreno_detalle' => $request -> inmueble_criterio_valoracion_terreno_detalle,
+            'valoracion_terreno_total' => $request -> inmueble_criterio_valoracion_terreno_total,
+            'valoracion_construcciones' => $request -> inmueble_criterio_valoracion_construcciones,
+        ];
+
+        $actainmueblecriteriovaloracion -> propiedades = $acta_inmueble_criterios_valoracion_propiedades; 
+        $actainmueblecriteriovaloracion -> save();
 
 
+        $actainmuebleresumenvaloracion = ActaInmuebleResumenValoracion ::where('acta_inmueble_id',"=",$request->id)->first();
+        
+        $acta_inmueble_resumen_valoracion_propiedades = [   
+            'resumen_valoracion' => $request -> inmueble_resumen_valoracion_tabla,
+            'resumen_valoracion_reposicion' => $request -> inmueble_resumen_valoracion_reposicion,
+            'resumen_valoracion_mercado' => $request -> inmueble_resumen_valoracion_mercado,  
+            'resumen_valoracion_realizacion' => $request -> inmueble_resumen_valoracion_realizacion,
+        ];
+
+        $actainmuebleresumenvaloracion -> propiedades = $acta_inmueble_resumen_valoracion_propiedades; 
+        $actainmuebleresumenvaloracion -> save();
 
     }
 
@@ -1303,39 +1405,27 @@ class ActaInmuebleController extends Controller
     {
         $acta_inmueble = DB::table('acta_inmueble')
         ->join('acta_estado', 'acta_estado.id', '=', 'acta_inmueble.acta_estado_id')
-        ->join('acta_provincia', 'acta_provincia.id', '=', 'acta_inmueble.acta_provincia_id')
-        ->join('acta_canton', 'acta_canton.id', '=', 'acta_inmueble.acta_canton_id')
-        ->join('acta_ciudad', 'acta_ciudad.id', '=', 'acta_inmueble.acta_ciudad_id')
-        ->join('acta_parroquia', 'acta_parroquia.id', '=', 'acta_inmueble.acta_parroquia_id')
         ->join('user', 'user.id', '=', 'acta_inmueble.user_id')
         ->where("acta_inmueble.id", "=", $acta_inmueble_id)
-        ->select(
-            'acta_inmueble.id as id',
-            'acta_inmueble.nombre as nombre',
-            'acta_inmueble.numero_interno as numero_interno',
-            'acta_inmueble.institucion as institucion',
-            'acta_inmueble.finalidad_avaluo as finalidad_avaluo',
-            'acta_inmueble.agencia_oficina as agencia_oficina',
-            'acta_inmueble.nombre_cliente as nombre_cliente',
-            'acta_inmueble.direccion as direccion',
-            'acta_inmueble.fecha_inspeccion as fecha_inspeccion',
-            'acta_inmueble.tipo_bien_descripcion as tipo_bien_descripcion',
-            'acta_inmueble.tipo_bien_descripcion_detalle as tipo_bien_descripcion_detalle',
-            'acta_inmueble.ubicacion as ubicacion',
-            'acta_provincia.nombre as ubicacion_provincia',
-            'acta_canton.nombre as ubicacion_canton',
-            'acta_ciudad.nombre as ubicacion_ciudad',
-            'acta_parroquia.nombre as ubicacion_parroquia',
-            'acta_inmueble.ubicacion_barrio as ubicacion_barrio',
-            'acta_inmueble.ubicacion_manzana as ubicacion_manzana',
-            'acta_inmueble.ubicacion_lote as ubicacion_lote',
-            'acta_inmueble.ubicacion_latitud as ubicacion_latitud',
-            'acta_inmueble.ubicacion_longitud as ubicacion_longitud',
-            'user.nombres as usuario_nombre',
-            'user.apellidos as usuario_apellido',
-            'acta_estado.nombre as estado_nombre',
-            'acta_inmueble.fcrea as fecha_creacion'
-            )->get()->first();
+        ->select(DB::raw(
+            'acta_inmueble.id as id, acta_inmueble.nombre as nombre, acta_inmueble.numero_interno as numero_interno , acta_inmueble.institucion as institucion ,
+             acta_inmueble.finalidad_avaluo as finalidad_avaluo, acta_inmueble.agencia_oficina as agencia_oficina , acta_inmueble.nombre_cliente as nombre_cliente ,
+             acta_inmueble.direccion as direccion, acta_inmueble.fecha_inspeccion as fecha_inspeccion, acta_inmueble.tipo_bien_descripcion as tipo_bien_descripcion ,
+             acta_inmueble.tipo_bien_descripcion_detalle as tipo_bien_descripcion_detalle, acta_inmueble.ubicacion as ubicacion,
+             (SELECT nombre FROM acta_provincia WHERE id = acta_inmueble.acta_provincia_id) as ubicacion_provincia,
+             (SELECT nombre FROM acta_canton WHERE id = acta_inmueble.acta_canton_id) as ubicacion_canton,
+             (SELECT nombre FROM acta_ciudad WHERE id = acta_inmueble.acta_ciudad_id) as ubicacion_ciudad,
+             (SELECT nombre FROM acta_parroquia WHERE id = acta_inmueble.acta_parroquia_id) as ubicacion_parroquia,
+             acta_inmueble.ubicacion_barrio as ubicacion_barrio,
+             acta_inmueble.ubicacion_manzana as ubicacion_manzana,
+             acta_inmueble.ubicacion_lote as ubicacion_lote,
+             acta_inmueble.ubicacion_latitud as ubicacion_latitud,
+             acta_inmueble.ubicacion_longitud as ubicacion_longitud,
+             user.nombres as usuario_nombre,
+             user.apellidos as usuario_apellido,
+             acta_estado.nombre as estado_nombre,
+             acta_inmueble.fcrea as fecha_creacion'
+            ))->get()->first();
 
         $acta_inmueble_municipio = DB::table('acta_inmueble_municipio')
             ->where("acta_inmueble_municipio.acta_inmueble_id", "=", $acta_inmueble_id)

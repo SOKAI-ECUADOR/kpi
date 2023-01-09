@@ -1551,39 +1551,6 @@ class FacturacompraController extends Controller
             }
         }
     }
-    public function factura_compra_pdf($id, $tipo)
-    {
-        //Selecciona la factura que va enviar
-        $facturas = DB::select("SELECT *,(select id_retfactcompra from retencion_factura_comp where id_factura={$id}) as exist_retencion FROM factura_compra WHERE id_factcompra = $id");
-        $id_cliente = $facturas[0]->id_proveedor;
-        $id_empresa = $facturas[0]->id_empresa;
-        $id_punto_emision = $facturas[0]->id_punto_emision;
-        $id_establecimiento = $facturas[0]->id_establecimiento;
-        $clave_acceso = $facturas[0]->descripcion;
-
-        //selecciona los clientes, empresa, los productos, pagos y clientes para crear en pdf
-        $clientes = DB::select("SELECT * FROM proveedor WHERE id_proveedor = $id_cliente");
-        $empresas = DB::select("SELECT em.*, es.urlweb FROM empresa em INNER JOIN establecimiento es ON es.id_establecimiento = $id_establecimiento INNER JOIN punto_emision pe ON pe.id_punto_emision = $id_punto_emision WHERE em.id_empresa = $id_empresa");
-        $detalles = DB::select("SELECT det.*, pr.cod_principal, pr.cod_alterno, pr.total_ice as total_ice_pr FROM detalle_factura_compra as det INNER JOIN producto pr ON det.id_producto=pr.id_producto WHERE det.id_factura = $id");
-        $pagos = DB::select("SELECT fp.*, fps.descripcion, fpag.descripcion AS descripcionfp FROM factura_compra_pagos fp LEFT JOIN forma_pagos fpag ON fp.id_forma_pagos=fpag.id_forma_pagos LEFT JOIN forma_pagos_sri fps ON fps.id_forma_pagos_sri=fpag.id_forma_pagos_sri WHERE fp.id_factura_compra=$id");
-        $cliente = $clientes[0];
-        $empresa = $empresas[0];
-        $factura = $facturas[0];
-        //envia a la vista de factura_venta los datos almacenados en las variables  mdiante compact
-        $pdf = \PDF::loadView('pdf/factura_compra', compact("factura", "cliente", "empresa", "detalles", "clave_acceso", "pagos"));
-        $carpeta2 = constant("DATA_EMPRESA") . "$id_empresa/comprobantes/factura_compra_pdf";
-        if (!file_exists($carpeta2)) {
-            mkdir($carpeta2, 0755, true);
-        }
-        //si la url tiene d va a descargar caso contrario solo va a ser una vista
-        if ($tipo == 'd') {
-            return $pdf->setWarnings(false)->save(constant("DATA_EMPRESA") . "$id_empresa/comprobantes/factura_compra_pdf/$factura->id_factcompra.pdf")->download("$clave_acceso.pdf");
-        } else {
-            return $pdf->setWarnings(false)->save(constant("DATA_EMPRESA") . "$id_empresa/comprobantes/factura_compra_pdf/$factura->id_factcompra.pdf")->stream("$clave_acceso.pdf");
-        }
-        //envia a la vista de factura_venta los datos almacenados en las variables  mdiante compact
-
-    }
     public function facturaCompraContabilizarAuto(Request $request, $id)
     {
         $empresa = DB::select("SELECT empresa.*,proveedor.nombre_proveedor as nombre,proveedor.identif_proveedor as identificacion,proveedor.tipo_identificacion from empresa,factura_compra,proveedor where proveedor.id_empresa=empresa.id_empresa and proveedor.id_proveedor=" . $request->cliente);
@@ -1779,7 +1746,7 @@ class FacturacompraController extends Controller
         
         $numero = $request->factura["nfactura"];
         $autorizacion = $request->factura["autorizacion"];
-        $verificacion = DB::select("SELECT * FROM factura_compra WHERE descripcion like '%$numero%' and id_empresa={$request->usuario["id_empresa"]} and id_proveedor={$request->cliente}");
+        $verificacion = DB::select("SELECT * FROM factura_compra WHERE descripcion like '%$numero%' and id_empresa={$request->usuario["id_empresa"]} and id_proveedor={$request->cliente} and id_tipo_comprobante={$request->factura["tipo_comprobante"]}");
         if (count($verificacion) >= 1) {
             return "error numero";
         }

@@ -4,6 +4,7 @@ include_once 'lib/fpdf/fpdf.php';
 include_once 'lib/fpdf/fhtml.php';
 // include_once 'PDFPapeleta.php';
 include_once 'myPDF.php';
+include_once 'myPDFPropio.php';
 include_once 'NumeroLetra.php';
 // include 'lib/barcode-php1/class/BCGcode128.barcode.php';
 // //include 'lib/barcode-php1/class/BCGColor.php';
@@ -257,12 +258,12 @@ class generarReportes
             //$pdf->Cell(50+$aumento, 6, utf8_decode($detail->nombre), 1, 0, 'L', 1);
             if($modo == 1){
                 if($detail->estado>0){
-                    $pdf->Cell(15, 6, number_format($detail->subtotal_sin_impuesto,2,".",","), 1, 0, 'R', 1);
+                    $pdf->Cell(15, 6, number_format($detail->subtotal_sin_impuesto+$detail->descuento,2,".",","), 1, 0, 'R', 1);
                 }else{
                     $pdf->Cell(15, 6, number_format(0,2,".",","), 1, 0, 'R', 1);
                 }
             }else{
-                $pdf->Cell(15, 6, number_format($detail->subtotal_sin_impuesto,2,".",","), 1, 0, 'R', 1);
+                $pdf->Cell(15, 6, number_format($detail->subtotal_sin_impuesto+$detail->descuento,2,".",","), 1, 0, 'R', 1);
             }
             
             if($exist_total_ice>0){
@@ -378,10 +379,15 @@ class generarReportes
             //}
             if($modo == 1){
                 if($detail->estado>0){
-                    $totdesc = $detail->descuento + $detail->cantidadiva + $detail->cantidadrenta;
+                    //$totdesc = $detail->descuento + $detail->cantidadiva + $detail->cantidadrenta;
+                    $totdesc = $detail->cantidadiva + $detail->cantidadrenta;
+                }
+                else{
+                    $totdesc = 0;
                 }
             }else{
-                $totdesc = $detail->descuento + $detail->cantidadiva + $detail->cantidadrenta;
+                //$totdesc = $detail->descuento + $detail->cantidadiva + $detail->cantidadrenta;
+                $totdesc = $detail->cantidadiva + $detail->cantidadrenta;
             }
             
             //$totalf = $detail->valor_total - $totdesc;
@@ -554,15 +560,15 @@ class generarReportes
         for($i=0; $i<count($datos); $i++){
             $pdf->Cell(10, 6, $i+1, 1, 0, 'R', 1);
             $pdf->Cell(15, 6, $datos[$i]->codigo, 1, 0, 'C', 1);
-            $pdf->Cell(120, 6, utf8_decode($datos[$i]->nombre), 1, 0, 'L', 1);
+            $pdf->Cell(120, 6, $datos[$i]->nombre, 1, 0, 'L', 1);
             
             
-            $pdf->Cell(25, 6, number_format($datos[$i]->cantidad, 2, ".", ","), 1, 0, 'R', 1);
-            $pdf->Cell(25, 6, number_format($datos[$i]->venta, 2, ".", ","), 1, 0, 'R', 1);
-            $pdf->Cell(25, 6, number_format($datos[$i]->costo, 2, ".", ","), 1, 0, 'R', 1);
-            $pdf->Cell(30, 6, number_format($datos[$i]->utilidad, 2, ".", ","), 1, 0, 'R', 1);
+            $pdf->Cell(25, 6, number_format($datos[$i]->cantidad, 2), 1, 0, 'R', 1);
+            $pdf->Cell(25, 6, number_format($datos[$i]->venta, 2), 1, 0, 'R', 1);
+            $pdf->Cell(25, 6, number_format($datos[$i]->costo, 2), 1, 0, 'R', 1);
+            $pdf->Cell(30, 6, number_format($datos[$i]->utilidad, 2), 1, 0, 'R', 1);
             
-            $pdf->Cell(30, 6, number_format($datos[$i]->utilidad_porcent, 2, ".", ",")."%", 1, 0, 'R', 1);
+            $pdf->Cell(30, 6, $datos[$i]->utilidad_porcent, 1, 0, 'R', 1);
             $pdf->ln();
 
             $total_cantidad = $total_cantidad + $datos[$i]->cantidad;
@@ -571,18 +577,18 @@ class generarReportes
         }
 
         $total_utilidad = $total_ventas - $total_costos;
-        $total_utilidad_porcent = round(($total_utilidad/$total_costos)*100, 2);
+        $total_utilidad_porcent = round(($total_utilidad/$total_costos)*100, 2) . "%";
 
         $pdf->SetFont('Arial', 'B', 7);
 
         $pdf->Cell(145, 6, 'Total:', 1, 0, 'R', 1);
             
-        $pdf->Cell(25, 6, number_format($total_cantidad, 2, ".", ","), 1, 0, 'R', 1);
-        $pdf->Cell(25, 6, number_format($total_ventas, 2, ".", ","), 1, 0, 'R', 1);
-        $pdf->Cell(25, 6, number_format($total_costos, 2, ".", ","), 1, 0, 'R', 1);
-        $pdf->Cell(30, 6, number_format($total_utilidad, 2, ".", ","), 1, 0, 'R', 1);
+        $pdf->Cell(25, 6, number_format($total_cantidad, 2), 1, 0, 'R', 1);
+        $pdf->Cell(25, 6, number_format($total_ventas, 2), 1, 0, 'R', 1);
+        $pdf->Cell(25, 6, number_format($total_costos, 2), 1, 0, 'R', 1);
+        $pdf->Cell(30, 6, number_format($total_utilidad, 2), 1, 0, 'R', 1);
             
-        $pdf->Cell(30, 6, number_format($total_utilidad_porcent, 2, ".", ",")."%", 1, 0, 'R', 1);
+        $pdf->Cell(30, 6, $total_utilidad_porcent, 1, 0, 'R', 1);
 
         return $pdf->Output('reporte-producto-ventas-vs-costos.pdf', 'D');
     }
@@ -671,7 +677,7 @@ class generarReportes
             $pdf->Cell(30, 6, number_format($datos[$i]->costo, 2), 1, 0, 'R', 1);
             $pdf->Cell(35, 6, number_format($datos[$i]->utilidad, 2), 1, 0, 'R', 1);
             
-            $pdf->Cell(35, 6, number_format($datos[$i]->utilidad_porcent, 2, ".", ",")."%", 1, 0, 'R', 1);
+            $pdf->Cell(35, 6, $datos[$i]->utilidad_porcent, 1, 0, 'R', 1);
             $pdf->ln();
 
             $total_valor = $total_valor + $datos[$i]->valor;
@@ -1736,7 +1742,7 @@ class generarReportes
             //if($detail->descripcion!=="ANTICIPO"){
                 $pdf->SetX(5);
                 $pdf->Cell(65, 6, $detail->descripcion==null ? "SIN FORMA PAGO" : utf8_decode($detail->descripcion), 0, 0, 'L', 0);
-                $pdf->Cell(20, 6, number_format($detail->valor_total,2,".",","), 0, 1, 'R', );
+                $pdf->Cell(20, 6, number_format($detail->valor_total,2,".",","), 0, 1, 'R', 0);
                 $suma_total_v_cuota+=$detail->valor_total;
             //}
         }
@@ -6666,7 +6672,6 @@ class generarReportes
         }
         $suma_solo_saldo_pasivo=0;
         $head_total_pasivo=0;
-        $positivo_pasivo=0;
         if($existe_pasivos>0){
             $pdf->SetXY(10,$head_3);
             $pdf->SetFillColor(240, 240, 240);
@@ -6686,7 +6691,6 @@ class generarReportes
             $b="";
             $suma_solo_saldo_pasivo=$suma_solo_debe-$suma_solo_haber;
             if($suma_solo_saldo_pasivo>0){
-                $positivo_pasivo=1;
                 $suma_solo_saldo_pasivo=$suma_solo_saldo_pasivo*1;
                 $a="(";
                 $b=")";
@@ -6971,7 +6975,6 @@ class generarReportes
             
         }
         $suma_solo_saldo_patrimonio=0;
-        $positivo_patrimonio=0;
         if($existe_patrimonio>0){
             $pdf->SetXY(10,$head_3);
             $pdf->SetFillColor(240, 240, 240);
@@ -6989,10 +6992,8 @@ class generarReportes
             //$pdf->Cell(15, 6, number_format(array_sum($reverse_saldo_haber),2,".",","), 'T', 0, 'R', 0);
             $a="";
             $b="";
-            
             $suma_solo_saldo_patrimonio=$suma_solo_debe-$suma_solo_haber;
             if($suma_solo_saldo_patrimonio>0){
-                $positivo_patrimonio=1;
                 $suma_solo_saldo_patrimonio=$suma_solo_saldo_patrimonio*1;
                 $a="(";
                 $b=")";
@@ -7223,19 +7224,7 @@ class generarReportes
         }
         $a="";
         $b="";
-        $saldo_solo_patrimonio=0;
-        if($positivo_patrimonio>0){
-            $saldo_solo_patrimonio=$suma_solo_saldo_patrimonio*-1;
-        }else{
-            $saldo_solo_patrimonio=$suma_solo_saldo_patrimonio;
-        }
-        $saldo_solo_pasivo=0;
-        if($positivo_pasivo>0){
-            $saldo_solo_pasivo=$suma_solo_saldo_pasivo*-1;
-        }else{
-            $saldo_solo_pasivo=$suma_solo_saldo_pasivo;
-        }
-        $suma_pasv_patri=$saldo_solo_patrimonio+$saldo_solo_pasivo+$valor_estdo_resultado;
+        $suma_pasv_patri=$suma_solo_saldo_patrimonio+$suma_solo_saldo_pasivo+$valor_estdo_resultado;
         if($suma_pasv_patri<0){
             $a="(";
             $b=")";
@@ -11500,25 +11489,21 @@ class generarReportes
             $height_products = $height +2;
             //$pdf->SetFillColor(141, 207, 140);
                     $pdf->SetXY($margin, $height_products);
-                    $pdf->MultiCell(15, 6, utf8_decode('Codigo'), 1, 'C', 0);
-                    $pdf->SetXY(25, $height_products);
-                    $pdf->MultiCell(40, 6, utf8_decode('Producto'), 1, 'C', 0);
-                    $pdf->SetXY(65, $height_products);
-                    $pdf->MultiCell(15, 6, utf8_decode('Proyecto'), 1, 'C', 0);
-                    $pdf->SetXY(80, $height_products);
-                    $pdf->MultiCell(20, 6, utf8_decode('Bodega'), 1, 'C', 0);
-                    $pdf->SetXY(100, $height_products);
+                    $pdf->MultiCell(25, 6, utf8_decode('Codigo'), 1, 'C', 0);
+                    $pdf->SetXY(35, $height_products);
+                    $pdf->MultiCell(60, 6, utf8_decode('Producto'), 1, 'C', 0);
+                    $pdf->SetXY(95, $height_products);
                     $pdf->MultiCell(18.3, 3, utf8_decode('Cantidad Orden'), 1, 'C', 0);
-                    $pdf->SetXY(118.3, $height_products);
+                    $pdf->SetXY(113.3, $height_products);
                     $pdf->MultiCell(18.3, 3, utf8_decode('Cantidad Proceso'), 1, 'C', 0);
-                    $pdf->SetXY(136.6, $height_products);
+                    $pdf->SetXY(131.6, $height_products);
                     $pdf->MultiCell(18.3, 3, utf8_decode('Cantidad Total'), 1, 'C', 0);
-                    $pdf->SetXY(154.9, $height_products);
+                    $pdf->SetXY(149.9, $height_products);
                     $pdf->MultiCell(25, 6, utf8_decode('Costo Unitario'), 1, 'C', 0);
-                    $pdf->SetXY(179.9, $height_products);
-                    $pdf->MultiCell(20, 6, utf8_decode('Total'), 1, 'C', 0);
+                    $pdf->SetXY(174.9, $height_products);
+                    $pdf->MultiCell(25, 6, utf8_decode('Total'), 1, 'C', 0);
                     $pdf->SetXY($margin, $height_products+6);
-                    $pdf->SetWidths(array(15,40,15,20,18.3,18.3,18.3,25,20));
+                    $pdf->SetWidths(array(25,60,18.3,18.3,18.3,25,25));
         $total_cantorden_ingrediente=0;
         $total_cantprod_ingrediente=0;
         $total_cantliq_ingrediente=0;
@@ -11533,8 +11518,6 @@ class generarReportes
                 $data=array(
                     $detail->cod_alterno!==null?utf8_decode($detail->cod_alterno):utf8_decode($detail->cod_principal),
                     utf8_decode($detail->nombre),
-                    utf8_decode($detail->proyecto),
-                    utf8_decode($detail->bodega),
                     $detail->cantidad_orden."Centrado",
                     $detail->cantidad_produccion."Centrado",
                     $detail->cantidad_liquidacion."Centrado",
@@ -13499,7 +13482,7 @@ class generarReportes
     
             $pdf->SetXY($width-60,$y_cot+10);
             //$pdf->SetXY($width-60,$y_cot-10);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $pdf->Cell(25, 5, utf8_decode('FECHA'), 0, 0, 'L', 0);
             $fecha_emision="";
@@ -13507,25 +13490,25 @@ class generarReportes
             $pdf->Cell(25, 5, isset($datos[0]->fecha_emision) ? utf8_decode($fecha_emision) : 'fecha_emision', 1,1, 'C', 0);
             $pdf->SetXY($width-60,$y_cot+15);
             //$pdf->SetXY($width-60,$y_cot-5);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $pdf->Cell(25, 5, utf8_decode('COTIZACIÓN'), 0, 0, 'L', 0);
             $pdf->Cell(25, 5, utf8_decode($id_proforma), 1, 1, 'C', 0);
             $pdf->SetXY($width-60,$y_cot+20);
             //$pdf->SetXY($width-60,$y_cot);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $pdf->Cell(25, 5, utf8_decode('RUC'), 0, 0, 'L', 0);
             $pdf->Cell(25, 5, utf8_decode($datos[0]->ruc_empresa), 1, 1, 'C', 0);
             $pdf->SetXY($width-60,$y_cot+25);
             //$pdf->SetXY($width-60,$y_cot+5);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $fecha_validez=date("d/m/Y", strtotime($factura_info->fecha_expiracion));;
             $pdf->Cell(25, 5, utf8_decode('VALIDO HASTA'), 0, 0, 'L', 0);
             $pdf->Cell(25, 5, utf8_decode($fecha_validez), 1, 1, 'C', 0);
             $pdf->SetXY(5,$y_img+5);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $pdf->Cell(19, 5, utf8_decode('Direccion:'), 0, 0, 'L', 0);
             $pdf->Cell(65, 5, utf8_decode($datos[0]->direccion_empresa), 0, 1, 'L', 0);
@@ -13540,17 +13523,17 @@ class generarReportes
             $pdf->Cell(19, 5, utf8_decode('Sitio Web:'), 0, 0, 'L', 0);
             $pdf->Cell(25, 5, utf8_decode(/*"                ".*/$factura_info->urlweb), 0, 1, 'L', 0);
             $pdf->SetXY(5,$y_img+20);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $pdf->Cell(19, 5, utf8_decode('Teléfono:'), 0, 0, 'L', 0);
             $pdf->Cell(20, 5, utf8_decode(/*"                (593)".*/"(593)".$factura_info->telefono), 0, 1, 'L', 0);
             $pdf->SetXY(5,$y_img+25);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $pdf->Cell(19, 5, utf8_decode('Asesor de venta:'), 0, 0, 'L', 0);
             $pdf->Cell(75, 5, isset($datos[0]->vendedor) ? utf8_decode(/*"    ".*/$datos[0]->vendedor) : 'vendedor', 0, 0, 'L', 0);
             $pdf->SetXY(5,$y_img+30);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $pdf->Cell(19, 5, utf8_decode('Teléfono Vendedor:'), 0, 0, 'L', 0);
             if($datos[0]->telefono_vendedor){
@@ -13913,8 +13896,331 @@ class generarReportes
                 throw new Exception("La ruta para la proforma no es valida.");
             } 
         }else{
-                    //empresa diferente a BUSINESS COMPANY INSU-MED 0503458622001 CARRASCO PARCO VICTOR ABELARDO 0201737368001
-            if($factura_info->ruc_empresa!=='0503458622001' && $factura_info->ruc_empresa!=='0201737368001'){
+
+
+            //MEGASOFTDEV
+            if($factura_info->ruc_empresa=='1793100147001'){
+                $pdf = new PDF_MC_Table_HF('P', 'mm', 'A4', constant("DATA_EMPRESA")  . $factura_info->id_empresa . '/imagen/' . $datos[0]->logo, $datos[0]->direccion_empresa, $datos[0]->telefono_empresa, ucwords(strtolower($datos[0]->ciudad)));
+                //dd($factura_info);
+                $pdf->SetLeftMargin(30);
+
+                #Establecemos el margen inferior:
+                $pdf->SetAutoPageBreak(true,25); 
+                //$pdf->AddPage();
+                $logo = constant("DATA_EMPRESA")  . $factura_info->id_empresa . '/imagen/' . $datos[0]->logo;
+                $pdf->SetLeftMargin(30);
+                $pdf->SetAutoPageBreak(1, 4);
+                $pdf->AddPage();
+                $width = $pdf->GetPageWidth();
+                //$pdf->Rect(7.5, 7.5, $pdf->GetPageWidth()-15,$pdf->GetPageHeight()-15,'D');
+                $pdf->SetLeftMargin(30);
+                /*if(file_exists($logo)){
+                    $pdf->Image($logo,15, 15, 55, 20);
+                }*/
+                
+                $meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+                
+                $pdf->SetXY(157,40);
+                $pdf->SetFont('Helvetica', '', 10);
+                $pdf->Cell(20,3,utf8_decode('Quito, D.M. '. date('d') . ' de ' . $meses[date('n')-1] . ' del ' . date('Y')),0,0,'C');
+                $pdf->Ln();
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->Cell(17,5,utf8_decode('Señor'),0,0,'L');
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->Cell(17,5,utf8_decode($datos[0]->cliente),0,0,'L');
+                $pdf->Ln();
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->Cell(17,5,utf8_decode('Presente.-'),0,0,'L');
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->Cell(17,5,utf8_decode('De mi consideración:'),0,0,'L');
+                $pdf->Ln();
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->MultiCell(181,5,utf8_decode('Adjunto a la presente sírvase encontrar la oferta propuesta con el SOFTWARE CONTABLE ADMINISTRATIVO INTEGRADO SOKAI solicitada por usted.'),0,'J');
+                $pdf->Ln();
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->Cell(17,5,utf8_decode('Atentamente,'),0,0,'L');
+                $pdf->Ln();
+                $pdf->Ln();
+                $pdf->Ln();
+                $pdf->Ln();
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->Cell(190, 5,utf8_decode($datos[0]->vendedor.'.'), 0, 1, 'L', 0);
+                $pdf->SetX(15);
+                $pdf->SetFont('Helvetica', 'B', 10);
+                $pdf->Cell(190, 5,'Telf.: '.$datos[0]->telefono_empresa, 0, 1, 'L', 0);
+                $pdf->AddPage();
+                $pdf->SetFont('Helvetica', 'B', 10);
+                $pdf->Ln();
+                $pdf->Ln();
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->MultiCell(91,5,utf8_decode('ESPECIFICACIONES TÉCNICAS DESARROLLADO:'),0,'L');
+                $pdf->SetFont('Helvetica', '', 10);
+                $pdf->SetXY(110,$pdf->GetY()-5);
+                $pdf->Cell(91,5,utf8_decode('Bajo una arquitectura Cliente Servidor.'),0,0,'L');
+                $pdf->Ln();
+                $pdf->SetX(110);
+                $pdf->Cell(91,5,utf8_decode('FRONT END: VUE.JS'),0,0,'L');
+                $pdf->Ln();
+                $pdf->SetX(110);
+                $pdf->Cell(91,5,utf8_decode('BACK END: PHP LARAVEL'),0,0,'L');
+                $pdf->Ln();
+                $pdf->SetX(110);
+                $pdf->Cell(91,5,utf8_decode('BASE DATOS: MYSQL'),0,0,'L');
+                $pdf->Ln();
+                $pdf->SetX(110);
+                $pdf->Cell(91,5,utf8_decode('En lo referente a hardware y software'),0,0,'L');
+                $pdf->Ln();
+                $pdf->SetX(110);
+                $pdf->Cell(91,5,utf8_decode('los requerimientos mínimos son los siguientes:'),0,0,'L');
+                $pdf->SetFont('Helvetica', 'B', 10);
+                $pdf->Ln();
+                $pdf->Ln();
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->MultiCell(91,5,utf8_decode('ESPECIFICACIONES ÓPTIMAS DE HARDWARE REQUERIDO VPS:'),0,'L');
+                $pdf->SetFont('Helvetica', '', 10);
+                $pdf->SetXY(110,$pdf->GetY()-10);
+                $pdf->Cell(35,5,utf8_decode('Procesador'),1,0,'L');
+                $pdf->Cell(50,5,utf8_decode('3 Cores'),1,0,'L');
+                $pdf->Ln();
+                $pdf->SetX(110);
+                $pdf->Cell(35,5,utf8_decode('Memoria RAM'),1,0,'L');
+                $pdf->Cell(50,5,utf8_decode('4 GB'),1,0,'L');
+                $pdf->Ln();
+                $pdf->SetX(110);
+                $pdf->Cell(35,5,utf8_decode('Disco duro'),1,0,'L');
+                $pdf->Cell(50,5,utf8_decode('80 GB'),1,0,'L');
+                $pdf->Ln();
+                $pdf->SetX(110);
+                $pdf->Cell(35,5,utf8_decode('Sistema Operativo'),1,0,'L');
+                $pdf->Cell(50,5,utf8_decode('Debian 10 o Ubuntu 20.04 LTS'),1,0,'L');
+                $pdf->SetFont('Helvetica', 'B', 10);
+                $pdf->Ln();
+                $pdf->Ln();
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->MultiCell(91,5,utf8_decode('ESPECIFICACIONES ÓPTIMAS DE SOFTWARE REQUERIDO VPS:'),0,'L');
+                $pdf->SetFont('Helvetica', '', 10);
+                $pdf->SetXY(110,$pdf->GetY()-10);
+                $pdf->Cell(35,5,utf8_decode('PHP'),1,0,'L');
+                $pdf->Cell(50,5,utf8_decode('7.4'),1,0,'L');
+                $pdf->Ln();
+                $pdf->SetX(110);
+                $pdf->Cell(35,5,utf8_decode('Nginx'),1,0,'L');
+                $pdf->Cell(50,5,utf8_decode('1.14.0'),1,0,'L');
+                $pdf->Ln();
+                $pdf->SetX(110);
+                $pdf->Cell(35,5,utf8_decode('MySQL'),1,0,'L');
+                $pdf->Cell(50,5,utf8_decode('8.0'),1,0,'L');
+                $pdf->Ln();
+                $pdf->SetX(110);
+                $pdf->Cell(35,5,utf8_decode('Cerbot o Acme'),1,0,'L');
+                $pdf->Cell(50,5,utf8_decode('0.26.1'),1,0,'L');
+                $pdf->Ln();
+                $pdf->SetX(110);
+                $pdf->Cell(35,5,utf8_decode('Fail2ban'),1,0,'L');
+                $pdf->Cell(50,5,utf8_decode('0.9.3'),1,0,'L');
+                $pdf->Ln();
+                $pdf->SetX(110);
+                $pdf->Cell(35,5,utf8_decode('Composer'),1,0,'L');
+                $pdf->Cell(50,5,utf8_decode('1.9'),1,0,'L');
+                $pdf->AddPage();
+                $pdf->SetFont('Helvetica', 'B', 10);
+                $pdf->Ln();
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->Cell(91,5,utf8_decode('TIEMPO DE IMPLEMENTACIÓN'),0,0,'L');
+                $pdf->SetFont('Helvetica', '', 10);
+                $pdf->Ln();
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->MultiCell(181,5,utf8_decode('El tiempo estimado para la implantación del sistema es de 15 días a partir de la fecha que se confirme el pago total, este tiempo estará distribuido de la siguiente manera:'),0,'J');
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->MultiCell(181,5,utf8_decode('Adjunto actividades de implementación, en el caso de ser necesario migración de datos, se deberá acordar el costo de acuerdo al volumen de información a procesar.'),0,'J');
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->MultiCell(181,5,utf8_decode('Para la realización de la implantación del sistema, la empresa debe contar con la infraestructura física necesaria, en el caso de que la empresa maneje agencias, estas deberán estar conectadas a internet la que permitirá la replicación de la base de datos del equipo servidor y los equipos clientes.'),0,'J');
+                $pdf->SetFont('Helvetica', 'B', 10);
+                $pdf->Ln();
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->Cell(91,5,utf8_decode('SOPORTE TÉCNICO'),0,0,'L');
+                $pdf->SetFont('Helvetica', '', 10);
+                $pdf->Ln();
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->MultiCell(181,5,utf8_decode('Adicional a esto el Sistema cuenta con 30 tickets de asistencia telefónica o remota de soporte en línea gratuitos a través del Internet en un horario de 8:30 a 17:30 de lunes a viernes.'),0,'J');
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->MultiCell(181,5,utf8_decode('Pasado este tiempo toda asistencia técnica tendrá un costo de $30,00 USD+IVA por asistencia realizada o su equivalente en tickets (una hora técnica equivale a 1 asistencias). La garantía no cubre los daños que pudiera presentar en la base de datos por mal manejo o mala administración del mismo.'),0,'J');
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->MultiCell(181,5,utf8_decode('Renovación de 30 tickets de asistencia técnica tendría un costo de $200 y la durabilidad es de 1 año'),0,'J');
+                $pdf->AddPage();
+                $margin = 15;
+                $height = $pdf->GetY();
+                $pdf->SetX(15);
+                $height_products = $height + 55;
+                $pdf->Ln(15);
+                $pdf->SetX(15);
+                $pdf->SetFont('Helvetica', 'B', 8);
+                $pdf->SetFillColor(255, 255, 255);
+                $pdf->SetTextColor(0, 0, 0);
+                $pdf->Cell(10,8,utf8_decode('ÍTEM'),1,0,'C');
+                $pdf->Cell(78,8,utf8_decode('DESCRIPCIÓN'),1,0,'C');
+                $pdf->Cell(18,4,utf8_decode('TIEMPO'),'LRT',1,'C');
+                $get_x2=$pdf->GetX();
+                $get_y2=$pdf->GetY();
+                $pdf->SetXY($get_x2+73,$get_y2);
+                $pdf->Cell(18,4,utf8_decode('ENTREGA'),'LRB',0,'C');
+                $pdf->SetXY($get_x2+91,$get_y2-4);
+                $pdf->Cell(18,8,utf8_decode('CANTIDAD'),1,0,'C');
+                $pdf->Cell(28,4,utf8_decode('PRECIO'),'LRT',1,'C');
+                $get_x=$pdf->GetX();
+                $get_y=$pdf->GetY();
+                $pdf->SetXY($get_x+109,$get_y);
+                $pdf->Cell(28,4,utf8_decode('UNITARIO'),'LRB',0,'C');
+                $pdf->SetXY($get_x+137,$get_y-4);
+                $pdf->Cell(28,8,utf8_decode('TOTAL'),1,0,'C');
+                $pdf->Ln();
+                $y = $height_products+8;
+                $pdf->SetFont('Helvetica', '', 8);
+                $pdf->SetFillColor(255, 255, 255);
+                $pdf->SetFillColor(85, 175, 84);
+                //$pdf->SetXY($margin, $height_products+8);
+                $pdf->SetX(15);
+                $pdf->SetWidths(array(10, 78, 18, 18, 28, 28, 28));
+                $sub_total=0;
+                $descuento=0;
+                $iva=0;
+                $total_fact=0;
+                $suma_sub_total=0;
+                $suma_descuento=0;
+                $suma_iva=0;
+                $suma_total_fact=0;
+                $item=0;
+                foreach ($datos as $detail) {
+                    $item++;
+                    $data = array(
+                        utf8_decode($item."Centrado"),
+                        utf8_decode($detail->nombre),
+                        utf8_decode($detail->tiempo_entrega."Centrado"),
+                        utf8_decode($detail->cantidad."Centrado"),
+                        utf8_decode("$ ".$detail->precio."Derecha"),
+                        utf8_decode("$ ".$detail->total_pro."Derecha"),
+                        
+                    );
+                        $sub_total=$detail->subtotal;
+                        $descuento=$detail->descuento;
+                        $iva=$detail->iva;
+                        $total_fact=$detail->total;
+                    $pdf->RowProductoBussinesProf($data, $margin);
+                }
+                $suma_sub_total=number_format($sub_total,2,".",",");
+                $suma_descuento=number_format($descuento,2,".",",");
+                $suma_iva=number_format($iva,2,".",",");
+                $suma_total_fact=number_format($total_fact,2,".",",");
+                $pdf->SetXY(15, $pdf->GetY());
+                //$pdf->SetX(139);
+                $yini=$pdf->GetY();
+                $pdf->MultiCell(124,7,utf8_decode('Observación: '.preg_replace("/[\r\n|\n|\r]+/", " ", $factura_info->observacion)),0,'J');
+                $pdf->SetXY(15, $pdf->GetY());
+                $pdf->SetXY(15, $yini);
+                $pdf->Cell(124, 14, '', 1, 0, 'C', 0);
+                $pdf->SetFont('Helvetica', 'B', 8);
+                $pdf->Cell(28, 7, utf8_decode('SUBTOTAL'), 1, 0, 'C', 0);
+                $pdf->SetFont('Helvetica', '', 8);
+                $pdf->Cell(28, 7, isset($suma_sub_total) ? utf8_decode('$  ' . $suma_sub_total) : 'subtotal', 1, 1, 'R', 0);
+                $pdf->SetX(139);
+                $pdf->SetFont('Helvetica', 'B', 8);
+                $pdf->Cell(28, 7, utf8_decode('12% IVA'), 1, 0, 'C', 0);
+                $pdf->SetFont('Helvetica', '', 8);
+                $pdf->Cell(28, 7, isset($suma_iva) ? utf8_decode('$  ' . $suma_iva) : 'iva', 1, 1, 'R', 0);
+                $pdf->SetX(15);
+                $pdf->Cell(124, 7, utf8_decode('Fecha Validez: '.strftime("%d de %B del %Y", strtotime($factura_info->fecha_expiracion))), 1, 0, 'L', 0);
+                $pdf->SetFont('Helvetica', 'B', 8);
+                $pdf->Cell(28, 7, utf8_decode('TOTAL'), 1, 0, 'C', 0);
+                $pdf->SetFont('Helvetica', '', 8);
+                $pdf->Cell(28, 7, isset($suma_total_fact) ? utf8_decode('$  ' . $suma_total_fact) : 'total', 1, 1, 'R', 0);
+                $pdf->Ln(15);
+                $pdf->Ln();
+                $yini=$pdf->GetY();
+                $pdf->SetX(15);
+                $pdf->Cell(100, 13, '', 1, 0, 'C', 0);
+                $pdf->Cell(80, 43, '', 1, 0, 'C', 0);
+                $pdf->SetFont('Helvetica', '', 9);
+                $pdf->SetXY(15, $yini+2);
+                $pdf->Cell(100, 5, 'POR FAVOR EMITIR EL CHEQUE A NOMBRE DE', 0, 0, 'C', 0);
+                $pdf->SetFont('Helvetica', 'B', 10);
+                $pdf->Cell(80, 5, 'FORMA DE PAGO:', 0, 0, 'L', 0);
+                $pdf->Ln();
+                $pdf->SetFont('Helvetica', 'B', 10);
+                $pdf->SetX(15);
+                $pdf->Cell(100, 5, 'MEGASOFTDEV CORPORATION TECHSOLM S.A.S.', 0, 0, 'C', 0);
+                $pdf->SetFont('Helvetica', '', 10);
+                $yini=$pdf->GetY();
+                $pdf->MultiCell(80,7,utf8_decode($factura_info->condiciones_de_pago),0,'J');
+                $pdf->SetXY(15, $yini+6);
+                $yini=$pdf->GetY();
+                $pdf->Cell(100, 30, '', 1, 0, 'C', 0);
+                $pdf->SetFont('Helvetica', '', 8);
+                $pdf->SetXY(15, $yini);
+                $pdf->Cell(100, 7, utf8_decode('Realice sus depósitos y transferencias a:'), 0, 0, 'C', 0);
+                $pdf->Ln();
+                $pdf->SetFont('Helvetica', '', 10);
+                $pdf->SetX(15);
+                $pdf->Cell(50, 4, utf8_decode('BANCO PICHINCHA'), 0, 0, 'C', 0);
+                $pdf->Cell(50, 4, utf8_decode('MUTUALISTA PICHINCHA'), 0, 0, 'C', 0);
+                $pdf->SetFont('Helvetica', '', 9);
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->Cell(50, 4, utf8_decode('Cuenta corriente'), 0, 0, 'C', 0);
+                $pdf->Cell(50, 4, utf8_decode('Cuenta Ahorros'), 0, 0, 'C', 0);
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->Cell(50, 4, utf8_decode('2100230640'), 0, 0, 'C', 0);
+                $pdf->Cell(50, 4, utf8_decode('68035829'), 0, 0, 'C', 0);
+                $pdf->SetFont('Helvetica', '', 8);
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->Cell(100, 4, utf8_decode('RUC: 1793100147001'), 0, 0, 'C', 0);
+                $pdf->Ln();
+                $pdf->SetX(15);
+                $pdf->Cell(100, 4, utf8_decode('pagos@sokai.com.ec'), 0, 0, 'C', 0);
+                $width = $pdf->GetPageWidth();
+                $current_date = date("Y-m-d");
+                if (!$generar_en_servidor) {
+                    return $pdf->Output(isset($datos[0]->identificacion) ? "proforma-" . $datos[0]->identificacion . "-" . $current_date . ".pdf" : 'no-data.pdf', "D");
+                } else if ($generar_en_servidor && !is_null($ruta)) {
+                    if (file_exists($ruta)) {
+                        $name = $id . '.pdf';
+                        $location = $ruta . "/" . $name;
+                        $pdf->Output("F", $location);
+                        return json_encode(
+                            array(
+                                "location" => $location,
+                                "name" => $name)
+                        );
+                    } else {
+                        throw new Exception("No se pudo generar la proforma");
+                    }
+
+                } else if ($generar_en_servidor && is_null($ruta)) {
+                    throw new Exception("La ruta para la proforma no es valida.");
+                }
+            }
+                    //empresa diferente a BUSINESS COMPANY INSU-MED 0503458622001 CARRASCO PARCO VICTOR ABELARDO 0201737368001 Y MEGASOFTDEV 1793100147001 Y CAMPOVERDE 1713219713001
+            /*if($factura_info->ruc_empresa!=='0503458622001' && $factura_info->ruc_empresa!=='0201737368001' && $factura_info->ruc_empresa!=='1793100147001' && $factura_info->ruc_empresa!=='1713219713001'){*/
+            else if($factura_info->ruc_empresa=='1792195454001' || $factura_info->ruc_empresa=='1712716974001' || $factura_info->ruc_empresa=='1791738721001' || $factura_info->ruc_empresa=='1725197006001' || $factura_info->ruc_empresa=='1792684706001' || $factura_info->ruc_empresa=='1720254075001'){
                 //if($factura_info->id_empresa==51){
                     //empresa MASRESOURCES S.A.
                 if($factura_info->ruc_empresa=='1792195454001'){
@@ -14668,13 +14974,13 @@ class generarReportes
                     
                             $pdf->SetXY($width-58,35);
                             //$pdf->SetXY($width-60,$y_cot-10);
-                            $pdf->SetTextColor(0,0,0,);
+                            $pdf->SetTextColor(0,0,0);
                             $pdf->SetFont('Arial', '', 9);
                             $pdf->Cell(25, 5, utf8_decode('N°'), 0, 0, 'R', 0);
                             $pdf->Cell(25, 5, utf8_decode($id_proforma), 1, 1, 'C', 0);
                             $pdf->SetXY($width-58,40);
                             //$pdf->SetXY($width-60,$y_cot-5);
-                            $pdf->SetTextColor(0,0,0,);
+                            $pdf->SetTextColor(0,0,0);
                             $pdf->SetFont('Arial', '', 9);
                             $pdf->Cell(25, 5, utf8_decode('FECHA'), 0, 0, 'R', 0);
                             $fecha_emision="";
@@ -14682,20 +14988,20 @@ class generarReportes
                             $pdf->Cell(25, 5, isset($datos[0]->fecha_emision) ? utf8_decode($fecha_emision) : 'fecha_emision', 1,1, 'C', 0);
                             // $pdf->SetXY($width-60,$y_cot+20);
                             // //$pdf->SetXY($width-60,$y_cot);
-                            // $pdf->SetTextColor(0,0,0,);
+                            // $pdf->SetTextColor(0,0,0);
                             // $pdf->SetFont('Arial', '', 6);
                             // $pdf->Cell(25, 5, utf8_decode('RUC'), 0, 0, 'L', 0);
                             // $pdf->Cell(25, 5, utf8_decode($datos[0]->ruc_empresa), 1, 1, 'C', 0);
                             // $pdf->SetXY($width-60,$y_cot+25);
                             // //$pdf->SetXY($width-60,$y_cot+5);
-                            // $pdf->SetTextColor(0,0,0,);
+                            // $pdf->SetTextColor(0,0,0);
                             // $pdf->SetFont('Arial', '', 6);
                             // $fecha_validez=date("d/m/Y", strtotime($factura_info->fecha_expiracion));;
                             // $pdf->Cell(25, 5, utf8_decode('VALIDO HASTA'), 0, 0, 'L', 0);
                             // $pdf->Cell(25, 5, utf8_decode($fecha_validez), 1, 1, 'C', 0);
 
                             // $pdf->SetXY(15,$y_img+5);
-                            // $pdf->SetTextColor(0,0,0,);
+                            // $pdf->SetTextColor(0,0,0);
                             // $pdf->SetFont('Arial', '', 8);
                             // $pdf->Cell(19, 5, utf8_decode('RUC:'), 0, 0, 'L', 0);
                             // $pdf->Cell(65, 5, utf8_decode($datos[0]->direccion_empresa), 0, 1, 'L', 0);
@@ -14710,17 +15016,17 @@ class generarReportes
                             // $pdf->Cell(19, 5, utf8_decode('Sitio Web:'), 0, 0, 'L', 0);
                             // $pdf->Cell(25, 5, utf8_decode(/*"                ".*/$factura_info->urlweb), 0, 1, 'L', 0);
                             // $pdf->SetXY(15,$y_img+20);
-                            // $pdf->SetTextColor(0,0,0,);
+                            // $pdf->SetTextColor(0,0,0);
                             // $pdf->SetFont('Arial', '', 8);
                             // $pdf->Cell(19, 5, utf8_decode('Teléfono:'), 0, 0, 'L', 0);
                             // $pdf->Cell(20, 5, utf8_decode(/*"                (593)".*/"(593)".$factura_info->telefono), 0, 1, 'L', 0);
                             // $pdf->SetXY(15,$y_img+25);
-                            // $pdf->SetTextColor(0,0,0,);
+                            // $pdf->SetTextColor(0,0,0);
                             // $pdf->SetFont('Arial', '', 8);
                             // $pdf->Cell(19, 5, utf8_decode('Asesor de venta:'), 0, 0, 'L', 0);
                             // $pdf->Cell(75, 5, isset($datos[0]->vendedor) ? utf8_decode(/*"    ".*/$datos[0]->vendedor) : 'vendedor', 0, 0, 'L', 0);
                             // $pdf->SetXY(15,$y_img+30);
-                            // $pdf->SetTextColor(0,0,0,);
+                            // $pdf->SetTextColor(0,0,0);
                             // $pdf->SetFont('Arial', '', 8);
                             // $pdf->Cell(19, 5, utf8_decode('Teléfono Vendedor:'), 0, 0, 'L', 0);
                             // if($datos[0]->telefono_vendedor){
@@ -14730,7 +15036,7 @@ class generarReportes
                             // }
 
                             $pdf->SetXY(7,$y_img+5);
-                            $pdf->SetTextColor(0,0,0,);
+                            $pdf->SetTextColor(0,0,0);
                             $pdf->SetFont('Arial', '', 10);
                             $pdf->Cell(19, 4, utf8_decode($datos[0]->nombre_empresa), 0, 0, 'L', 0);
                             $pdf->SetXY(7,$y_img+9);
@@ -14744,17 +15050,17 @@ class generarReportes
                             //$pdf->Cell(19, 4, utf8_decode('Direccion:'), 0, 0, 'L', 0);
                             $pdf->Cell(65, 4, utf8_decode($datos[0]->direccion_empresa), 0, 1, 'L', 0);
                             $pdf->SetXY(7,$y_img+17);
-                            $pdf->SetTextColor(0,0,0,);
+                            $pdf->SetTextColor(0,0,0);
                             $pdf->SetFont('Arial', '', 8);
                             //$pdf->Cell(19, 4, utf8_decode('Ciudad:'), 0, 0, 'L', 0);
                             $pdf->Cell(65, 4,utf8_decode($datos[0]->ciudad)." ,Ecuador", 0, 1, 'L', 0);
                             $pdf->SetXY(7,$y_img+21);
-                            $pdf->SetTextColor(0,0,0,);
+                            $pdf->SetTextColor(0,0,0);
                             $pdf->SetFont('Arial', '', 8);
                             //$pdf->Cell(19, 4, utf8_decode('Teléfono:'), 0, 0, 'L', 0);
                             $pdf->Cell(20, 4, utf8_decode(/*"                (593)".*/"(593)"), 0, 1, 'L', 0);
                             $pdf->SetXY(7,$y_img+25);
-                            $pdf->SetTextColor(0,0,0,);
+                            $pdf->SetTextColor(0,0,0);
                             $pdf->SetFont('Arial', '', 8);
                             //$pdf->Cell(19, 4, utf8_decode('Sitio Web:'), 0, 0, 'L', 0);
                             $pdf->Cell(25, 4, isset($factura_info->urlweb) || $factura_info->urlweb!==null || $factura_info->urlweb!=='null' ? utf8_decode(/*"                ".*/$factura_info->urlweb) : '', 0, 1, 'L', 0);
@@ -16441,7 +16747,9 @@ class generarReportes
                         }
                     }
                 }
-            }else{
+            }
+            
+            else{
                 //dd($factura_info);
                 $pdf->SetLeftMargin(30);
 
@@ -16725,7 +17033,7 @@ class generarReportes
     
             $pdf->SetXY($width-60,$y_cot+10);
             //$pdf->SetXY($width-60,$y_cot-10);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $pdf->Cell(25, 5, utf8_decode('FECHA'), 0, 0, 'L', 0);
             $fecha_emision="";
@@ -16733,25 +17041,25 @@ class generarReportes
             $pdf->Cell(25, 5, isset($datos[0]->fecha_emision) ? utf8_decode($fecha_emision) : 'fecha_emision', 1,1, 'C', 0);
             $pdf->SetXY($width-60,$y_cot+15);
             //$pdf->SetXY($width-60,$y_cot-5);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $pdf->Cell(25, 5, utf8_decode('ORDEN COMPRA'), 0, 0, 'L', 0);
             $pdf->Cell(25, 5, utf8_decode($id_proforma), 1, 1, 'C', 0);
             $pdf->SetXY($width-60,$y_cot+20);
             //$pdf->SetXY($width-60,$y_cot);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $pdf->Cell(25, 5, utf8_decode('RUC'), 0, 0, 'L', 0);
             $pdf->Cell(25, 5, utf8_decode($datos[0]->ruc_empresa), 1, 1, 'C', 0);
             $pdf->SetXY($width-60,$y_cot+25);
             //$pdf->SetXY($width-60,$y_cot+5);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $fecha_validez=date("d/m/Y", strtotime($factura_info->fecha_expiracion));;
             $pdf->Cell(25, 5, utf8_decode('VALIDO HASTA'), 0, 0, 'L', 0);
             $pdf->Cell(25, 5, utf8_decode($fecha_validez), 1, 1, 'C', 0);
             $pdf->SetXY(5,$y_img+5);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $pdf->Cell(19, 5, utf8_decode('Direccion:'), 0, 0, 'L', 0);
             $pdf->Cell(65, 5, utf8_decode($datos[0]->direccion_empresa), 0, 1, 'L', 0);
@@ -16766,17 +17074,17 @@ class generarReportes
             $pdf->Cell(19, 5, utf8_decode('Sitio Web:'), 0, 0, 'L', 0);
             $pdf->Cell(25, 5, utf8_decode(/*"                ".*/$factura_info->urlweb), 0, 1, 'L', 0);
             $pdf->SetXY(5,$y_img+20);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $pdf->Cell(19, 5, utf8_decode('Teléfono:'), 0, 0, 'L', 0);
             $pdf->Cell(20, 5, utf8_decode(/*"                (593)".*/"(593)".$factura_info->telefono), 0, 1, 'L', 0);
             $pdf->SetXY(5,$y_img+25);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $pdf->Cell(19, 5, utf8_decode('Asesor de venta:'), 0, 0, 'L', 0);
             $pdf->Cell(75, 5, isset($datos[0]->vendedor) ? utf8_decode(/*"    ".*/$datos[0]->vendedor) : 'vendedor', 0, 0, 'L', 0);
             $pdf->SetXY(5,$y_img+30);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $pdf->Cell(19, 5, utf8_decode('Teléfono Vendedor:'), 0, 0, 'L', 0);
             if($datos[0]->telefono_vendedor){
@@ -17863,13 +18171,13 @@ class generarReportes
                     
                             $pdf->SetXY($width-58,35);
                             //$pdf->SetXY($width-60,$y_cot-10);
-                            $pdf->SetTextColor(0,0,0,);
+                            $pdf->SetTextColor(0,0,0);
                             $pdf->SetFont('Arial', '', 9);
                             $pdf->Cell(25, 5, utf8_decode('N°'), 0, 0, 'R', 0);
                             $pdf->Cell(25, 5, utf8_decode($id_proforma), 1, 1, 'C', 0);
                             $pdf->SetXY($width-58,40);
                             //$pdf->SetXY($width-60,$y_cot-5);
-                            $pdf->SetTextColor(0,0,0,);
+                            $pdf->SetTextColor(0,0,0);
                             $pdf->SetFont('Arial', '', 9);
                             $pdf->Cell(25, 5, utf8_decode('FECHA'), 0, 0, 'R', 0);
                             $fecha_emision="";
@@ -17877,20 +18185,20 @@ class generarReportes
                             $pdf->Cell(25, 5, isset($datos[0]->fecha_emision) ? utf8_decode($fecha_emision) : 'fecha_emision', 1,1, 'C', 0);
                             // $pdf->SetXY($width-60,$y_cot+20);
                             // //$pdf->SetXY($width-60,$y_cot);
-                            // $pdf->SetTextColor(0,0,0,);
+                            // $pdf->SetTextColor(0,0,0);
                             // $pdf->SetFont('Arial', '', 6);
                             // $pdf->Cell(25, 5, utf8_decode('RUC'), 0, 0, 'L', 0);
                             // $pdf->Cell(25, 5, utf8_decode($datos[0]->ruc_empresa), 1, 1, 'C', 0);
                             // $pdf->SetXY($width-60,$y_cot+25);
                             // //$pdf->SetXY($width-60,$y_cot+5);
-                            // $pdf->SetTextColor(0,0,0,);
+                            // $pdf->SetTextColor(0,0,0);
                             // $pdf->SetFont('Arial', '', 6);
                             // $fecha_validez=date("d/m/Y", strtotime($factura_info->fecha_expiracion));;
                             // $pdf->Cell(25, 5, utf8_decode('VALIDO HASTA'), 0, 0, 'L', 0);
                             // $pdf->Cell(25, 5, utf8_decode($fecha_validez), 1, 1, 'C', 0);
 
                             // $pdf->SetXY(15,$y_img+5);
-                            // $pdf->SetTextColor(0,0,0,);
+                            // $pdf->SetTextColor(0,0,0);
                             // $pdf->SetFont('Arial', '', 8);
                             // $pdf->Cell(19, 5, utf8_decode('RUC:'), 0, 0, 'L', 0);
                             // $pdf->Cell(65, 5, utf8_decode($datos[0]->direccion_empresa), 0, 1, 'L', 0);
@@ -17905,17 +18213,17 @@ class generarReportes
                             // $pdf->Cell(19, 5, utf8_decode('Sitio Web:'), 0, 0, 'L', 0);
                             // $pdf->Cell(25, 5, utf8_decode(/*"                ".*/$factura_info->urlweb), 0, 1, 'L', 0);
                             // $pdf->SetXY(15,$y_img+20);
-                            // $pdf->SetTextColor(0,0,0,);
+                            // $pdf->SetTextColor(0,0,0);
                             // $pdf->SetFont('Arial', '', 8);
                             // $pdf->Cell(19, 5, utf8_decode('Teléfono:'), 0, 0, 'L', 0);
                             // $pdf->Cell(20, 5, utf8_decode(/*"                (593)".*/"(593)".$factura_info->telefono), 0, 1, 'L', 0);
                             // $pdf->SetXY(15,$y_img+25);
-                            // $pdf->SetTextColor(0,0,0,);
+                            // $pdf->SetTextColor(0,0,0);
                             // $pdf->SetFont('Arial', '', 8);
                             // $pdf->Cell(19, 5, utf8_decode('Asesor de venta:'), 0, 0, 'L', 0);
                             // $pdf->Cell(75, 5, isset($datos[0]->vendedor) ? utf8_decode(/*"    ".*/$datos[0]->vendedor) : 'vendedor', 0, 0, 'L', 0);
                             // $pdf->SetXY(15,$y_img+30);
-                            // $pdf->SetTextColor(0,0,0,);
+                            // $pdf->SetTextColor(0,0,0);
                             // $pdf->SetFont('Arial', '', 8);
                             // $pdf->Cell(19, 5, utf8_decode('Teléfono Vendedor:'), 0, 0, 'L', 0);
                             // if($datos[0]->telefono_vendedor){
@@ -17925,7 +18233,7 @@ class generarReportes
                             // }
 
                             $pdf->SetXY(7,$y_img+5);
-                            $pdf->SetTextColor(0,0,0,);
+                            $pdf->SetTextColor(0,0,0);
                             $pdf->SetFont('Arial', '', 10);
                             $pdf->Cell(19, 4, utf8_decode($datos[0]->nombre_empresa), 0, 0, 'L', 0);
                             $pdf->SetXY(7,$y_img+9);
@@ -17939,17 +18247,17 @@ class generarReportes
                             //$pdf->Cell(19, 4, utf8_decode('Direccion:'), 0, 0, 'L', 0);
                             $pdf->Cell(65, 4, utf8_decode($datos[0]->direccion_empresa), 0, 1, 'L', 0);
                             $pdf->SetXY(7,$y_img+17);
-                            $pdf->SetTextColor(0,0,0,);
+                            $pdf->SetTextColor(0,0,0);
                             $pdf->SetFont('Arial', '', 8);
                             //$pdf->Cell(19, 4, utf8_decode('Ciudad:'), 0, 0, 'L', 0);
                             $pdf->Cell(65, 4,utf8_decode($datos[0]->ciudad)." ,Ecuador", 0, 1, 'L', 0);
                             $pdf->SetXY(7,$y_img+21);
-                            $pdf->SetTextColor(0,0,0,);
+                            $pdf->SetTextColor(0,0,0);
                             $pdf->SetFont('Arial', '', 8);
                             //$pdf->Cell(19, 4, utf8_decode('Teléfono:'), 0, 0, 'L', 0);
                             $pdf->Cell(20, 4, utf8_decode(/*"                (593)".*/"(593)"), 0, 1, 'L', 0);
                             $pdf->SetXY(7,$y_img+25);
-                            $pdf->SetTextColor(0,0,0,);
+                            $pdf->SetTextColor(0,0,0);
                             $pdf->SetFont('Arial', '', 8);
                             //$pdf->Cell(19, 4, utf8_decode('Sitio Web:'), 0, 0, 'L', 0);
                             $pdf->Cell(25, 4, isset($factura_info->urlweb) || $factura_info->urlweb!==null || $factura_info->urlweb!=='null' ? utf8_decode(/*"                ".*/$factura_info->urlweb) : '', 0, 1, 'L', 0);
@@ -18961,7 +19269,7 @@ class generarReportes
     
             $pdf->SetXY($width-60,$y_cot+10);
             //$pdf->SetXY($width-60,$y_cot-10);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $pdf->Cell(25, 5, utf8_decode('FECHA'), 0, 0, 'L', 0);
             $fecha_emision="";
@@ -18969,25 +19277,25 @@ class generarReportes
             $pdf->Cell(25, 5, isset($datos[0]->fecha_emision) ? utf8_decode($fecha_emision) : 'fecha_emision', 1,1, 'C', 0);
             $pdf->SetXY($width-60,$y_cot+15);
             //$pdf->SetXY($width-60,$y_cot-5);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $pdf->Cell(25, 5, utf8_decode('IMPORTACION'), 0, 0, 'L', 0);
             $pdf->Cell(25, 5, utf8_decode($id_proforma), 1, 1, 'C', 0);
             $pdf->SetXY($width-60,$y_cot+20);
             //$pdf->SetXY($width-60,$y_cot);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $pdf->Cell(25, 5, utf8_decode('RUC'), 0, 0, 'L', 0);
             $pdf->Cell(25, 5, utf8_decode($datos[0]->ruc_empresa), 1, 1, 'C', 0);
             $pdf->SetXY($width-60,$y_cot+25);
             //$pdf->SetXY($width-60,$y_cot+5);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $fecha_validez=date("d/m/Y", strtotime($factura_info->fecha_expiracion));
             $pdf->Cell(25, 5, utf8_decode('VALIDO HASTA'), 0, 0, 'L', 0);
             $pdf->Cell(25, 5, utf8_decode($fecha_validez), 1, 1, 'C', 0);
             $pdf->SetXY(5,$y_img+5);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $pdf->Cell(19, 5, utf8_decode('Direccion:'), 0, 0, 'L', 0);
             $pdf->Cell(65, 5, utf8_decode($datos[0]->direccion_empresa), 0, 1, 'L', 0);
@@ -19002,17 +19310,17 @@ class generarReportes
             $pdf->Cell(19, 5, utf8_decode('Sitio Web:'), 0, 0, 'L', 0);
             $pdf->Cell(25, 5, utf8_decode(/*"                ".*/$factura_info->urlweb), 0, 1, 'L', 0);
             $pdf->SetXY(5,$y_img+20);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $pdf->Cell(19, 5, utf8_decode('Teléfono:'), 0, 0, 'L', 0);
             $pdf->Cell(20, 5, utf8_decode(/*"                (593)".*/"(593)".$factura_info->telefono), 0, 1, 'L', 0);
             $pdf->SetXY(5,$y_img+25);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $pdf->Cell(19, 5, utf8_decode('Asesor de venta:'), 0, 0, 'L', 0);
             $pdf->Cell(75, 5, isset($datos[0]->vendedor) ? utf8_decode(/*"    ".*/$datos[0]->vendedor) : 'vendedor', 0, 0, 'L', 0);
             $pdf->SetXY(5,$y_img+30);
-            $pdf->SetTextColor(0,0,0,);
+            $pdf->SetTextColor(0,0,0);
             $pdf->SetFont('Arial', '', 6);
             $pdf->Cell(19, 5, utf8_decode('Teléfono Vendedor:'), 0, 0, 'L', 0);
             if($datos[0]->telefono_vendedor){
@@ -20105,13 +20413,13 @@ class generarReportes
                     
                             $pdf->SetXY($width-58,35);
                             //$pdf->SetXY($width-60,$y_cot-10);
-                            $pdf->SetTextColor(0,0,0,);
+                            $pdf->SetTextColor(0,0,0);
                             $pdf->SetFont('Arial', '', 9);
                             $pdf->Cell(25, 5, utf8_decode('N°'), 0, 0, 'R', 0);
                             $pdf->Cell(25, 5, utf8_decode($id_proforma), 1, 1, 'C', 0);
                             $pdf->SetXY($width-58,40);
                             //$pdf->SetXY($width-60,$y_cot-5);
-                            $pdf->SetTextColor(0,0,0,);
+                            $pdf->SetTextColor(0,0,0);
                             $pdf->SetFont('Arial', '', 9);
                             $pdf->Cell(25, 5, utf8_decode('FECHA'), 0, 0, 'R', 0);
                             $fecha_emision="";
@@ -20119,20 +20427,20 @@ class generarReportes
                             $pdf->Cell(25, 5, isset($datos[0]->fecha_emision) ? utf8_decode($fecha_emision) : 'fecha_emision', 1,1, 'C', 0);
                             // $pdf->SetXY($width-60,$y_cot+20);
                             // //$pdf->SetXY($width-60,$y_cot);
-                            // $pdf->SetTextColor(0,0,0,);
+                            // $pdf->SetTextColor(0,0,0);
                             // $pdf->SetFont('Arial', '', 6);
                             // $pdf->Cell(25, 5, utf8_decode('RUC'), 0, 0, 'L', 0);
                             // $pdf->Cell(25, 5, utf8_decode($datos[0]->ruc_empresa), 1, 1, 'C', 0);
                             // $pdf->SetXY($width-60,$y_cot+25);
                             // //$pdf->SetXY($width-60,$y_cot+5);
-                            // $pdf->SetTextColor(0,0,0,);
+                            // $pdf->SetTextColor(0,0,0);
                             // $pdf->SetFont('Arial', '', 6);
                             // $fecha_validez=date("d/m/Y", strtotime($factura_info->fecha_expiracion));;
                             // $pdf->Cell(25, 5, utf8_decode('VALIDO HASTA'), 0, 0, 'L', 0);
                             // $pdf->Cell(25, 5, utf8_decode($fecha_validez), 1, 1, 'C', 0);
 
                             // $pdf->SetXY(15,$y_img+5);
-                            // $pdf->SetTextColor(0,0,0,);
+                            // $pdf->SetTextColor(0,0,0);
                             // $pdf->SetFont('Arial', '', 8);
                             // $pdf->Cell(19, 5, utf8_decode('RUC:'), 0, 0, 'L', 0);
                             // $pdf->Cell(65, 5, utf8_decode($datos[0]->direccion_empresa), 0, 1, 'L', 0);
@@ -20147,17 +20455,17 @@ class generarReportes
                             // $pdf->Cell(19, 5, utf8_decode('Sitio Web:'), 0, 0, 'L', 0);
                             // $pdf->Cell(25, 5, utf8_decode(/*"                ".*/$factura_info->urlweb), 0, 1, 'L', 0);
                             // $pdf->SetXY(15,$y_img+20);
-                            // $pdf->SetTextColor(0,0,0,);
+                            // $pdf->SetTextColor(0,0,0);
                             // $pdf->SetFont('Arial', '', 8);
                             // $pdf->Cell(19, 5, utf8_decode('Teléfono:'), 0, 0, 'L', 0);
                             // $pdf->Cell(20, 5, utf8_decode(/*"                (593)".*/"(593)".$factura_info->telefono), 0, 1, 'L', 0);
                             // $pdf->SetXY(15,$y_img+25);
-                            // $pdf->SetTextColor(0,0,0,);
+                            // $pdf->SetTextColor(0,0,0);
                             // $pdf->SetFont('Arial', '', 8);
                             // $pdf->Cell(19, 5, utf8_decode('Asesor de venta:'), 0, 0, 'L', 0);
                             // $pdf->Cell(75, 5, isset($datos[0]->vendedor) ? utf8_decode(/*"    ".*/$datos[0]->vendedor) : 'vendedor', 0, 0, 'L', 0);
                             // $pdf->SetXY(15,$y_img+30);
-                            // $pdf->SetTextColor(0,0,0,);
+                            // $pdf->SetTextColor(0,0,0);
                             // $pdf->SetFont('Arial', '', 8);
                             // $pdf->Cell(19, 5, utf8_decode('Teléfono Vendedor:'), 0, 0, 'L', 0);
                             // if($datos[0]->telefono_vendedor){
@@ -20167,7 +20475,7 @@ class generarReportes
                             // }
 
                             $pdf->SetXY(7,$y_img+5);
-                            $pdf->SetTextColor(0,0,0,);
+                            $pdf->SetTextColor(0,0,0);
                             $pdf->SetFont('Arial', '', 10);
                             $pdf->Cell(19, 4, utf8_decode($datos[0]->nombre_empresa), 0, 0, 'L', 0);
                             $pdf->SetXY(7,$y_img+9);
@@ -20181,17 +20489,17 @@ class generarReportes
                             //$pdf->Cell(19, 4, utf8_decode('Direccion:'), 0, 0, 'L', 0);
                             $pdf->Cell(65, 4, utf8_decode($datos[0]->direccion_empresa), 0, 1, 'L', 0);
                             $pdf->SetXY(7,$y_img+17);
-                            $pdf->SetTextColor(0,0,0,);
+                            $pdf->SetTextColor(0,0,0);
                             $pdf->SetFont('Arial', '', 8);
                             //$pdf->Cell(19, 4, utf8_decode('Ciudad:'), 0, 0, 'L', 0);
                             $pdf->Cell(65, 4,utf8_decode($datos[0]->ciudad)." ,Ecuador", 0, 1, 'L', 0);
                             $pdf->SetXY(7,$y_img+21);
-                            $pdf->SetTextColor(0,0,0,);
+                            $pdf->SetTextColor(0,0,0);
                             $pdf->SetFont('Arial', '', 8);
                             //$pdf->Cell(19, 4, utf8_decode('Teléfono:'), 0, 0, 'L', 0);
                             $pdf->Cell(20, 4, utf8_decode(/*"                (593)".*/"(593)"), 0, 1, 'L', 0);
                             $pdf->SetXY(7,$y_img+25);
-                            $pdf->SetTextColor(0,0,0,);
+                            $pdf->SetTextColor(0,0,0);
                             $pdf->SetFont('Arial', '', 8);
                             //$pdf->Cell(19, 4, utf8_decode('Sitio Web:'), 0, 0, 'L', 0);
                             $pdf->Cell(25, 4, isset($factura_info->urlweb) || $factura_info->urlweb!==null || $factura_info->urlweb!=='null' ? utf8_decode(/*"                ".*/$factura_info->urlweb) : '', 0, 1, 'L', 0);

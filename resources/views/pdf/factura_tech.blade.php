@@ -271,7 +271,7 @@
             <div style="width: 230px;height: 120px;display: inline-block;float:left;" >
                         <div style="width:100%;margin-top:15px;padding: 0;">
                             <span class="bold" style="font-size:9px;width: 60%;display: inline-block">SUBTOTAL SIN IMPUESTOS:</span>
-                            <span class="titulo3 nobold" style="width: 30%;display: inline-block;text-align:right">${{$factura->subtotal_sin_impuesto}}</span>
+                            <span class="titulo3 nobold" style="width: 30%;display: inline-block;text-align:right">${{$factura->subtotal_sin_impuesto+$factura->descuento}}</span>
                         </div>
                         <!-- @if($ice>0) -->
                         <div style="width:100%;">

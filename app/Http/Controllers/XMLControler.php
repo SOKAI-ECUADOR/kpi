@@ -43,7 +43,7 @@ class XMLControler extends Controller
 
         $xml->startElement('factura');
         $xml->writeAttribute("id", "comprobante");
-        $xml->writeAttribute("version", "1.0.0");
+        $xml->writeAttribute("version", "1.1.0");
 
         $sel_empresa = DB::select("SELECT * from empresa where id_empresa={$re->id_empresa}");
         $xml->startElement("infoTributaria");
@@ -230,7 +230,7 @@ class XMLControler extends Controller
             $xml->endElement();
         }else{
             $xml->startElement("totalSinImpuestos");
-            $xml->text($re->subtotal_sin_impuesto);
+            $xml->text(number_format($re->subtotal_sin_impuesto,2,".",""));
             $xml->endElement();
         }
         
@@ -494,10 +494,10 @@ class XMLControler extends Controller
             $xml->text(str_replace(array('/', '"', ",", ":", "¨", "-", "–", "é", "á", "í", "ó", "ú", "ñ", "Á", "É", "Í", "Ó", "Ú", "Ñ",";","|","°"), array(' ', '', ' ', " ", "", " ", " ", "e", "a", "i", "o", "u", "n", "A", "E", "I", "O", "U", "N","","",""), $detalles_producto[$i]->nombre));
             $xml->endElement();
             $xml->startElement('cantidad');
-            $xml->text(number_format($detalles_producto[$i]->cantidad,2,".",""));
+            $xml->text(number_format($detalles_producto[$i]->cantidad,4,".",""));
             $xml->endElement();
             $xml->startElement('precioUnitario');
-            $xml->text(number_format($detalles_producto[$i]->precio,2,".",""));
+            $xml->text(number_format($detalles_producto[$i]->precio,4,".",""));
             $xml->endElement();
             if ($detalles_producto[$i]->descuento) {
                 $xml->startElement('descuento');

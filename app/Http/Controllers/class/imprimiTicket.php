@@ -33,7 +33,7 @@ class imprimiTicket{
     //         return "$left$right\n";
     //     }
     // }
-    public function factura_venta_ticket($factura,$detalle,$empresa,$user,$cliente,$pagos,$fecha,$hora){
+    public function factura_venta_ticket($factura,$detalle,$empresa,$user,$cliente,$pagos,$nombre,$fecha,$hora){
         /*
         Este ejemplo imprime un hola mundo en una impresora de tickets
         en Windows.

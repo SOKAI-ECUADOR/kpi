@@ -979,53 +979,7 @@ class LiquidacionController extends Controller
         //return $request->totalfac+$request->total_costo;
         
     }
-    public function PdfLiquidacion($id){
-        $facturas = DB::select("SELECT sum(detalle_factura_compra.total) as total,detalle_factura_compra.nombre,factura_compra.id_factcompra,factura_compra.id_importacion
-         from detalle_factura_compra,factura_compra
-          where detalle_factura_compra.id_factura=factura_compra.id_factcompra
-           and detalle_factura_compra.importacion=1 and factura_compra.id_importacion=".$id." "."GROUP BY detalle_factura_compra.id_producto");
-        $importacion=DB::select("SELECT * from importacion where id_importacion=$id");
-        $prod_importacion= DB::select("SELECT producto_importacion.id_prodimp,producto_importacion.codigo,producto_importacion.nombre,producto_importacion.cantidad,producto_importacion.precio,bodega.nombre as nombrebodega,producto.sector,producto_importacion.id_iva as iva,producto_importacion.id_ice as ice,producto_importacion.id_bodega,producto_importacion.id_proyecto as proyecto,producto_importacion.id_producto_bodega,producto_importacion.id_producto,proyecto.descripcion,producto_importacion.total,producto_importacion.cantidad_liquidacion,producto_importacion.precio_liquidacion,producto_importacion.total_liquidacion,0 as nuevo_costo,producto.cod_alterno 
-        FROM `producto_importacion` 
-        LEFT JOIN bodega
-        on bodega.id_bodega=producto_importacion.id_bodega
-        LEFT JOIN producto
-        on producto.id_producto=producto_importacion.id_producto
-				LEFT JOIN proyecto
-        on proyecto.id_proyecto=producto_importacion.id_proyecto
-        WHERE id_importacion ={$id} order by bodega.nombre asc");
-        $total_cantidad=0;
-        for ($b=0; $b < count($prod_importacion) ; $b++) { 
-            $total_cantidad+=number_format($prod_importacion[$b]->cantidad,2,".","");
-        }
-        
-        $array_cabecera=[];
-        $array_datos=[];
-        for ($i=0; $i < count($facturas); $i++) { 
-            array_push($array_cabecera,$facturas[$i]->nombre);
-            array_push($array_datos,$facturas[$i]->total);
-        }
-        $empresa=DB::select("SELECT * from empresa where id_empresa=".$importacion[0]->id_empresa);
-        $empresa=$empresa[0];
-        
-        $proveedores = DB::select("SELECT * FROM proveedor_importacion WHERE id_importacion = ".$id);
-        //$datos_empresa=$empresa[0];
-        //$logo_empresa="http://localhost:8000/".$datos_empresa->id_empresa."/imagen/".$datos_empresa->logo;
-        
-        for ($a=0; $a < count($array_datos) ; $a++) { 
-            if($importacion[0]->forma_liquidacion==1){
-                //$dato=number_format($array_datos[$a],);
-                $array_datos[$a]=number_format($array_datos[$a]/$total_cantidad,2,".","");
-            }
-        }
-        $importacion=$importacion[0];
-        //dd($array_datos);
-        
-        
-        
-        $pdf = \PDF::loadView('pdf/liquidacion_import',compact('array_cabecera','array_datos','facturas','prod_importacion','importacion','proveedores','empresa'));
-        return $pdf->stream('liquidacion.pdf');
-    }
+    
 
 
 }

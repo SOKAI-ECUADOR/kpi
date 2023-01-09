@@ -17,18 +17,25 @@ class FichaTransaccionalController extends Controller
         $id = $rq->empresa;
         $anio = $rq->anio;
         $mess = str_pad($rq->mes, 2, "0", STR_PAD_LEFT);
-        $mes1 = explode("-", $mess)[0];
-        $mes2 = explode("-", $mess)[1];
+        $mes1 = explode("-", $rq->mes)[0];
+        $mes2 = explode("-", $rq->mes)[1];
+
+        if($mes1<10 && ($mes1[0]!="0" && $mes1[0]!=0)){
+            $mes1="0".$mes1;
+            if($mes2<10 && ($mes2[0]!="0" && $mes2[0]!=0)){
+                $mes2="0".$mes2;
+            }
+        }
 
         //recupera los valores de facturas y retenciones de facturas de compra ademas de las factura de venta canceladas
         $empresa = DB::select("SELECT * FROM empresa WHERE id_empresa = $id");
         $establecimiento = DB::select("SELECT * FROM establecimiento WHERE id_empresa = $id");
-        $fv = DB::select("SELECT cl.grupo_tributario, cl.nombre AS nombrecliente, cl.tipo_identificacion, cl.identificacion, sum(fa.subtotal_sin_impuesto) AS base,sum(fa.financiamiento) as financiamiento, sum(fa.iva_12) AS iva, sum(fa.iva_12) AS valoriva, sum(rf.cantidadiva) AS r_iva, sum(rf.cantidadrenta) AS r_renta FROM factura fa INNER JOIN cliente cl ON fa.id_cliente=cl.id_cliente LEFT JOIN retencion_factura rf ON rf.id_factura=fa.id_factura WHERE fa.id_empresa = $id AND fa.estado=1 AND YEAR(fecha_emision) = $anio AND MONTH(fecha_emision) >= $mes1 AND MONTH(fecha_emision) <= $mes2 GROUP BY fa.id_cliente");
+        $fv = DB::select("SELECT cl.grupo_tributario, cl.nombre AS nombrecliente, cl.tipo_identificacion, cl.identificacion, sum(fa.subtotal_sin_impuesto) AS base,sum(fa.financiamiento) as financiamiento, sum(fa.iva_12) AS iva, sum(fa.iva_12) AS valoriva, sum(rf.cantidadiva) AS r_iva, sum(rf.cantidadrenta) AS r_renta FROM factura fa INNER JOIN cliente cl ON fa.id_cliente=cl.id_cliente LEFT JOIN retencion_factura rf ON rf.id_factura=fa.id_factura WHERE fa.id_empresa = $id AND fa.estado=1 AND fa.modo=1 AND YEAR(fecha_emision) = $anio AND MONTH(fecha_emision) >= $mes1 AND MONTH(fecha_emision) <= $mes2 GROUP BY fa.id_cliente");
         $nc_venta=DB::select("SELECT cl.grupo_tributario, cl.nombre AS nombrecliente, cl.tipo_identificacion, cl.identificacion, sum(fa.subtotal_sin_impuesto) AS base, sum(fa.iva_12) AS iva, sum(fa.iva_12) AS valoriva
         FROM nota_credito as fa 
         INNER JOIN cliente cl ON fa.id_cliente=cl.id_cliente 
         WHERE fa.id_empresa = $id AND fa.estado=1 AND YEAR(fecha_emision) = $anio AND MONTH(fecha_emision) >= $mes1 AND MONTH(fecha_emision) <= $mes2 GROUP BY fa.id_cliente");
-        $fv_cancelados = DB::select("SELECT es.codigo, pe.codigo AS codigope, fa.clave_acceso FROM factura fa INNER JOIN empresa em ON fa.id_empresa=em.id_empresa INNER JOIN establecimiento es ON es.id_empresa=em.id_empresa INNER JOIN punto_emision pe ON pe.id_establecimiento=es.id_establecimiento WHERE fa.id_empresa = $id AND fa.estado=0 AND YEAR(fecha_emision) = $anio AND MONTH(fecha_emision) >= $mes1 AND MONTH(fecha_emision) <= $mes2");
+        $fv_cancelados = DB::select("SELECT es.codigo, pe.codigo AS codigope, fa.clave_acceso FROM factura fa INNER JOIN empresa em ON fa.id_empresa=em.id_empresa INNER JOIN establecimiento es ON es.id_empresa=em.id_empresa INNER JOIN punto_emision pe ON pe.id_establecimiento=es.id_establecimiento WHERE fa.id_empresa = $id AND fa.estado=0 AND fa.modo=1 AND YEAR(fecha_emision) = $anio AND MONTH(fecha_emision) >= $mes1 AND MONTH(fecha_emision) <= $mes2");
         $fc = DB::select("SELECT tsu.cod_sustento, fc.id_factcompra, es.codigo AS codigo_establecimiento, pe.codigo AS codigo_pe, pr.*, fc.fech_validez, fc.fech_emision, fc.nro_autorizacion, fc.descripcion, sum(fc.subtotal_sin_impuesto) AS base, sum(fc.subtotal_12) AS iva, sum(fc.iva_12) AS valoriva, ( SELECT COUNT(*) FROM factura_compra_pagos fcp WHERE fcp.id_factura_compra = fc.id_factcompra AND fcp.estado = 1) as formula,tcomp.cod_tipcomprob 
             FROM factura_compra fc 
             INNER JOIN proveedor pr ON fc.id_proveedor=pr.id_proveedor 
@@ -42,7 +49,7 @@ class FichaTransaccionalController extends Controller
             INNER JOIN establecimiento es ON es.id_establecimiento=fc.id_establecimiento 
             INNER JOIN punto_emision pe ON pe.id_punto_emision=fc.id_punto_emision 
             INNER JOIN tipo_sustento tsu ON tsu.id_sustento = fc.id_sustento 
-            LEFT  JOIN tipo_comprobante tcomp ON fc.id_tipo_comprobante=tcomp.id_tipcomprobante  WHERE fc.id_empresa = $id AND fc.estado=1 AND YEAR(fc.fecha_emision) = $anio AND MONTH(fc.fecha_emision) >= $mes1 AND MONTH(fc.fecha_emision) <= $mes2 AND fc.documento_tributario = 1  GROUP BY fc.id_proveedor, es.codigo, pe.codigo, fc.fecha_emision, fc.fech_validez, fc.nro_autorizacion, fc.descripcion, fc.id_liquidacion_compra");
+            LEFT  JOIN tipo_comprobante tcomp ON fc.id_tipo_comprobante=tcomp.id_tipcomprobante  WHERE fc.id_empresa = $id AND fc.estado=1 AND YEAR(fc.fecha_emision) = $anio AND MONTH(fc.fecha_emision) >= $mes1 AND MONTH(fc.fecha_emision) <= $mes2 AND fc.documento_tributario = 1 AND fc.estado=1 GROUP BY fc.id_proveedor, es.codigo, pe.codigo, fc.fecha_emision, fc.fech_validez, fc.nro_autorizacion, fc.descripcion, fc.id_liquidacion_compra");
         $nc_compra=DB::select("SELECT '04' as cod_sustento, fc.id_nota_credito_compra, es.codigo AS codigo_establecimiento, pe.codigo AS codigo_pe, pr.*, fc.fecha_expiracion as fech_validez, fc.fecha_emision, fc.clave_acceso as nro_autorizacion, fc.autorizacionfactura as descripcion, sum(fc.subtotal_sin_impuesto) AS base, sum(fc.subtotal_12) AS iva, sum(fc.iva_12) AS valoriva, 0 as formula,'04' cod_tipcomprob 
             FROM nota_credito_compra fc 
             INNER JOIN proveedor pr ON fc.id_proveedor=pr.id_proveedor 
@@ -76,12 +83,7 @@ class FichaTransaccionalController extends Controller
                 $xml->endElement();
                 $xml->startElement("Mes");
                     if($mes1 == $mes2){
-                        if($mes1<10){
-                            $xml->text("0".$mes1);
-                        }
-                        else{
-                            $xml->text($mes1);
-                        }
+                        $xml->text($mes1);
                     }
                     else{
                         if($mes2<7){
@@ -92,9 +94,11 @@ class FichaTransaccionalController extends Controller
                         }
                     }
                 $xml->endElement();
-                $xml->startElement("regimenMicroempresa");
-                    $xml->text("SI");
-                $xml->endElement();
+                if($mes1 != $mes2){    
+                    $xml->startElement("regimenMicroempresa");
+                        $xml->text("SI");
+                    $xml->endElement();
+                }
                 $xml->startElement("numEstabRuc");
                     $xml->text(str_pad(count($establecimiento), 3, "0", STR_PAD_LEFT));
                 $xml->endElement();
@@ -1040,7 +1044,7 @@ class FichaTransaccionalController extends Controller
             //dd();
             $factura_venta=DB::select("SELECT '18' as  cod_sustento,'Documentos Autorizados en Ventas Excepto ND Y NC ' as descrip_sustento,count(factura.id_factura) as nro_registros,sum(factura.subtotal_0) as bi_tarifa_0,sum(factura.subtotal_12) as bi_tarifa_12,sum(factura.subtotal_no_obj_iva) as bi_tarifa_no_iva,sum(factura.iva_12) as valor_iva 
                 from factura
-                where factura.id_empresa={$request->company} and factura.estado=1 and date(factura.fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}')
+                where factura.id_empresa={$request->company} and factura.estado=1 and factura.modo=1 and date(factura.fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}')
                 UNION
                 SELECT '06' as  cod_sustento,'Nota de Debito' as descrip_sustento,count(id_nota_debito) as nro_registros,sum(subtotal_0) as bi_tarifa_0,sum(subtotal_12) as bi_tarifa_12,sum(subtotal_no_obj_iva) as bi_tarifa_no_iva,sum(iva_12) as valor_iva 
                 from nota_debito
@@ -1048,7 +1052,7 @@ class FichaTransaccionalController extends Controller
                 UNION
                 SELECT '04' as  cod_sustento,'Nota de Credito' as descrip_sustento,count(id_nota_credito) as nro_registros,sum(subtotal_0) as bi_tarifa_0,sum(subtotal_12) as bi_tarifa_12,sum(subtotal_no_obj_iva) as bi_tarifa_no_iva,sum(iva_12) as valor_iva 
                 from nota_credito
-                where id_empresa={$request->company} and date(fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}') 
+                where id_empresa={$request->company} and estado=1 and  date(fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}') 
                 ");
             // dd("SELECT '18' as  cod_sustento,'Documentos Autorizados en Ventas Excepto ND Y NC ' as descrip_sustento,count(factura.id_factura) as nro_registros,sum(factura.subtotal_0) as bi_tarifa_0,sum(factura.subtotal_12) as bi_tarifa_12,sum(factura.subtotal_no_obj_iva) as bi_tarifa_no_iva,sum(factura.iva_12) as valor_iva 
             // from factura
@@ -1107,7 +1111,7 @@ class FichaTransaccionalController extends Controller
                                             from liquidacion_compra
                                             LEFT JOIN retencion_liquidacion_compra
                                             on liquidacion_compra.id_liquidacion_compra=retencion_liquidacion_compra.id_liquidacion_compra
-                                            where liquidacion_compra.id_empresa={$request->company} and documento_tributario=1 and retencion_liquidacion_compra.id_liquidacion_compra is null and date(fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}')
+                                            where liquidacion_compra.id_empresa={$request->company} and documento_tributario=1 and liquidacion_compra.estado=1 and retencion_liquidacion_compra.id_liquidacion_compra is null and date(fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}')
                 ) t
                 group by cod_imp
                 ORDER BY cod_imp asc");
@@ -1149,19 +1153,22 @@ class FichaTransaccionalController extends Controller
             // where factura_compra.id_empresa={$request->company} and date(fech_emision) BETWEEN date('{$date}') and date('{$ultimo}')  
             // GROUP BY impuesto.id_imp
             // ORDER BY impuesto.cod_imp asc");
-            $retencion_renta_venta=DB::select("SELECT impuesto.cod_imp,impuesto.descrip_imp,impuesto.porcen_imp,count(retencion_factura.id_factura) as nro_registo,sum(baserenta) as base_imponible,sum(cantidadrenta) as valor_retencion from retencion_factura
+            $retencion_renta_venta=DB::select("SELECT impuesto.cod_imp,impuesto.descrip_imp,impuesto.porcen_imp,count(retencion_factura.id_factura) as nro_registo,sum(baserenta) as base_imponible,sum(cantidadrenta) as valor_retencion 
+            from retencion_factura
             INNER JOIN factura
             on factura.id_factura=retencion_factura.id_factura
             INNER JOIN retencion
             on retencion.id_retencion=retencion_factura.id_retencion_renta
             LEFT JOIN impuesto
             on retencion.id_impuesto=impuesto.id_imp
-            where factura.id_empresa={$request->company} and estado=1 and date(fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}') 
-            GROUP BY impuesto.id_imp UNION
-            SELECT '332' as cod_imp, 'Otras compras de bienes y servicios no sujetas a retención' as descrip_imp, 0 as porcen_imp,count(factura.id_factura) as nro_registo,sum(subtotal_12)+sum(subtotal_0) as base_imponible,0 as valor_retencion  from factura
+            where factura.id_empresa={$request->company} and estado=1 and factura.modo=1 and date(fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}') 
+            GROUP BY impuesto.id_imp 
+            UNION
+            SELECT '332' as cod_imp, 'Otras compras de bienes y servicios no sujetas a retención' as descrip_imp, 0 as porcen_imp,count(factura.id_factura) as nro_registo,sum(subtotal_12)+sum(subtotal_0) as base_imponible,0 as valor_retencion  
+            from factura
             LEFT JOIN retencion_factura
             on retencion_factura.id_factura=factura.id_factura
-            where factura.id_empresa={$request->company} and estado=1 and retencion_factura.id_retencion_factura is null and date(fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}')
+            where factura.id_empresa={$request->company} and estado=1 and factura.modo=1 and retencion_factura.id_retencion_factura is null and date(fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}')
             ORDER BY cod_imp asc");
             $retencion_iva_venta=DB::select("SELECT impuesto.cod_imp,impuesto.descrip_imp,impuesto.porcen_imp,count(retencion_factura.id_factura) as nro_registo,sum(cantidadiva/(retencion.porcen_retencion/100)) as base_imponible,sum(cantidadiva) as valor_retencion from retencion_factura
             INNER JOIN factura
@@ -1170,7 +1177,7 @@ class FichaTransaccionalController extends Controller
             on retencion.id_retencion=retencion_factura.id_retencion_iva
             LEFT JOIN impuesto
             on retencion.id_impuesto=impuesto.id_imp
-            where factura.id_empresa={$request->company} and factura.estado=1 and date(fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}') 
+            where factura.id_empresa={$request->company} and factura.estado=1 and factura.modo=1 and date(fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}') 
             GROUP BY impuesto.id_imp
             ORDER BY impuesto.cod_imp asc");
             //dd($ultimo);
@@ -1403,7 +1410,7 @@ class FichaTransaccionalController extends Controller
                                                 on retencion.id_retencion=retencion_factura.id_retencion_renta
                                                 LEFT JOIN impuesto
                                                 on retencion.id_impuesto=impuesto.id_imp
-                                            where factura.id_empresa={$request->company} and estado=1 and date(fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}') 
+                                            where factura.id_empresa={$request->company} and estado=1 and factura.modo=1 and date(fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}') 
                                             GROUP BY impuesto.id_imp 
                                             UNION
                                             SELECT '332' as cod_imp, 'Otras compras de bienes y servicios no sujetas a retención' as descrip_imp, 0 as porcen_imp,count(factura.id_factura) as nro_registo,sum(subtotal_12)+sum(subtotal_0) as base_imponible,0 as valor_retencion,'001' as id_imp  
@@ -1420,7 +1427,7 @@ class FichaTransaccionalController extends Controller
                                                 on retencion.id_retencion=retencion_factura.id_retencion_iva
                                                 LEFT JOIN impuesto
                                                 on retencion.id_impuesto=impuesto.id_imp
-                                            where factura.id_empresa={$request->company} and factura.estado=1 and date(fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}') 
+                                            where factura.id_empresa={$request->company} and factura.estado=1 and factura.modo=1 and date(fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}') 
                                                 GROUP BY impuesto.id_imp
                                                 ORDER BY impuesto.cod_imp asc");
             $factura_venta_renta=DB::select("SELECT factura.clave_acceso as descripcion,factura.fecha_emision as fecha_emision,cliente.nombre as nombre,cliente.identificacion as identificacion,retencion_factura.baserenta,impuesto.porcen_imp as porcentajerenta,retencion_factura.cantidadrenta,impuesto.id_imp,factura.id_factura
@@ -1433,7 +1440,7 @@ class FichaTransaccionalController extends Controller
                                                         on retencion.id_retencion=retencion_factura.id_retencion_renta
                                                         LEFT JOIN impuesto
                                                         on retencion.id_impuesto=impuesto.id_imp
-                                            where factura.id_empresa={$request->company} and factura.estado=1 and  date(fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}') 
+                                            where factura.id_empresa={$request->company} and factura.estado=1 and factura.modo=1 and  date(fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}') 
                                             UNION
                                             SELECT factura.clave_acceso as descripcion,factura.fecha_emision as fecha_emision,cliente. nombre,cliente.identificacion,subtotal_12+subtotal_0 as baserenta,'0.00' as porcentajerenta,0 as cantidadrenta,'001' as id_imp,factura.id_factura
                                             from factura
@@ -1441,7 +1448,7 @@ class FichaTransaccionalController extends Controller
                                                         on cliente.id_cliente=factura.id_cliente
                                                         LEFT JOIN retencion_factura
                                                         on factura.id_factura=retencion_factura.id_factura
-                                            where factura.id_empresa={$request->company} AND factura.estado=1 and retencion_factura.id_factura is null and date(fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}') 
+                                            where factura.id_empresa={$request->company} AND factura.estado=1 and factura.modo=1 and retencion_factura.id_factura is null and date(fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}') 
                                                     ORDER BY fecha_emision,nombre asc");
             $factura_venta_iva=DB::select("SELECT factura.clave_acceso as descripcion,factura.fecha_emision as fecha_emision,cliente.nombre as nombre,cliente.identificacion as identificacion,cantidadiva/(retencion.porcen_retencion/100) as baserenta,impuesto.porcen_imp as porcentajerenta,retencion_factura.cantidadiva as cantidadrenta,impuesto.id_imp,factura.id_factura
                                             from retencion_factura
@@ -1453,7 +1460,7 @@ class FichaTransaccionalController extends Controller
                                                         on retencion.id_retencion=retencion_factura.id_retencion_iva
                                                         LEFT JOIN impuesto
                                                         on retencion.id_impuesto=impuesto.id_imp
-                                            where factura.id_empresa={$request->company} and factura.estado=1 and  date(fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}') 
+                                            where factura.id_empresa={$request->company} and factura.estado=1 and factura.modo=1 and  date(fecha_emision) BETWEEN date('{$date}') and date('{$ultimo}') 
                                                     ORDER BY fecha_emision,nombre asc");
             // dd("SELECT factura_compra.descripcion,factura_compra.fech_emision as fecha_emision,proveedor.nombre_proveedor as nombre,proveedor.identif_proveedor as identificacion,retencion_factura_comp.baserenta,impuesto.porcen_imp as porcentajerenta,retencion_factura_comp.cantidadrenta,impuesto.id_imp,factura_compra.id_factcompra
             // from retencion_factura_comp

@@ -181,8 +181,13 @@
             <table border="1" cellpadding="2px" cellspacing="0px"  style="width:100%">
                 <thead>
                     <tr>
-                        <th style="width:50px">Cod. Principal</th>
-                        <th style="width:55px">Código Auxiliar</th>
+                        <th style="width:50px">Código</th>
+                        @foreach($detalles as $detalle)
+                            @if($detalle->item)
+                                <th style="width:55px">Items</th>
+                                @break
+                            @endif
+                        @endforeach
                         <th>Descripción</th>
                         <th style="width:40px">Cant</th>
                     </tr>  
@@ -190,8 +195,14 @@
                 <tbody>
                     @foreach($detalles as $detalle)
                         <tr>
-                            <td class="text-center">{{$detalle->cod_principal}}</td>
-                            <td class="text-center">{{$detalle->id_producto}}</td>
+                            @if($detalle->cod_alterno)
+                                <td class="text-center">{{$detalle->cod_alterno}}</td>
+                            @else
+                                <td class="text-center">{{$detalle->cod_principal}}</td>
+                            @endif
+                            @if($detalle->item)
+                                <td class="text-center">{{$detalle->item}}</td>
+                            @endif
                             <td>{{$detalle->descripcion}}</td>
                             <td class="text-center">{{$detalle->cantidad}}</td>
                         </tr>
@@ -211,6 +222,24 @@
                                 <span class="nobold">{{$guia->observacion_tr}}</span></span>
                             
                         </div>
+        @endif
+        @if($empresa->ruc_empresa=='1792640105001')
+            <div style="display: inline-block; margin-top: 100px;">
+                <div style="width: 50%; float: left; margin-left: 50px;">
+                    <div style="font-size: 12px; color: #000;">______________________________________</div>
+                    <div style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Transportista Responsable</div>
+                    <div style="font-size: 12px;"><b>Nombre:</b> {{$guia->razon_social_tr}}</div>
+                    <div style="font-size: 12px;"><b>C.I:</b> {{$guia->identificacion_tr}}</div>
+                    <div style="font-size: 12px;"><b>Fecha y Hora:</b> </div>
+                </div>
+                <div style="width: 50%; float: right; margin-right: -50px;">
+                    <div style="font-size: 12px; color: #000;">______________________________________</div>
+                    <div style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cliente Recib&iacute; Conforme</div>
+                    <div style="font-size: 12px;"><b>Nombre:</b></div>
+                    <div style="font-size: 12px;"><b>C.I:</b></div>
+                    <div style="font-size: 12px;"><b>Fecha y Hora:</b> </div>
+                </div>
+            </div>
         @endif
                         
     </body>

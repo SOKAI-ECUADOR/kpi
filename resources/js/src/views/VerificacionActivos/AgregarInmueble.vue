@@ -22,30 +22,33 @@
                                         <td>
                                             <div class="vx-row" style="margin:5px">
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-input class="w-full" label="INSTITUCIÓN:" v-model="inmueble_institucion" />
+                                                    <label>INSTITUCIÓN:</label><input class="w-full inmueble_institucion vs-input--input normal" :value="inmueble_institucion" />
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-input class="w-full" label="FINALIDAD AVALÚO:" v-model="inmueble_finalidad_avaluo" />
+                                                    <label>FINALIDAD AVALÚO:</label><input class="w-full inmueble_finalidad_avaluo vs-input--input normal" :value="inmueble_finalidad_avaluo" />
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-input class="w-full" label="AGENCIA/OFICINA:" v-model="inmueble_agencia_oficina" />
+                                                    <label>AGENCIA/OFICINA:</label><input class="w-full inmueble_agencia_oficina vs-input--input normal" :value="inmueble_agencia_oficina" />
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-input class="w-full" label="NOMBRE DEL CLIENTE:" v-model="inmueble_nombre_cliente" />
+                                                    <label>NOMBRE DEL CLIENTE:</label><input class="w-full inmueble_nombre_cliente vs-input--input normal" :value="inmueble_nombre_cliente" />
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-input class="w-full" label="DIRECCIÓN:" v-model="inmueble_direccion" />
+                                                    <label>DIRECCIÓN:</label><input class="w-full inmueble_direccion vs-input--input normal" :value="inmueble_direccion" />
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-input class="w-full" type="date" label="FECHA DE INSPECCIÓN:" v-model="inmueble_fecha_inspeccion" />                            
+                                                    <label>FECHA DE INSPECCIÓN:</label><input class="w-full inmueble_fecha_inspeccion vs-input--input normal" type="date" :value="inmueble_fecha_inspeccion" /> 
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-select placeholder="Seleccione" autocomplete class="selectExample w-full" v-model="inmueble_estado"
-                                                        label="ESTADO" >
-                                                        <vs-select-item
-                                                            v-for="datos in inmueble_estados" :value="datos.id"
-                                                            :text="datos.nombre" :key="datos.id" />
-                                                    </vs-select>
+                                                    <div class="vs-component vs-con-input-label vs-input w-full vs-input-primary">
+                                                        <label>ESTADO:</label>
+                                                        <div class="vs-con-input">
+                                                                <select :value="inmueble_estado" class="selectExample w-full inmueble_estado vs-inputx vs-input--input normal" style="border: 1px solid rgba(0, 0, 0, 0.2);" v-on:change="cambiar_estado($event.target.value)">
+                                                                    <option value="">Seleccione </option>
+                                                                    <option v-for="datos in inmueble_estados" :value="datos.id">{{datos.nombre}}</option>
+                                                                </select>
+                                                        </div>
+                                                    </div>                
                                                 </div>
                                             </div>
                                         </td>
@@ -60,10 +63,10 @@
                                         <td>
                                             <div class="vx-row" style="margin:5px">
                                                 <div class="vx-col sm:w-1/2 w-full mb-6">
-                                                    <vs-input class="w-full"  label="DESCRIPCIÓN:" v-model="inmueble_tipo_bien_descripcion" />
+                                                    <label>DESCRIPCIÓN:</label><input class="w-full inmueble_tipo_bien_descripcion vs-input--input normal" :value="inmueble_tipo_bien_descripcion" />
                                                 </div>
                                                 <div class="vx-col sm:w-1/2 w-full mb-6">
-                                                    <vs-textarea label="DETALLE:" v-model="inmueble_tipo_bien_descripcion_detalle" />
+                                                   <label>DETALLE:</label><textarea class="w-full inmueble_tipo_bien_descripcion_detalle vs-input--input normal" :value="inmueble_tipo_bien_descripcion_detalle" />
                                                 </div>
                                             </div>
                                         </td>
@@ -77,67 +80,68 @@
                                     <tr style="border:1px solid #35394e;">
                                         <td>
                                             <div class="vx-row" style="margin:5px">
-                                                <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-input class="w-full"  label="DETALLE:" v-model="inmueble_ubicacion" />
+                                                <div class="vx-col sm:w-1/4 w-full mb-6"> 
+                                                    <label>DETALLE:</label><input class="w-full inmueble_ubicacion vs-input--input normal" :value="inmueble_ubicacion" />
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-select placeholder="Seleccione" autocomplete class="selectExample w-full" v-model="inmueble_provincia"
-                                                        label="PROVINCIA" v-on:change="cambiar_provincia($event)">
-                                                        <vs-select-item
-                                                            v-for="datos,index in inmueble_provincias" :value="datos.id"
-                                                            :text="datos.nombre" :key="index" />
-                                                    </vs-select>
+                                                    <label>PROVINCIA:</label>
+                                                    <div class="vs-con-input">
+                                                            <select :value="inmueble_provincia" class="selectExample w-full inmueble_provincia vs-inputx vs-input--input normal" style="border: 1px solid rgba(0, 0, 0, 0.2);" v-on:change="cambiar_provincia($event.target.value)" >
+                                                                <option value="">Seleccione </option>
+                                                                <option v-for="datos in inmueble_provincias" :value="datos.id">{{datos.nombre}}</option>
+                                                            </select>
+                                                    </div>         
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
                                                      <div class="vs-component vs-con-input-label vs-input w-full vs-input-primary">
-                                                        <label for="" class="vs-input--label">CANTÓN:</label>
+                                                        <label>CANTÓN:</label>
                                                         <div class="vs-con-input">
-                                                            <select v-model="inmueble_canton" class="selectExample w-full vs-inputx vs-input--input normal" ref="inmueble_canton" id="inmueble_canton" style="border: 1px solid rgba(0, 0, 0, 0.2);" maxlength = "4" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" @change="cambiar_canton($event)">
-                                                                <option value="">Seleccione </option>
-                                                                <option v-for="datos in inmueble_cantones" :value="datos.id">{{datos.nombre}}</option>
-                                                            </select>
+                                                                <select :value="inmueble_canton" class="selectExample w-full inmueble_canton vs-inputx vs-input--input normal" style="border: 1px solid rgba(0, 0, 0, 0.2);" v-on:change="cambiar_canton($event.target.value)">
+                                                                    <option value="">Seleccione </option>
+                                                                    <option v-for="datos in inmueble_cantones" :value="datos.id">{{datos.nombre}}</option>
+                                                                </select>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
                                                     <div class="vs-component vs-con-input-label vs-input w-full vs-input-primary">
-                                                        <label for="" class="vs-input--label">PARROQUIA:</label>
+                                                        <label>PARROQUIA:</label>
                                                         <div class="vs-con-input">
-                                                            <select v-model="inmueble_parroquia" class="selectExample w-full vs-inputx vs-input--input normal" ref="inmueble_parroquia" id="inmueble_parroquia" style="border: 1px solid rgba(0, 0, 0, 0.2);">
-                                                                <option value="">Seleccione </option>
-                                                                <option v-for="datos in inmueble_parroquias" :value="datos.id">{{datos.nombre}}</option>
-                                                            </select>
-                                                        </div>
+                                                                <select :value="inmueble_parroquia" class="selectExample w-full inmueble_parroquia vs-inputx vs-input--input normal" style="border: 1px solid rgba(0, 0, 0, 0.2);" >
+                                                                    <option value="">Seleccione </option>
+                                                                    <option v-for="datos in inmueble_parroquias" :value="datos.id">{{datos.nombre}}</option>
+                                                                </select>
+                                                        </div>            
                                                     </div>
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
                                                     <div class="vs-component vs-con-input-label vs-input w-full vs-input-primary">
-                                                        <label for="" class="vs-input--label">CIUDAD:</label>
+                                                        <label>CIUDAD:</label>
                                                         <div class="vs-con-input">
-                                                            <select v-model="inmueble_ciudad" class="selectExample w-full vs-inputx vs-input--input normal" ref="inmueble_ciudad" id="inmueble_ciudad" style="border: 1px solid rgba(0, 0, 0, 0.2);">
-                                                                <option value="">Seleccione </option>
-                                                                <option v-for="datos in inmueble_ciudades" :value="datos.id">{{datos.nombre}}</option>
-                                                            </select>
+                                                                <select :value="inmueble_ciudad" class="selectExample w-full inmueble_ciudad vs-inputx vs-input--input normal" style="border: 1px solid rgba(0, 0, 0, 0.2);" >
+                                                                    <option value="">Seleccione </option>
+                                                                    <option v-for="datos in inmueble_ciudades" :value="datos.id">{{datos.nombre}}</option>
+                                                                </select>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-input class="w-full" label="BARRIO/URBANIZACIÓN:" v-model="inmueble_barrio_urbanizacion" />
+                                                    <label>BARRIO/URBANIZACIÓN:</label><input class="w-full inmueble_barrio_urbanizacion vs-input--input normal" :value="inmueble_barrio_urbanizacion" />
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-input class="w-full" label="MANZANA:" v-model="inmueble_manzana" />
+                                                    <label>MANZANA:</label><input class="w-full inmueble_manzana vs-input--input normal" :value="inmueble_manzana" />
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-input class="w-full" label="LOTE:" v-model="inmueble_lote" />
+                                                    <label>LOTE:</label><input class="w-full inmueble_lote vs-input--input normal" :value="inmueble_lote" />
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-input class="w-full" label="LATITUD:" v-model="inmueble_latitud" type="number" maxlength = "10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
+                                                    <label>LATITUD:</label><input class="w-full inmueble_latitud vs-input--input normal" :value="inmueble_latitud" type="number" step="0.0000001" maxlength="10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-input class="w-full" label="LONGITUD:" v-model="inmueble_longitud" type="number" maxlength = "10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
+                                                    <label>LONGITUD:</label><input class="w-full inmueble_longitud vs-input--input normal" :value="inmueble_longitud" type="number" step="0.0000001" maxlength="10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-input class="w-full" label="PREDIO:" v-model="inmueble_predio" />
+                                                    <label>PREDIO:</label><input class="w-full inmueble_predio vs-input--input normal" :value="inmueble_predio" />
                                                 </div>
                                             </div>    
                                         </td>
@@ -151,16 +155,20 @@
                                         <td>
                                             <div class="vx-row" style="margin:5px">
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-input class="w-full" label="DETALLE:" v-model="inmueble_datos_municipales_detalle" />
+                                                    <label>DETALLE:</label>
+                                                    <input class="w-full inmueble_datos_municipales_detalle_valor vs-input--input normal"  :value="inmueble_datos_municipales_detalle" />
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-input class="w-full"  type = "number" label="AÑO PAGO IMPUESTO PREDIAL:" v-model="inmueble_datos_municipales_ano_impuesto_predial" maxlength = "4" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
+                                                    <label>AÑO PAGO IMP. PREDIAL:</label>
+                                                    <input class="w-full inmueble_datos_municipales_ano_impuesto_predial_valor vs-input--input normal" type="number" :value="inmueble_datos_municipales_ano_impuesto_predial" maxlength = "4" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" />
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-input class="w-full" label="CLAVE CATASTRAL:" v-model="inmueble_datos_municipales_clave_catastral" />
+                                                    <label>CLAVE CATASTRAL:</label>
+                                                    <input class="w-full inmueble_datos_municipales_clave_catastral_valor vs-input--input normal" :value="inmueble_datos_municipales_clave_catastral" />
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-input class="w-full" label="GEO CLAVE:" v-model="inmueble_datos_municipales_geo_clave" />
+                                                    <label>GEO CLAVE:</label>
+                                                    <input class="w-full inmueble_datos_municipales_geo_clave_valor vs-input--input normal" :value="inmueble_datos_municipales_geo_clave" />
                                                 </div>
                                             </div>    
                                         </td>
@@ -179,30 +187,30 @@
                                         <tbody style="border: 1px solid gray">
                                             <tr>
                                                 <td>
-                                                    <vs-input class="w-full"  v-model="inmueble_municipio_ano_1_numero" type="number" maxlength = "4" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
+                                                    <input class="w-full inmueble_municipio_ano_1_numero vs-input--input normal" :value="inmueble_municipio_ano_1_numero" type="number" maxlength = "4" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
                                                 </td>
                                                 <td>
-                                                    <vs-input class="w-full"  v-model="inmueble_municipio_ano_1_valor" type="number" maxlength = "10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
+                                                    <input class="w-full inmueble_municipio_ano_1_valor vs-input--input normal"  :value="inmueble_municipio_ano_1_valor" type="number" step="0.01" maxlength="15" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
                                                 </td>
                                                 <td>
-                                                    <vs-input class="w-full"  v-model="inmueble_municipio_ano_1_construccion" type="number" maxlength = "10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
+                                                    <input class="w-full inmueble_municipio_ano_1_construccion vs-input--input normal"  :value="inmueble_municipio_ano_1_construccion" type="number" step="0.01" maxlength="15" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
                                                 </td>
                                                 <td>
-                                                    <vs-input class="w-full"  v-model="inmueble_municipio_ano_1_terreno" type="number" maxlength = "10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
+                                                    <input class="w-full inmueble_municipio_ano_1_terreno vs-input--input normal"  :value="inmueble_municipio_ano_1_terreno" type="number" step="0.01" maxlength="15" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <vs-input class="w-full"  v-model="inmueble_municipio_ano_2_numero" type="number" maxlength = "4" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
+                                                    <input class="w-full inmueble_municipio_ano_2_numero vs-input--input normal" :value="inmueble_municipio_ano_2_numero" type="number" maxlength="4" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
                                                 </td>
                                                 <td>
-                                                    <vs-input class="w-full"  v-model="inmueble_municipio_ano_2_valor" type="number" maxlength = "10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
+                                                    <input class="w-full inmueble_municipio_ano_2_valor vs-input--input normal" :value="inmueble_municipio_ano_2_valor" type="number" step="0.01" maxlength="15" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
                                                 </td>
                                                 <td>
-                                                    <vs-input class="w-full"  v-model="inmueble_municipio_ano_2_construccion" type="number" maxlength = "10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
+                                                    <input class="w-full inmueble_municipio_ano_2_construccion vs-input--input normal"  :value="inmueble_municipio_ano_2_construccion" type="number" step="0.01" maxlength="15" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
                                                 </td>
                                                 <td>
-                                                    <vs-input class="w-full"  v-model="inmueble_municipio_ano_2_terreno" type="number" maxlength = "10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
+                                                    <input class="w-full inmueble_municipio_ano_2_terreno vs-input--input normal" :value="inmueble_municipio_ano_2_terreno" type="number" step="0.01" maxlength="15" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
                                                 </td>
                                             </tr>
                                         </tbody>                                            
@@ -218,27 +226,28 @@
                                         <td>
                                             <div class="vx-row" style="margin:5px">
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-input class="w-full"  label="DETALLE:" v-model="inmueble_escritura_detalle" />
+                                                    <label>DETALLE:</label>&nbsp;<input class="w-full inmueble_escritura_detalle_valor vs-input--input normal"  :value="inmueble_escritura_detalle" />
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-input class="w-full"  label="NOTARÍA:" v-model="inmueble_escritura_notaria" />
+                                                    <label>NOTARÍA:</label>&nbsp;<input class="w-full inmueble_escritura_notaria_valor vs-input--input normal"  :value="inmueble_escritura_notaria" />
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-select placeholder="Seleccione" autocomplete class="selectExample w-full" v-model="inmueble_escritura_canton"
-                                                        label="CANTÓN">
-                                                        <vs-select-item
-                                                            v-for="datos in inmueble_escritura_cantones" :value="datos.id"
-                                                            :text="datos.nombre" :key="datos.id" />
-                                                    </vs-select>
+                                                    <label for="" class="vs-input--label">CANTÓN:</label>
+                                                    <div class="vs-con-input">
+                                                            <select :value="inmueble_escritura_canton" class="selectExample w-full inmueble_escritura_canton_valor vs-inputx vs-input--input normal" style="border: 1px solid rgba(0, 0, 0, 0.2);" >
+                                                                <option value="">Seleccione </option>
+                                                                <option v-for="datos in inmueble_escritura_cantones" :value="datos.id">{{datos.nombre}}</option>
+                                                            </select>
+                                                    </div>
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-input class="w-full" type="date" label="ESCRITURACIÓN/REGISTRO:" v-model="inmueble_escritura_fecha" />
+                                                    <label>ESCRITURACIÓN/REGISTRO:</label><input class="w-full inmueble_escritura_fecha_valor vs-input--input normal" :value="inmueble_escritura_fecha" type="date"  />
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <vs-input class="w-full"  label="SUPERFICIE (m2):" v-model="inmueble_escritura_superficie" type="number" maxlength = "10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
+                                                    <label>SUPERFICIE (m2):</label><input class="w-full inmueble_escritura_superficie_valor vs-input--input normal" :value="inmueble_escritura_superficie" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
                                                 </div>
                                                 <div class="vx-col sm:w-1/4 w-full mb-6">
-                                                    <label>CUANTÍA:</label><input class="w-full inmueble_escritura_cuantia_valor vs-input--input" :value="inmueble_escritura_cuantia" type="number" maxlength = "10" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
+                                                    <label>CUANTÍA:</label><input class="w-full inmueble_escritura_cuantia_valor vs-input--input normal" :value="inmueble_escritura_cuantia" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/>
                                                 </div>
                                             </div>    
                                         </td>
@@ -260,27 +269,24 @@
                                     <tbody style="border: 1px solid gray">
                                         <tr>
                                             <td><center>TERRENO</center></td>
-                                            <td><input class="w-full inmueble_avaluo_valor_reposicion_terreno_valor vs-input--input" :value="inmueble_avaluo_valor_reposicion_terreno" type="number" maxlength = "20" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></td>
-                                            <td><input class="w-full inmueble_avaluo_valor_actual_terreno_valor vs-input--input" :value="inmueble_avaluo_valor_actual_terreno" type="number" maxlength = "20" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></td>
-                                            <td><input class="w-full inmueble_avaluo_valor_realizacion_terreno_valor vs-input--input" :value="inmueble_avaluo_valor_realizacion_terreno" type="number" maxlength = "20" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></td>
+                                            <td><input class="w-full inmueble_avaluo_valor_reposicion_terreno_valor vs-input--input" :value="inmueble_avaluo_valor_reposicion_terreno" type="number" step="0.01" maxlength="15" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></td>
+                                            <td><input class="w-full inmueble_avaluo_valor_actual_terreno_valor vs-input--input" :value="inmueble_avaluo_valor_actual_terreno" type="number" step="0.01" maxlength="15" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></td>
+                                            <td><input class="w-full inmueble_avaluo_valor_realizacion_terreno_valor vs-input--input" :value="inmueble_avaluo_valor_realizacion_terreno" type="number" step="0.01" maxlength="15" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></td>
                                         </tr>
                                         <tr>
                                             <td><center>CONSTRUCCIÓN</center></td>
-                                            <td><input class="w-full inmueble_avaluo_valor_reposicion_construccion_valor vs-input--input" :value="inmueble_avaluo_valor_reposicion_construccion" type="number" maxlength = "20" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></td>
-                                            <td><input class="w-full inmueble_avaluo_valor_actual_construccion_valor vs-input--input" :value="inmueble_avaluo_valor_actual_construccion" type="number" maxlength = "20" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></td>
-                                            <td><input class="w-full inmueble_avaluo_valor_realizacion_construccion_valor vs-input--input" :value="inmueble_avaluo_valor_realizacion_construccion" type="number" maxlength = "20" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></td>
+                                            <td><input class="w-full inmueble_avaluo_valor_reposicion_construccion_valor vs-input--input" :value="inmueble_avaluo_valor_reposicion_construccion" type="number" step="0.01" maxlength="15" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></td>
+                                            <td><input class="w-full inmueble_avaluo_valor_actual_construccion_valor vs-input--input" :value="inmueble_avaluo_valor_actual_construccion" type="number" step="0.01" maxlength="15" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></td>
+                                            <td><input class="w-full inmueble_avaluo_valor_realizacion_construccion_valor vs-input--input" :value="inmueble_avaluo_valor_realizacion_construccion" type="number" step="0.01" maxlength="15" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></td>
                                         </tr>
                                         <tr>
                                             <td><center>TOTAL:</center></td>
-                                            <td><input class="w-full inmueble_avaluo_valor_total_reposicion_valor vs-input--input" :value="inmueble_avaluo_valor_total_reposicion" type="number" maxlength = "20" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></td>
-                                            <td><input class="w-full inmueble_avaluo_valor_total_actual_valor vs-input--input" :value="inmueble_avaluo_valor_total_actual" type="number" maxlength = "20" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></td>
-                                            <td><input class="w-full inmueble_avaluo_valor_total_realizacion_valor vs-input--input" :value="inmueble_avaluo_valor_total_realizacion" type="number" maxlength = "20" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></td>
+                                            <td><input class="w-full inmueble_avaluo_valor_total_reposicion_valor vs-input--input" :value="inmueble_avaluo_valor_total_reposicion" type="number" step="0.01" maxlength="15" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></td>
+                                            <td><input class="w-full inmueble_avaluo_valor_total_actual_valor vs-input--input" :value="inmueble_avaluo_valor_total_actual" type="number" step="0.01" maxlength="15" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></td>
+                                            <td><input class="w-full inmueble_avaluo_valor_total_realizacion_valor vs-input--input" :value="inmueble_avaluo_valor_total_realizacion" type="number" step="0.01" maxlength="15" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></td>
                                         </tr>
-                                        
                                     </tbody>                                            
                                 </table>                        
-
-                                
                             </vs-collapse-item>
                             <vs-collapse-item>
                                 <div slot="header">
@@ -351,8 +357,8 @@
                                     </thead>
                                     <tbody style="border: 1px solid gray">      
                                         <tr  v-for="(value, name, index) in inmueble_terreno_localizacion"> 
-                                            <td colspan=1 style="width:25%" ><vs-input class="w-full"  :value="name" /></td>
-                                            <td colspan=3 style="width:75%"><vs-input class="w-full"  :value="value" /></td>
+                                            <td colspan=1 style="width:25%"><input class="w-full inmueble_terreno_localizacion_clave vs-input--input"  :value="name" /></td>
+                                            <td colspan=3 style="width:75%"><input class="w-full inmueble_terreno_localizacion_valor vs-input--input"  :value="value" /></td>
                                         </tr>                                        
                                     </tbody>                                            
                                 </table>                            
@@ -366,15 +372,15 @@
                                     </thead>
                                     <tbody style="border: 1px solid gray">      
                                         <tr  v-for="(value, name, index) in inmueble_terreno_caracteristicas_fisicas"> 
-                                            <td colspan=1 style="width:25%" ><vs-input class="w-full"  :value="name" /></td>
-                                            <td colspan=3 style="width:75%"><vs-input class="w-full"  :value="value" /></td>
+                                            <td colspan=1 style="width:25%"><input class="w-full inmueble_terreno_caracteristicas_fisicas_clave  vs-input--input"  :value="name" /></td>
+                                            <td colspan=3 style="width:75%"><input class="w-full inmueble_terreno_caracteristicas_fisicas_valor  vs-input--input"  :value="value" /></td>
                                         </tr>                                        
                                     </tbody>                                            
                                 </table>                            
                             </div>    
                             <div class="vx-row" style="margin:5px">
                                 <div class="vx-col sm:w-1/1 w-full mb-6">
-                                    <vs-input class="w-full"  label="CERRAMIENTO:" v-model="inmueble_terreno_cerramiento" />
+                                    <label>CERRAMIENTO:</label>&nbsp;<input class="w-full inmueble_terreno_cerramiento vs-input--input" :value="inmueble_terreno_cerramiento" />
                                 </div>
                             </div>
                             <div class="vx-row" style="margin:10px">
@@ -393,14 +399,19 @@
                                     </thead>
                                     <tbody style="border: 1px solid gray">      
                                         <tr  v-for="(value, name, index) in inmueble_terreno_linderos_dimensiones"> 
-                                            <td style="width:20%"><vs-input class="w-full"  :value="value.split('|')[0]" /></td>
-                                            <td style="width:20%"><vs-input class="w-full"  :value="value.split('|')[1]" /></td>
-                                            <td style="width:30%"><vs-input class="w-full"  :value="value.split('|')[2]" /></td>
-                                            <td style="width:15%"><vs-input class="w-full"  :value="value.split('|')[3]" /></td>
-                                            <td style="width:15%"><vs-input class="w-full"  :value="value.split('|')[4]" /></td>
+                                            <td style="width:20%"><input class="w-full inmueble_terreno_linderos_dimensiones_col1 vs-input--input"  :value="value.split('|')[0]" /></td>
+                                            <td style="width:20%"><input class="w-full inmueble_terreno_linderos_dimensiones_col2 vs-input--input"  :value="value.split('|')[1]" /></td>
+                                            <td style="width:30%"><input class="w-full inmueble_terreno_linderos_dimensiones_col3 vs-input--input"  :value="value.split('|')[2]" /></td>
+                                            <td style="width:15%"><input class="w-full inmueble_terreno_linderos_dimensiones_col4 vs-input--input"  :value="value.split('|')[3]" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
+                                            <td style="width:15%"><input class="w-full inmueble_terreno_linderos_dimensiones_col5 vs-input--input"  :value="value.split('|')[4]" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
                                         </tr>                                        
+                                        <tr> 
+                                            <td colspan=3><center> AREA DEL TERRENO (m2):</center></td> 
+                                            <td colspan=1><input class="w-full inmueble_terreno_linderos_dimensiones_area_col1 vs-input--input"  :value="inmueble_terreno_linderos_dimensiones_area_col1" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
+                                            <td colspan=1><input class="w-full inmueble_terreno_linderos_dimensiones_area_col2 vs-input--input"  :value="inmueble_terreno_linderos_dimensiones_area_col2" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
+                                        </tr>
                                     </tbody>                                            
-                                </table>                            
+                                </table>
                             </div>
 
                             </vs-collapse-item>
@@ -417,9 +428,9 @@
                                     </thead>
                                     <tbody style="border: 1px solid gray">      
                                         <tr  v-for="(value, name, index) in inmueble_edificacion_caracteristicas"> 
-                                            <td colspan=1 style="width:25%" ><vs-input class="w-full"  :value="name" /></td>
-                                            <td colspan=3 style="width:75%"><vs-input class="w-full"  :value="value" /></td>
-                                        </tr>                                        
+                                            <td colspan=1 style="width:25%"><input class="w-full inmueble_edificacion_caracteristicas_clave vs-input--input"  :value="name" /></td>
+                                            <td colspan=3 style="width:75%"><input class="w-full inmueble_edificacion_caracteristicas_valor vs-input--input"  :value="value" /></td>
+                                        </tr>
                                     </tbody>                                            
                                 </table>                            
                             </div>
@@ -437,14 +448,14 @@
                                     </thead>
                                     <tbody style="border: 1px solid gray">      
                                         <tr  v-for="(value, name, index) in inmueble_edificacion_areas_edificacion"> 
-                                            <td style="width:50%"><vs-input class="w-full"  :value="name" /></td>
-                                            <td style="width:25%"><vs-input class="w-full"  :value="value.split('|')[0]" /></td>
-                                            <td style="width:25%"><vs-input class="w-full"  :value="value.split('|')[1]" /></td>
+                                            <td style="width:50%"><input class="w-full inmueble_edificacion_areas_edificacion_col1 vs-input--input"  :value="name" /></td>
+                                            <td style="width:25%"><input class="w-full inmueble_edificacion_areas_edificacion_col2 vs-input--input"  :value="value.split('|')[0]" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
+                                            <td style="width:25%"><input class="w-full inmueble_edificacion_areas_edificacion_col3 vs-input--input"  :value="value.split('|')[1]" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
                                         </tr>
-                                        <tr  v-for="(value, name, index) in inmueble_edificacion_areas_edificacion_total"> 
-                                            <td style="width:50%">TOTAL m2: </td>
-                                            <td style="width:25%"><vs-input class="w-full"  :value="value.split('|')[0]" /></td>
-                                            <td style="width:25%"><vs-input class="w-full"  :value="value.split('|')[1]" /></td>
+                                        <tr> 
+                                            <td style="width:50%"><center>TOTAL m2:</center></td> 
+                                            <td style="width:25%"><input class="w-full inmueble_edificacion_areas_edificacion_total_col1 vs-input--input"  :value="inmueble_edificacion_areas_edificacion_total_col1" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
+                                            <td style="width:25%"><input class="w-full inmueble_edificacion_areas_edificacion_total_col2 vs-input--input"  :value="inmueble_edificacion_areas_edificacion_total_col2" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
                                         </tr>                                        
                                     </tbody>                                            
                                 </table>                            
@@ -463,14 +474,14 @@
                                     </thead>
                                     <tbody style="border: 1px solid gray">      
                                         <tr  v-for="(value, name, index) in inmueble_edificacion_areas_edificacion_otros"> 
-                                            <td style="width:50%"><vs-input class="w-full"  :value="name" /></td>
-                                            <td style="width:25%"><vs-input class="w-full"  :value="value.split('|')[0]" /></td>
-                                            <td style="width:25%"><vs-input class="w-full"  :value="value.split('|')[1]" /></td>
+                                            <td style="width:50%"><input class="w-full inmueble_edificacion_areas_edificacion_otros_col1 vs-input--input"  :value="name" /></td>
+                                            <td style="width:25%"><input class="w-full inmueble_edificacion_areas_edificacion_otros_col2 vs-input--input"  :value="value.split('|')[0]" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
+                                            <td style="width:25%"><input class="w-full inmueble_edificacion_areas_edificacion_otros_col3 vs-input--input"  :value="value.split('|')[1]" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
                                         </tr>
-                                        <tr  v-for="(value, name, index) in inmueble_edificacion_areas_edificacion_otros_total"> 
-                                            <td style="width:50%">TOTAL m2: </td>
-                                            <td style="width:25%"><vs-input class="w-full"  :value="value.split('|')[0]" /></td>
-                                            <td style="width:25%"><vs-input class="w-full"  :value="value.split('|')[1]" /></td>
+                                        <tr> 
+                                            <td style="width:50%"><center>TOTAL m2:</center> </td>
+                                            <td style="width:25%"><input class="w-full inmueble_edificacion_areas_edificacion_otros_total_col1 vs-input--input"  :value="inmueble_edificacion_areas_edificacion_otros_total_col1" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
+                                            <td style="width:25%"><input class="w-full inmueble_edificacion_areas_edificacion_otros_total_col2 vs-input--input"  :value="inmueble_edificacion_areas_edificacion_otros_total_col2" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
                                         </tr>                                        
                                     </tbody>                                            
                                 </table>                            
@@ -489,21 +500,21 @@
                                     </thead>
                                     <tbody style="border: 1px solid gray">      
                                         <tr  v-for="(value, name, index) in inmueble_edificacion_resumen_infraestructura"> 
-                                            <td style="width:50%"><vs-input class="w-full"  :value="name" /></td>
-                                            <td style="width:25%"><vs-input class="w-full"  :value="value.split('|')[0]" /></td>
-                                            <td style="width:25%"><vs-input class="w-full"  :value="value.split('|')[1]" /></td>
+                                            <td style="width:50%"><input class="w-full inmueble_edificacion_resumen_infraestructura_col1 vs-input--input"  :value="name" /></td>
+                                            <td style="width:25%"><input class="w-full inmueble_edificacion_resumen_infraestructura_col2 vs-input--input"  :value="value.split('|')[0]" /></td>
+                                            <td style="width:25%"><input class="w-full inmueble_edificacion_resumen_infraestructura_col3 vs-input--input"  :value="value.split('|')[1]" type="number" maxlength="6"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
                                         </tr>
                                     </tbody>                                            
                                 </table>                            
                             </div>
                             <div class="vx-row" style="margin:5px">
                                 <div class="vx-col sm:w-1/1 w-full mb-6">
-                                    <vs-input class="w-full" label="CONSERVACIÓN Y MANTENIMIENTO:" v-model="inmueble_edificacion_conservacion_mantenimiento" />
+                                    <label>CONSERVACIÓN Y MANTENIMIENTO:</label>&nbsp;<input class="w-full inmueble_edificacion_conservacion_mantenimiento vs-input--input" :value="inmueble_edificacion_conservacion_mantenimiento" />
                                 </div>
                             </div>
-                            <div class="vx-row" style="margin:5px">
+                            <div class="vx-row" style="margin:5px">   
                                 <div class="vx-col sm:w-1/1 w-full mb-6">
-                                    <vs-input class="w-full" label="DESCRIPCIÓN FUNCIONAL:" v-model="inmueble_edificacion_descripcion_funcional" />
+                                    <label>DESCRIPCIÓN FUNCIONAL:</label>&nbsp;<input class="w-full inmueble_edificacion_descripcion_funcional vs-input--input" :value="inmueble_edificacion_descripcion_funcional" />
                                 </div>
                             </div>
                         
@@ -523,8 +534,8 @@
                                         </thead>
                                         <tbody style="border: 1px solid gray">      
                                             <tr  v-for="(value, name, index) in inmueble_criterio_valoracion_listado"> 
-                                                <td colspan=1 style="width:25%">{{name}}</td>
-                                                <td colspan=3 style="width:75%"><vs-input class="w-full"  :value="value" /></td>
+                                                <td colspan=1 style="width:25%"><input class="w-full inmueble_criterio_valoracion_listado_clave vs-input--input"  :value="name" /></td>
+                                                <td colspan=3 style="width:75%"><input class="w-full inmueble_criterio_valoracion_listado_valor vs-input--input"  :value="value" /></td>
                                             </tr>                                        
                                         </tbody>                                            
                                     </table>                            
@@ -538,15 +549,15 @@
                                         </thead>
                                         <tbody style="border: 1px solid gray">      
                                             <tr  v-for="(value, name, index) in inmueble_criterio_valoracion_calificacion_listado"> 
-                                                <td colspan=1 style="width:25%" ><vs-input class="w-full"  :value="name" /></td>
-                                                <td colspan=3 style="width:75%"><vs-input class="w-full"  :value="value" /></td>
+                                                <td colspan=1 style="width:25%"><input class="w-full inmueble_criterio_valoracion_calificacion_listado_clave vs-input--input"  :value="name" /></td>
+                                                <td colspan=3 style="width:75%"><input class="w-full inmueble_criterio_valoracion_calificacion_listado_valor vs-input--input"  :value="value" /></td>
                                             </tr>                                        
                                         </tbody>                                            
                                     </table>                            
                                 </div>
                                <div class="vx-row" style="margin:5px">
                                 <div class="vx-col sm:w-1/1 w-full mb-6">
-                                    <vs-input class="w-full" label=" VALORACIÓN DEL TERRENO:" v-model="inmueble_criterio_valoracion_terreno_detalle" />
+                                    <label>VALORACIÓN DEL TERRENO:</label>&nbsp;<input class="w-full inmueble_criterio_valoracion_terreno_detalle vs-input--input" :value="inmueble_criterio_valoracion_terreno_detalle" />
                                 </div>
                                </div>
                                <div class="vx-row" style="margin:5px"> 
@@ -578,20 +589,20 @@
                                     </thead>
                                     <tbody style="border: 1px solid gray">      
                                         <tr  v-for="(value, name, index) in inmueble_criterio_valoracion_terreno_listado"> 
-                                            <td><vs-input class="w-full"  :value="value.split('|')[0]" /></td>
-                                            <td><vs-input class="w-full"  :value="value.split('|')[1]" /></td>
-                                            <td><vs-input class="w-full"  :value="value.split('|')[2]" /></td>
-                                            <td><vs-input class="w-full"  :value="value.split('|')[3]" /></td>
-                                            <td><vs-input class="w-full"  :value="value.split('|')[4]" /></td>
-                                            <td><vs-input class="w-full"  :value="value.split('|')[5]" /></td>
-                                            <td><vs-input class="w-full"  :value="value.split('|')[6]" /></td>
-                                            <td><vs-input class="w-full"  :value="value.split('|')[7]" /></td>
-                                            <td><vs-input class="w-full"  :value="value.split('|')[8]" /></td>
-                                            <td><vs-input class="w-full"  :value="value.split('|')[9]" /></td>
+                                            <td><input class="w-full inmueble_criterio_valoracion_terreno_listado_col1 vs-input--input"  :value="value.split('|')[0]" /></td>
+                                            <td><input class="w-full inmueble_criterio_valoracion_terreno_listado_col2 vs-input--input"  :value="value.split('|')[1]" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
+                                            <td><input class="w-full inmueble_criterio_valoracion_terreno_listado_col3 vs-input--input"  :value="value.split('|')[2]" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
+                                            <td><input class="w-full inmueble_criterio_valoracion_terreno_listado_col4 vs-input--input"  :value="value.split('|')[3]" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
+                                            <td><input class="w-full inmueble_criterio_valoracion_terreno_listado_col5 vs-input--input"  :value="value.split('|')[4]" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
+                                            <td><input class="w-full inmueble_criterio_valoracion_terreno_listado_col6 vs-input--input"  :value="value.split('|')[5]" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
+                                            <td><input class="w-full inmueble_criterio_valoracion_terreno_listado_col7 vs-input--input"  :value="value.split('|')[6]" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
+                                            <td><input class="w-full inmueble_criterio_valoracion_terreno_listado_col8 vs-input--input"  :value="value.split('|')[7]" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
+                                            <td><input class="w-full inmueble_criterio_valoracion_terreno_listado_col9 vs-input--input"  :value="value.split('|')[8]" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
+                                            <td><input class="w-full inmueble_criterio_valoracion_terreno_listado_col10 vs-input--input"  :value="value.split('|')[9]" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
                                         </tr>                                        
-                                        <tr  v-for="(value, name, index) in inmueble_criterio_valoracion_terreno_total"> 
+                                        <tr> 
                                             <td colspan=9 >&nbsp;</td>
-                                            <td colspan=1><vs-input class="w-full"  :value="value" /></td>
+                                            <td colspan=1><input class="w-full inmueble_criterio_valoracion_terreno_total vs-input--input"  :value="inmueble_criterio_valoracion_terreno_total.valoracion_terreno_total" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"/></td>
                                         </tr>
                                     </tbody>                                            
                             </table>                            
@@ -599,7 +610,7 @@
 
                             <div class="vx-row" style="margin:5px">
                                 <div class="vx-col sm:w-1/1 w-full mb-6">
-                                    <vs-input class="w-full" label=" VALORACIÓN DE LAS CONSTRUCCIONES E INFRAESTRUCTURA:" v-model="inmueble_criterio_valoracion_construcciones" />
+                                    <label>VALORACIÓN DE LAS CONSTRUCCIONES E INFRAESTRUCTURA:</label>&nbsp;<input class="w-full inmueble_criterio_valoracion_construcciones vs-input--input" :value="inmueble_criterio_valoracion_construcciones" />
                                 </div>
                             </div>
                             
@@ -621,23 +632,23 @@
                                     </thead>
                                     <tbody style="border: 1px solid gray">      
                                         <tr  v-for="(value, name, index) in inmueble_resumen_valoracion_tabla"> 
-                                            <td><vs-input class="w-full"  :value="value.split('|')[0]" /></td>
-                                            <td><vs-input class="w-full"  :value="value.split('|')[1]" /></td>
-                                            <td><vs-input class="w-full"  :value="value.split('|')[2]" /></td>
-                                            <td><vs-input class="w-full"  :value="value.split('|')[3]" /></td>
-                                            <td><vs-input class="w-full"  :value="value.split('|')[4]" /></td>
+                                            <td><input class="w-full inmueble_resumen_valoracion_tabla_col1 vs-input--input normal"  :value="value.split('|')[0]" /></td>
+                                            <td><input class="w-full inmueble_resumen_valoracion_tabla_col2 vs-input--input"  :value="value.split('|')[1]" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
+                                            <td><input class="w-full inmueble_resumen_valoracion_tabla_col3 vs-input--input"  :value="value.split('|')[2]" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
+                                            <td><input class="w-full inmueble_resumen_valoracion_tabla_col4 vs-input--input"  :value="value.split('|')[3]" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
+                                            <td><input class="w-full inmueble_resumen_valoracion_tabla_col5 vs-input--input"  :value="value.split('|')[4]" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
                                         </tr>                                        
                                         <tr> 
                                             <td colspan=4 >VALOR DE REPOSICIÓN (US$)…........................................................................</td>
-                                            <td colspan=1><vs-input class="w-full" v-model="inmueble_resumen_valoracion_reposicion" /></td>
+                                            <td colspan=1><input class="w-full inmueble_resumen_valoracion_reposicion vs-input--input" :value="inmueble_resumen_valoracion_reposicion" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
                                         </tr>
                                         <tr> 
                                             <td colspan=4 >VALOR DE MERCADO (US$)…...........................................................................</td>
-                                            <td colspan=1><vs-input class="w-full" v-model="inmueble_resumen_valoracion_mercado" /></td>
+                                            <td colspan=1><input class="w-full inmueble_resumen_valoracion_mercado vs-input--input" :value="inmueble_resumen_valoracion_mercado" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
                                         </tr>
                                         <tr> 
                                             <td colspan=4 >VALOR DE REALIZACIÓN (US$)….......................................................................</td>
-                                            <td colspan=1><vs-input class="w-full" v-model="inmueble_resumen_valoracion_realizacion" /></td>
+                                            <td colspan=1><input class="w-full inmueble_resumen_valoracion_realizacion vs-input--input" :value="inmueble_resumen_valoracion_realizacion" type="number" maxlength="15" step="0.01" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" /></td>
                                         </tr>
                                     </tbody>                                            
                             </table>                            
@@ -748,11 +759,38 @@
                             </vs-table> 
                         </div>
                     </vs-tab>
+                    <vs-tab label="CAMBIO DE ESTADOS" icon="list" @click="colorx = '#551A8B'">
+                        <vs-row vs-w="12">
+                            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-lg="2" vs-sm="4" vs-xs="12" >
+                                
+                            </vs-col>
+                            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-lg="8" vs-sm="4" vs-xs="12">
+                                <vs-table stripe max-items=25 pagination :data="inmueble_flujo_estados" >
+                                    <template slot="thead">
+                                        <vs-th class="text-center">Detalle</vs-th>
+                                        <vs-th class="text-center">Usuario</vs-th>
+                                        <vs-th class="text-center">Fecha de creación</vs-th>
+                                    </template>
+                                    <template slot-scope="{ data }">
+                                        <vs-tr :key="datos.id" v-for="datos in data" class="text-center">    
+                                            <vs-td v-if="datos.detalle">{{ datos.detalle}}</vs-td>
+                                            <vs-td v-if="datos.nombres_usuario">{{ datos.nombres_usuario }} &nbsp; {{ datos.apellidos_usuario }} </vs-td>
+                                            <vs-td v-if="datos.fecha_creacion">{{ datos.fecha_creacion }}</vs-td>
+                                        </vs-tr>
+                                    </template>
+                                </vs-table>
+                            </vs-col>
+                            <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-lg="2" vs-sm="4" vs-xs="12">
+                                
+                            </vs-col>
+                        </vs-row>
+                        
+                    </vs-tab>
                 </vs-tabs>
 
                 <center>
                     <div class="vx-col w-full">
-                            <vs-button color="success" type="filled" @click="editar()" >EDITAR</vs-button>
+                            <vs-button color="success" type="filled" @click.prevent="editar()" >EDITAR</vs-button>
                             <vs-button color="danger" type="filled" @click="cancelar()">CANCELAR</vs-button>
                             <vs-button color="primary" type="filled" @click.stop="mostrar_reporte_PDF($route.params.id)">INFORME</vs-button>
                     </div>
@@ -911,12 +949,19 @@ export default {
             inmueble_terreno_caracteristicas_fisicas: [],
             inmueble_terreno_cerramiento: '',
             inmueble_terreno_linderos_dimensiones: [],
+            inmueble_terreno_linderos_dimensiones_area_col1: '',
+            inmueble_terreno_linderos_dimensiones_area_col2: '',
+            inmueble_terreno_linderos_dimensiones_area: '',
 
             inmueble_edificacion_caracteristicas: [],
             inmueble_edificacion_areas_edificacion: [],
-            inmueble_edificacion_areas_edificacion_total: [],
+            inmueble_edificacion_areas_edificacion_total: '',
+            inmueble_edificacion_areas_edificacion_total_col1: '',
+            inmueble_edificacion_areas_edificacion_total_col2: '',
             inmueble_edificacion_areas_edificacion_otros: [],
-            inmueble_edificacion_areas_edificacion_otros_total: [],
+            inmueble_edificacion_areas_edificacion_otros_total: '',
+            inmueble_edificacion_areas_edificacion_otros_total_col1: '',
+            inmueble_edificacion_areas_edificacion_otros_total_col2: '',
             inmueble_edificacion_resumen_infraestructura: [],
             inmueble_edificacion_conservacion_mantenimiento: '',
             inmueble_edificacion_descripcion_funcional: '',
@@ -949,6 +994,9 @@ export default {
 
             ciudad_valor: "",
             inmueble_imagenes: [],
+
+
+            inmueble_flujo_estados: [],
 
             url: '',
             attribution:'',
@@ -1086,17 +1134,28 @@ export default {
                 this.inmueble_terreno_caracteristicas_fisicas = acta_inmueble_terreno_objeto.caracteristicas_fisicas;
                 this.inmueble_terreno_cerramiento = acta_inmueble_terreno_objeto.cerramiento;
                 this.inmueble_terreno_linderos_dimensiones = acta_inmueble_terreno_objeto.linderos;
+                this.inmueble_terreno_linderos_dimensiones_area_col1 = acta_inmueble_terreno_objeto.area_terreno.split('|')[0];
+                this.inmueble_terreno_linderos_dimensiones_area_col2 = acta_inmueble_terreno_objeto.area_terreno.split('|')[1];
+                
 
                 // ------------------------ EDIFICACIÓN ---------------------------------------
                 var acta_inmueble_edificacion = res.data.acta_inmueble_edificacion;
                 const acta_inmueble_edificacion_objeto = JSON.parse(acta_inmueble_edificacion.propiedades);
 
                 this.inmueble_edificacion_caracteristicas = acta_inmueble_edificacion_objeto.caracteristicas;
+
                 this.inmueble_edificacion_areas_edificacion = acta_inmueble_edificacion_objeto.areas_edificacion;
-                this.inmueble_edificacion_areas_edificacion_total = acta_inmueble_edificacion_objeto.areas_edificacion_total;
+                this.inmueble_edificacion_areas_edificacion_total_col1 = acta_inmueble_edificacion_objeto.areas_edificacion_total.total_area_edificacion.split('|')[0];
+                this.inmueble_edificacion_areas_edificacion_total_col2 = acta_inmueble_edificacion_objeto.areas_edificacion_total.total_area_edificacion.split('|')[1];
+
                 this.inmueble_edificacion_areas_edificacion_otros = acta_inmueble_edificacion_objeto.areas_edificacion_otros;
-                this.inmueble_edificacion_areas_edificacion_otros_total = acta_inmueble_edificacion_objeto.areas_edificacion_otros_total;
+                this.inmueble_edificacion_areas_edificacion_otros_total_col1 = acta_inmueble_edificacion_objeto.areas_edificacion_otros_total.total_area_otros.split('|')[0];
+                this.inmueble_edificacion_areas_edificacion_otros_total_col2 = acta_inmueble_edificacion_objeto.areas_edificacion_otros_total.total_area_otros.split('|')[1];
+
+
                 this.inmueble_edificacion_resumen_infraestructura = acta_inmueble_edificacion_objeto.resumen_infraestructura;
+
+
                 this.inmueble_edificacion_conservacion_mantenimiento = acta_inmueble_edificacion_objeto.conservacion_mantenimiento;
                 this.inmueble_edificacion_descripcion_funcional = acta_inmueble_edificacion_objeto.descripcion_funcional;
 
@@ -1108,7 +1167,11 @@ export default {
                 this.inmueble_criterio_valoracion_calificacion_listado = acta_inmueble_criterio_valoracion_objeto.criterios_valoracion_calificacion;
                 this.inmueble_criterio_valoracion_terreno_listado = acta_inmueble_criterio_valoracion_objeto.valoracion_terreno;
                 this.inmueble_criterio_valoracion_terreno_detalle = acta_inmueble_criterio_valoracion_objeto.valoracion_terreno_detalle;
-                this.inmueble_criterio_valoracion_terreno_total = acta_inmueble_criterio_valoracion_objeto.valoracion_terreno_total;
+
+                var arr_criterio_valoracion_terreno_total = {};
+                arr_criterio_valoracion_terreno_total["valoracion_terreno_total"] = acta_inmueble_criterio_valoracion_objeto.valoracion_terreno_total.valoracion_terreno_total.replace('$','');
+
+                this.inmueble_criterio_valoracion_terreno_total = arr_criterio_valoracion_terreno_total;
                 this.inmueble_criterio_valoracion_construcciones = acta_inmueble_criterio_valoracion_objeto.valoracion_construcciones;
 
                 // ------------------------ CUADRO RESUMEN DE VALORACIÓN  ---------------------------------------
@@ -1129,6 +1192,11 @@ export default {
 
                 // --------------------------- SECCION IMAGENES -----------------------------------------------
                 this.listar_imagenes_tipos();
+
+                // *************************** SECCION CAMBIO DE ESTADOS ***********************************
+
+                var acta_inmueble_flujos = res.data.acta_inmueble_flujos;
+                this.inmueble_flujo_estados = acta_inmueble_flujos;
                 
 
             });
@@ -1149,7 +1217,7 @@ export default {
             axios.post("/api/guardarinmueble", formData).then(res => {
                     this.inmueble_id = res.data.inmueble_id;
                     this.$vs.notify({ title: "Inmueble Guardado", text: "Registro guardado exitosamente", color: "success" });
-                    //window.location.href = `/verificacion_activos/agregar_inmueble/${this.inmueble_id}/editar`;
+                    window.location.href = `/verificacion_activos/agregar_inmueble/${this.inmueble_id}/editar`;
                 })
                 .catch(err => {
                     console.log(err);
@@ -1160,8 +1228,51 @@ export default {
                 return;
             }*/
 
-
             /* INICIO DATOS GENERALES */
+
+            this.inmueble_institucion = this.$el.querySelectorAll('.inmueble_institucion')[0].value;
+            this.inmueble_finalidad_avaluo = this.$el.querySelectorAll('.inmueble_finalidad_avaluo')[0].value;
+            this.inmueble_agencia_oficina = this.$el.querySelectorAll('.inmueble_agencia_oficina')[0].value;
+            this.inmueble_nombre_cliente = this.$el.querySelectorAll('.inmueble_nombre_cliente')[0].value;
+            this.inmueble_direccion = this.$el.querySelectorAll('.inmueble_direccion')[0].value;
+            this.inmueble_fecha_inspeccion = this.$el.querySelectorAll('.inmueble_fecha_inspeccion')[0].value;
+            
+            this.inmueble_tipo_bien_descripcion = this.$el.querySelectorAll('.inmueble_tipo_bien_descripcion')[0].value;
+            this.inmueble_tipo_bien_descripcion_detalle = this.$el.querySelectorAll('.inmueble_tipo_bien_descripcion_detalle')[0].value;
+
+            this.inmueble_ubicacion = this.$el.querySelectorAll('.inmueble_ubicacion')[0].value;
+            this.inmueble_provincia = this.$el.querySelectorAll('.inmueble_provincia')[0].value;
+            this.inmueble_canton = this.$el.querySelectorAll('.inmueble_canton')[0].value;
+            this.inmueble_parroquia = this.$el.querySelectorAll('.inmueble_parroquia')[0].value;
+            this.inmueble_ciudad = this.$el.querySelectorAll('.inmueble_ciudad')[0].value;
+            this.inmueble_barrio_urbanizacion = this.$el.querySelectorAll('.inmueble_barrio_urbanizacion')[0].value;
+            this.inmueble_manzana = this.$el.querySelectorAll('.inmueble_manzana')[0].value;
+            this.inmueble_lote = this.$el.querySelectorAll('.inmueble_lote')[0].value;
+            this.inmueble_latitud = this.$el.querySelectorAll('.inmueble_latitud')[0].value;
+            this.inmueble_longitud = this.$el.querySelectorAll('.inmueble_longitud')[0].value;
+            this.inmueble_predio = this.$el.querySelectorAll('.inmueble_predio')[0].value;
+
+            
+            this.inmueble_datos_municipales_detalle = this.$el.querySelectorAll('.inmueble_datos_municipales_detalle_valor')[0].value;
+            this.inmueble_datos_municipales_ano_impuesto_predial = this.$el.querySelectorAll('.inmueble_datos_municipales_ano_impuesto_predial_valor')[0].value;
+            this.inmueble_datos_municipales_clave_catastral = this.$el.querySelectorAll('.inmueble_datos_municipales_clave_catastral_valor')[0].value;
+            this.inmueble_datos_municipales_geo_clave = this.$el.querySelectorAll('.inmueble_datos_municipales_geo_clave_valor')[0].value;
+
+            this.inmueble_municipio_ano_1_numero = this.$el.querySelectorAll('.inmueble_municipio_ano_1_numero')[0].value;
+            this.inmueble_municipio_ano_1_valor = this.$el.querySelectorAll('.inmueble_municipio_ano_1_valor')[0].value;
+            this.inmueble_municipio_ano_1_construccion = this.$el.querySelectorAll('.inmueble_municipio_ano_1_construccion')[0].value;
+            this.inmueble_municipio_ano_1_terreno = this.$el.querySelectorAll('.inmueble_municipio_ano_1_terreno')[0].value;
+
+            this.inmueble_municipio_ano_2_numero = this.$el.querySelectorAll('.inmueble_municipio_ano_2_numero')[0].value;
+            this.inmueble_municipio_ano_2_valor = this.$el.querySelectorAll('.inmueble_municipio_ano_2_valor')[0].value;
+            this.inmueble_municipio_ano_2_construccion = this.$el.querySelectorAll('.inmueble_municipio_ano_2_construccion')[0].value;
+            this.inmueble_municipio_ano_2_terreno = this.$el.querySelectorAll('.inmueble_municipio_ano_2_terreno')[0].value;
+
+            this.inmueble_escritura_detalle = this.$el.querySelectorAll('.inmueble_escritura_detalle_valor')[0].value;
+            this.inmueble_escritura_notaria = this.$el.querySelectorAll('.inmueble_escritura_notaria_valor')[0].value;
+            this.inmueble_escritura_canton = this.$el.querySelectorAll('.inmueble_escritura_canton_valor')[0].value;
+            this.inmueble_escritura_fecha = this.$el.querySelectorAll('.inmueble_escritura_fecha_valor')[0].value;
+            this.inmueble_escritura_superficie = this.$el.querySelectorAll('.inmueble_escritura_superficie_valor')[0].value;
             this.inmueble_escritura_cuantia = this.$el.querySelectorAll('.inmueble_escritura_cuantia_valor')[0].value;
 
             this.inmueble_avaluo_valor_reposicion_terreno = this.$el.querySelectorAll('.inmueble_avaluo_valor_reposicion_terreno_valor')[0].value;
@@ -1207,6 +1318,221 @@ export default {
             this.inmueble_entorno_impacto_ambiental = this.$el.querySelectorAll('.inmueble_entorno_impacto_ambiental_valor')[0].value;
             this.inmueble_entorno_observaciones  = this.$el.querySelectorAll('.inmueble_entorno_observaciones_valor')[0].value;
             /* FIN ENTORNO */
+
+            /* INICIO TERRENO */            
+            const inmueble_terreno_localizacion_clave_listado = this.$el.querySelectorAll('.inmueble_terreno_localizacion_clave');
+            const inmueble_terreno_localizacion_valor_listado = this.$el.querySelectorAll('.inmueble_terreno_localizacion_valor');
+
+            var arr_terreno_localizacion = {};
+
+            for (let i = 0; i < inmueble_terreno_localizacion_clave_listado.length; i++) {
+                let clave = inmueble_terreno_localizacion_clave_listado[i].value;
+                let valor = inmueble_terreno_localizacion_valor_listado[i].value;
+                arr_terreno_localizacion[clave] = valor;
+            }
+
+
+            const inmueble_terreno_caracteristicas_fisicas_clave_listado = this.$el.querySelectorAll('.inmueble_terreno_caracteristicas_fisicas_clave');
+            const inmueble_terreno_caracteristicas_fisicas_valor_listado = this.$el.querySelectorAll('.inmueble_terreno_caracteristicas_fisicas_valor');
+
+            var arr_terreno_caracteristicas_fisicas = {};
+
+            for (let i = 0; i < inmueble_terreno_caracteristicas_fisicas_clave_listado.length; i++) {
+                let clave = inmueble_terreno_caracteristicas_fisicas_clave_listado[i].value;
+                let valor = inmueble_terreno_caracteristicas_fisicas_valor_listado[i].value;
+                arr_terreno_caracteristicas_fisicas[clave] = valor;
+            }
+
+            const inmueble_terreno_cerramiento_valor = this.$el.querySelectorAll('.inmueble_terreno_cerramiento')[0].value;
+
+            const inmueble_terreno_linderos_dimensiones_col1_listado = this.$el.querySelectorAll('.inmueble_terreno_linderos_dimensiones_col1');
+            const inmueble_terreno_linderos_dimensiones_col2_listado = this.$el.querySelectorAll('.inmueble_terreno_linderos_dimensiones_col2');
+            const inmueble_terreno_linderos_dimensiones_col3_listado = this.$el.querySelectorAll('.inmueble_terreno_linderos_dimensiones_col3');
+            const inmueble_terreno_linderos_dimensiones_col4_listado = this.$el.querySelectorAll('.inmueble_terreno_linderos_dimensiones_col4');
+            const inmueble_terreno_linderos_dimensiones_col5_listado = this.$el.querySelectorAll('.inmueble_terreno_linderos_dimensiones_col5');
+
+            var arr_inmueble_terreno_linderos_dimensiones_listado = {};
+
+            for (let i = 0; i < inmueble_terreno_linderos_dimensiones_col1_listado.length; i++) {
+                let linderos = inmueble_terreno_linderos_dimensiones_col1_listado[i].value;
+                let coordenadas = inmueble_terreno_linderos_dimensiones_col2_listado[i].value;
+                let descripcion = inmueble_terreno_linderos_dimensiones_col3_listado[i].value;
+                let escritura = inmueble_terreno_linderos_dimensiones_col4_listado[i].value;
+                let comprobacion_sitio = inmueble_terreno_linderos_dimensiones_col5_listado[i].value;
+
+                arr_inmueble_terreno_linderos_dimensiones_listado[i+1] = linderos+'|'+coordenadas+'|'+descripcion+'|'+escritura+'|'+comprobacion_sitio;
+            }
+
+            const inmueble_terreno_linderos_dimensiones_area_col1 = this.$el.querySelectorAll('.inmueble_terreno_linderos_dimensiones_area_col1')[0].value;
+            const inmueble_terreno_linderos_dimensiones_area_col2 = this.$el.querySelectorAll('.inmueble_terreno_linderos_dimensiones_area_col2')[0].value;
+            
+            this.inmueble_terreno_linderos_dimensiones_area = inmueble_terreno_linderos_dimensiones_area_col1+'|'+inmueble_terreno_linderos_dimensiones_area_col2;
+
+
+            /* FIN TERRENO */
+
+            /* INICIO EDIFICACION */
+            const inmueble_edificacion_caracteristicas_clave_listado = this.$el.querySelectorAll('.inmueble_edificacion_caracteristicas_clave');
+            const inmueble_edificacion_caracteristicas_valor_listado = this.$el.querySelectorAll('.inmueble_edificacion_caracteristicas_valor');
+
+            var arr_edificacion_caracteristicas = {};
+
+            for (let i = 0; i < inmueble_edificacion_caracteristicas_clave_listado.length; i++) {
+                let clave = inmueble_edificacion_caracteristicas_clave_listado[i].value;
+                let valor = inmueble_edificacion_caracteristicas_valor_listado[i].value;
+                arr_edificacion_caracteristicas[clave] = valor;
+            }
+
+
+            const inmueble_areas_edificacion_descripcion_listado = this.$el.querySelectorAll('.inmueble_edificacion_areas_edificacion_col1');
+            const inmueble_areas_edificacion_area_cubierta_listado = this.$el.querySelectorAll('.inmueble_edificacion_areas_edificacion_col2');
+            const inmueble_areas_edificacion_area_descubierta_listado = this.$el.querySelectorAll('.inmueble_edificacion_areas_edificacion_col3');
+
+            var arr_areas_edificacion = {};
+            var arr_areas_edificacion_total = {};
+            for (let i = 0; i < inmueble_areas_edificacion_descripcion_listado.length; i++) {
+                let descripcion = inmueble_areas_edificacion_descripcion_listado[i].value;
+                let area_cubierta = inmueble_areas_edificacion_area_cubierta_listado[i].value;
+                let area_descubierta = inmueble_areas_edificacion_area_descubierta_listado[i].value;
+                arr_areas_edificacion[descripcion] = area_cubierta+'|'+area_descubierta;
+            }
+
+            const inmueble_edificacion_areas_edificacion_total_col1 = this.$el.querySelectorAll('.inmueble_edificacion_areas_edificacion_total_col1')[0].value;
+            const inmueble_edificacion_areas_edificacion_total_col2 = this.$el.querySelectorAll('.inmueble_edificacion_areas_edificacion_total_col2')[0].value;
+        
+            arr_areas_edificacion_total["total_area_edificacion"] = inmueble_edificacion_areas_edificacion_total_col1+'|'+inmueble_edificacion_areas_edificacion_total_col2;
+
+            const inmueble_areas_edificacion_otros_descripcion_listado = this.$el.querySelectorAll('.inmueble_edificacion_areas_edificacion_otros_col1');
+            const inmueble_areas_edificacion_otros_area_cubierta_listado = this.$el.querySelectorAll('.inmueble_edificacion_areas_edificacion_otros_col2');
+            const inmueble_areas_edificacion_otros_area_descubierta_listado = this.$el.querySelectorAll('.inmueble_edificacion_areas_edificacion_otros_col3');
+
+            var arr_areas_edificacion_otros = {};
+            var arr_areas_edificacion_otros_total = {};
+
+            for (let i = 0; i < inmueble_areas_edificacion_otros_descripcion_listado.length; i++) {
+                let descripcion = inmueble_areas_edificacion_otros_descripcion_listado[i].value;
+                let area_cubierta = inmueble_areas_edificacion_otros_area_cubierta_listado[i].value;
+                let area_descubierta = inmueble_areas_edificacion_otros_area_descubierta_listado[i].value;
+                arr_areas_edificacion_otros[descripcion] = area_cubierta+'|'+area_descubierta;
+            }
+
+            const inmueble_edificacion_areas_edificacion_otros_total_col1 = this.$el.querySelectorAll('.inmueble_edificacion_areas_edificacion_otros_total_col1')[0].value;
+            const inmueble_edificacion_areas_edificacion_otros_total_col2 = this.$el.querySelectorAll('.inmueble_edificacion_areas_edificacion_otros_total_col2')[0].value;
+            
+            arr_areas_edificacion_otros_total["total_area_otros"] = inmueble_edificacion_areas_edificacion_otros_total_col1+'|'+inmueble_edificacion_areas_edificacion_otros_total_col2;
+
+            const inmueble_edificacion_resumen_infraestructura_descripcion_listado = this.$el.querySelectorAll('.inmueble_edificacion_resumen_infraestructura_col1');
+            const inmueble_edificacion_resumen_infraestructura_unidad_listado = this.$el.querySelectorAll('.inmueble_edificacion_resumen_infraestructura_col2');
+            const inmueble_edificacion_resumen_infraestructura_cantidad_listado = this.$el.querySelectorAll('.inmueble_edificacion_resumen_infraestructura_col3');
+
+            var arr_resumen_infraestructura = {};
+
+            for (let i = 0; i < inmueble_edificacion_resumen_infraestructura_descripcion_listado.length; i++) {
+                let descripcion = inmueble_edificacion_resumen_infraestructura_descripcion_listado[i].value;
+                let unidad = inmueble_edificacion_resumen_infraestructura_unidad_listado[i].value;
+                let cantidad = inmueble_edificacion_resumen_infraestructura_cantidad_listado[i].value;
+                arr_resumen_infraestructura[descripcion] = unidad+'|'+cantidad;
+            }
+
+            this.inmueble_edificacion_conservacion_mantenimiento = this.$el.querySelectorAll('.inmueble_edificacion_conservacion_mantenimiento')[0].value;
+            this.inmueble_edificacion_descripcion_funcional = this.$el.querySelectorAll('.inmueble_edificacion_descripcion_funcional')[0].value;
+
+                    
+            /* FIN EDIFICACION */
+
+            /* INICIO CRITERIOS Y METODOS EMPLEADOS EN LA VALORACION */
+
+            const inmueble_criterio_valoracion_listado_clave_listado = this.$el.querySelectorAll('.inmueble_criterio_valoracion_listado_clave');
+            const inmueble_criterio_valoracion_listado_valor_listado = this.$el.querySelectorAll('.inmueble_criterio_valoracion_listado_valor');
+
+            var arr_criterio_metodos_valoracion = {};
+
+            for (let i = 0; i < inmueble_criterio_valoracion_listado_clave_listado.length; i++) {
+                let clave = inmueble_criterio_valoracion_listado_clave_listado[i].value;
+                let valor = inmueble_criterio_valoracion_listado_valor_listado[i].value;
+                arr_criterio_metodos_valoracion[clave] = valor;
+            }
+
+
+            const inmueble_criterio_valoracion_calificacion_listado_clave = this.$el.querySelectorAll('.inmueble_criterio_valoracion_calificacion_listado_clave');
+            const inmueble_criterio_valoracion_calificacion_listado_valor = this.$el.querySelectorAll('.inmueble_criterio_valoracion_calificacion_listado_valor');
+
+            var arr_criterio_valoracion_calificacion = {};
+
+            for (let i = 0; i < inmueble_criterio_valoracion_calificacion_listado_clave.length; i++) {
+                let clave = inmueble_criterio_valoracion_calificacion_listado_clave[i].value;
+                let valor = inmueble_criterio_valoracion_calificacion_listado_valor[i].value;
+                arr_criterio_valoracion_calificacion[clave] = valor;
+            }
+
+            this.inmueble_criterio_valoracion_terreno_detalle = this.$el.querySelectorAll('.inmueble_criterio_valoracion_terreno_detalle')[0].value;
+ 
+            const inmueble_criterio_valoracion_terreno_listado_col1 = this.$el.querySelectorAll('.inmueble_criterio_valoracion_terreno_listado_col1');
+            const inmueble_criterio_valoracion_terreno_listado_col2 = this.$el.querySelectorAll('.inmueble_criterio_valoracion_terreno_listado_col2');
+            const inmueble_criterio_valoracion_terreno_listado_col3 = this.$el.querySelectorAll('.inmueble_criterio_valoracion_terreno_listado_col3');
+            const inmueble_criterio_valoracion_terreno_listado_col4 = this.$el.querySelectorAll('.inmueble_criterio_valoracion_terreno_listado_col4');
+            const inmueble_criterio_valoracion_terreno_listado_col5 = this.$el.querySelectorAll('.inmueble_criterio_valoracion_terreno_listado_col5');
+            const inmueble_criterio_valoracion_terreno_listado_col6 = this.$el.querySelectorAll('.inmueble_criterio_valoracion_terreno_listado_col6');
+            const inmueble_criterio_valoracion_terreno_listado_col7 = this.$el.querySelectorAll('.inmueble_criterio_valoracion_terreno_listado_col7');
+            const inmueble_criterio_valoracion_terreno_listado_col8 = this.$el.querySelectorAll('.inmueble_criterio_valoracion_terreno_listado_col8');
+            const inmueble_criterio_valoracion_terreno_listado_col9 = this.$el.querySelectorAll('.inmueble_criterio_valoracion_terreno_listado_col9');
+            const inmueble_criterio_valoracion_terreno_listado_col10 = this.$el.querySelectorAll('.inmueble_criterio_valoracion_terreno_listado_col10');
+
+            var arr_criterio_valoracion_terreno_listado = {};
+
+            for (let i = 0; i < inmueble_criterio_valoracion_terreno_listado_col1.length; i++) {
+                let terreno_venta = inmueble_criterio_valoracion_terreno_listado_col1[i].value;
+                let area_m2 = inmueble_criterio_valoracion_terreno_listado_col2[i].value;
+                let valor_m2 = inmueble_criterio_valoracion_terreno_listado_col3[i].value;
+                let frente = inmueble_criterio_valoracion_terreno_listado_col4[i].value;
+                let ubicacion = inmueble_criterio_valoracion_terreno_listado_col5[i].value;
+                let tamano = inmueble_criterio_valoracion_terreno_listado_col6[i].value;
+                let forma = inmueble_criterio_valoracion_terreno_listado_col7[i].value;
+                let adecuacion = inmueble_criterio_valoracion_terreno_listado_col8[i].value;
+                let homogenizados = inmueble_criterio_valoracion_terreno_listado_col9[i].value;
+                let valor_unitario = inmueble_criterio_valoracion_terreno_listado_col10[i].value;
+
+                arr_criterio_valoracion_terreno_listado[i+1] = terreno_venta+'|'+area_m2+'|'+valor_m2+'|'+frente+'|'+ubicacion+'|'+tamano+'|'+forma+'|'+adecuacion+'|'+homogenizados+'|'+valor_unitario;
+            }
+
+            var arr_criterio_valoracion_terreno_total = {};
+            const inmueble_criterio_valoracion_terreno_total = this.$el.querySelectorAll('.inmueble_criterio_valoracion_terreno_total')[0].value;
+            arr_areas_edificacion_otros_total["valoracion_terreno_total"] = inmueble_criterio_valoracion_terreno_total;
+            
+
+            this.inmueble_criterio_valoracion_construcciones = this.$el.querySelectorAll('.inmueble_criterio_valoracion_construcciones')[0].value;
+
+            /* FIN CRITERIOS Y METODOS EMPLEADOS EN LA VALORACION */
+
+
+            /* INICIO CUADRO RESUMEN VALORACION */
+
+
+            const inmueble_resumen_valoracion_tabla_col1 = this.$el.querySelectorAll('.inmueble_resumen_valoracion_tabla_col1');
+            const inmueble_resumen_valoracion_tabla_col2 = this.$el.querySelectorAll('.inmueble_resumen_valoracion_tabla_col2');
+            const inmueble_resumen_valoracion_tabla_col3 = this.$el.querySelectorAll('.inmueble_resumen_valoracion_tabla_col3');
+            const inmueble_resumen_valoracion_tabla_col4 = this.$el.querySelectorAll('.inmueble_resumen_valoracion_tabla_col4');
+            const inmueble_resumen_valoracion_tabla_col5 = this.$el.querySelectorAll('.inmueble_resumen_valoracion_tabla_col5');
+
+            var arr_inmueble_resumen_valoracion_tabla = {};
+
+            for (let i = 0; i < inmueble_resumen_valoracion_tabla_col1.length; i++) {
+                let descripcion = inmueble_resumen_valoracion_tabla_col1[i].value;
+                let area_m2 = inmueble_resumen_valoracion_tabla_col2[i].value;
+                let valor_reposicion = inmueble_resumen_valoracion_tabla_col3[i].value;
+                let valor_actual = inmueble_resumen_valoracion_tabla_col4[i].value;
+                let valor_realizacion = inmueble_resumen_valoracion_tabla_col5[i].value;
+                
+                arr_inmueble_resumen_valoracion_tabla[i+1] = descripcion+'|'+area_m2+'|'+valor_reposicion+'|'+valor_actual+'|'+valor_realizacion;
+            }
+
+            this.inmueble_resumen_valoracion_reposicion = this.$el.querySelectorAll('.inmueble_resumen_valoracion_reposicion')[0].value;
+            this.inmueble_resumen_valoracion_mercado = this.$el.querySelectorAll('.inmueble_resumen_valoracion_mercado')[0].value;
+            this.inmueble_resumen_valoracion_realizacion = this.$el.querySelectorAll('.inmueble_resumen_valoracion_realizacion')[0].value;
+
+
+            /* FIN CUADRO RESUMEN VALORACION */  
+
 
             axios.post("/api/editaractainmueble", {
                     id: this.$route.params.id,
@@ -1270,6 +1596,34 @@ export default {
                     inmueble_entorno_equipamiento: arr_entorno_equipamiento,
                     inmueble_entorno_observaciones: this.inmueble_entorno_observaciones,
 
+                    inmueble_terreno_localizacion: arr_terreno_localizacion,
+                    inmueble_terreno_caracteristicas_fisicas: arr_terreno_caracteristicas_fisicas,
+                    inmueble_terreno_cerramiento: inmueble_terreno_cerramiento_valor,
+                    inmueble_terreno_linderos_dimensiones: arr_inmueble_terreno_linderos_dimensiones_listado,
+                    inmueble_terreno_linderos_dimensiones_area: this.inmueble_terreno_linderos_dimensiones_area,
+
+                    inmueble_edificacion_caracteristicas: arr_edificacion_caracteristicas,
+                    inmueble_edificacion_areas_edificacion: arr_areas_edificacion,
+                    inmueble_edificacion_areas_edificacion_total: arr_areas_edificacion_total,
+                    inmueble_edificacion_areas_edificacion_otros: arr_areas_edificacion_otros,
+                    inmueble_edificacion_areas_edificacion_otros_total: arr_areas_edificacion_otros_total,
+                    inmueble_edificacion_resumen_infraestructura: arr_resumen_infraestructura,
+                    inmueble_edificacion_conservacion_mantenimiento: this.inmueble_edificacion_conservacion_mantenimiento,
+                    inmueble_edificacion_descripcion_funcional: this.inmueble_edificacion_descripcion_funcional,
+
+                    
+                    inmueble_criterio_valoracion_listado: arr_criterio_metodos_valoracion,
+                    inmueble_criterio_valoracion_calificacion_listado: arr_criterio_valoracion_calificacion,
+                    inmueble_criterio_valoracion_terreno_listado: arr_criterio_valoracion_terreno_listado,
+                    inmueble_criterio_valoracion_terreno_detalle: this.inmueble_criterio_valoracion_terreno_detalle,
+                    inmueble_criterio_valoracion_terreno_total: arr_areas_edificacion_otros_total,
+                    inmueble_criterio_valoracion_construcciones: this.inmueble_criterio_valoracion_construcciones,
+
+                    inmueble_resumen_valoracion_tabla: arr_inmueble_resumen_valoracion_tabla,
+                    inmueble_resumen_valoracion_reposicion: this.inmueble_resumen_valoracion_reposicion,
+                    inmueble_resumen_valoracion_mercado: this.inmueble_resumen_valoracion_mercado,
+                    inmueble_resumen_valoracion_realizacion: this.inmueble_resumen_valoracion_realizacion, 
+
                     user_id: this.usuario.id,
                 })
                 .then(res => {
@@ -1279,6 +1633,7 @@ export default {
                             text: "Registro editado exitosamente",
                             color: "success"
                         });
+                        window.location.reload();
                 })
                 .catch(err => {
                     console.log(err);
@@ -1478,6 +1833,9 @@ export default {
         mostrar_reporte_PDF(acta_inmueble_id) {
             this.acta_inmueble_url_reporte = "/api/reporte_inmueble_pdf/"+this.$route.params.id;
             this.popup_reporte_inmueble = true;
+        },
+        cambiar_estado($event){
+            this.inmueble_estado = $event; 
         },
     },
     mounted() {

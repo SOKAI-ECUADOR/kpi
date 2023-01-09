@@ -93,6 +93,7 @@ class EmpresaController extends Controller
         $empresa->direccion_empresa = $request->direccion;
         $empresa->telefono = $request->telefono;
         $empresa->email_empresa = $request->email_empresa;
+        $empresa->nro_comprobantes = $request->nro_comprobantes;
         $empresa->password = $request->password;
         $empresa->servidor_correo = $request->servidor_correo;
         $empresa->puerto_correo = $request->puerto_correo;
@@ -604,6 +605,7 @@ class EmpresaController extends Controller
         $empresa->direccion_empresa = $request->direccion;
         $empresa->telefono = $request->telefono;
         $empresa->email_empresa = $request->email_empresa;
+        $empresa->nro_comprobantes = $request->nro_comprobantes;
         if ($request->password) {
             $empresa->password = $request->password;
         }
@@ -729,28 +731,28 @@ class EmpresaController extends Controller
             }
         }
 
-        $establecimiento = Establecimiento::find($id_establecimiento);
-        $establecimiento->nombre = $request->razon_social;
-        $establecimiento->codigo = "001";
-        $establecimiento->urlweb = $request->pagina_web;
-        $establecimiento->nombre_comercial = $request->nombre_comercial;
-        $establecimiento->direccion = $request->direccion;
-        $establecimiento->estado = "1";
-        $establecimiento->id_empresa = $id;
+        // $establecimiento = Establecimiento::find($id_establecimiento);
+        // $establecimiento->nombre = $request->razon_social;
+        // $establecimiento->codigo = "001";
+        // $establecimiento->urlweb = $request->pagina_web;
+        // $establecimiento->nombre_comercial = $request->nombre_comercial;
+        // $establecimiento->direccion = $request->direccion;
+        // $establecimiento->estado = "1";
+        // $establecimiento->id_empresa = $id;
         //$establecimiento->save();
 
-        $emision = Ptoemision::find($id_punto_emision);
-        $emision->nombre = $request->razon_social;
-        $emision->codigo = "001";
-        $emision->secuencial_factura = $request->secuencial_factura;
-        $emision->secuencial_nota_credito = $request->secuencial_nota_credito;
-        $emision->secuencial_nota_debito = $request->secuencial_nota_debito;
-        $emision->secuencial_guia_remision = $request->secuencial_guia_remision;
-        $emision->secuencial_retencion = $request->secuencial_retencion;
-        $emision->secuencial_liquidacion_compra = $request->secuencial_liquidacion_compra;
-        $emision->activo = $request->estado_punto_emision;
-        $emision->id_empresa = $id;
-        $emision->id_establecimiento = $id_establecimiento;
+        // $emision = Ptoemision::find($id_punto_emision);
+        // $emision->nombre = $request->razon_social;
+        // $emision->codigo = "001";
+        // $emision->secuencial_factura = $request->secuencial_factura;
+        // $emision->secuencial_nota_credito = $request->secuencial_nota_credito;
+        // $emision->secuencial_nota_debito = $request->secuencial_nota_debito;
+        // $emision->secuencial_guia_remision = $request->secuencial_guia_remision;
+        // $emision->secuencial_retencion = $request->secuencial_retencion;
+        // $emision->secuencial_liquidacion_compra = $request->secuencial_liquidacion_compra;
+        // $emision->activo = $request->estado_punto_emision;
+        // $emision->id_empresa = $id;
+        // $emision->id_establecimiento = $id_establecimiento;
         //$emision->save();
 
         //carpetas
@@ -1050,25 +1052,25 @@ class EmpresaController extends Controller
         $empresa->save();
 
 
-        $establecimiento = Establecimiento::find($id_establecimeinto);
-        $establecimiento->nombre = $request->nombre_empresa;
-        $establecimiento->urlweb = $request->pag_web;
-        $establecimiento->nombre_comercial = $request->nombre_comercial;
-        $establecimiento->direccion = $request->direccion_empresa;
-        $establecimiento->id_empresa = $id;
+        // $establecimiento = Establecimiento::find($id_establecimeinto);
+        // $establecimiento->nombre = $request->nombre_empresa;
+        // $establecimiento->urlweb = $request->pag_web;
+        // $establecimiento->nombre_comercial = $request->nombre_comercial;
+        // $establecimiento->direccion = $request->direccion_empresa;
+        // $establecimiento->id_empresa = $id;
         //$establecimiento->save();
 
-        $emision = Ptoemision::find($id_punto_emision);
-        $emision->nombre = $request->nombre_empresa;
-        $emision->secuencial_factura = $request->secuencial_factura;
-        $emision->secuencial_nota_credito = $request->secuencial_nota_credito;
-        $emision->secuencial_nota_debito = $request->secuencial_nota_debito;
-        $emision->secuencial_guia_remision = $request->secuencial_guia_remision;
-        $emision->secuencial_retencion = $request->secuencial_retencion;
-        $emision->secuencial_liquidacion_compra = $request->secuencial_liquidacion_compra;
-        $emision->activo = $request->activo;
-        $emision->id_empresa = $id;
-        $emision->id_establecimiento = $id_establecimeinto;
+        // $emision = Ptoemision::find($id_punto_emision);
+        // $emision->nombre = $request->nombre_empresa;
+        // $emision->secuencial_factura = $request->secuencial_factura;
+        // $emision->secuencial_nota_credito = $request->secuencial_nota_credito;
+        // $emision->secuencial_nota_debito = $request->secuencial_nota_debito;
+        // $emision->secuencial_guia_remision = $request->secuencial_guia_remision;
+        // $emision->secuencial_retencion = $request->secuencial_retencion;
+        // $emision->secuencial_liquidacion_compra = $request->secuencial_liquidacion_compra;
+        // $emision->activo = $request->activo;
+        // $emision->id_empresa = $id;
+        // $emision->id_establecimiento = $id_establecimeinto;
         //$emision->save();
 
         $id_user = $request->id_user;

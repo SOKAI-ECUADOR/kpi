@@ -46,7 +46,7 @@ class NotacreditoCompraController extends Controller
         if ($buscar == '') {
                 $recupera = DB::select("SELECT nota_credito_compra.*, nota_credito_compra.estado AS estadof, nota_credito_compra.fmodifica AS fecha_autorizacion, empresa.*, proveedor.*, moneda.nomb_moneda AS moneda, nota_credito_compra.descuento AS descuentototal, establecimiento.codigo AS codigoes, punto_emision.codigo AS codigope, establecimiento.direccion AS direccion_establecimiento FROM nota_credito_compra INNER JOIN empresa ON empresa.id_empresa = $idempresa INNER JOIN proveedor ON proveedor.id_proveedor = nota_credito_compra.id_proveedor INNER JOIN establecimiento ON establecimiento.id_establecimiento = $ide INNER JOIN punto_emision ON punto_emision.id_punto_emision = $idpe INNER JOIN moneda ON moneda.id_moneda = empresa.id_moneda WHERE nota_credito_compra.id_empresa = $idempresa AND nota_credito_compra.modo = 1 ORDER BY nota_credito_compra.fecha_emision DESC");
         } else {
-            $recupera = DB::select("SELECT nota_credito_compra.*,nota_credito_compra.estado AS estadof, nota_credito_compra.fmodifica AS fecha_autorizacion, empresa.*, proveedor.*, moneda.nomb_moneda AS moneda, nota_credito_compra.descuento AS descuentototal, establecimiento.codigo AS codigoes, punto_emision.codigo AS codigope, establecimiento.direccion AS direccion_establecimiento FROM nota_credito_compra INNER JOIN empresa ON empresa.id_empresa = $idempresa INNER JOIN proveedor ON proveedor.id_proveedor = nota_credito_compra.id_proveedor INNER JOIN establecimiento ON establecimiento.id_establecimiento = $ide INNER JOIN punto_emision ON punto_emision.id_punto_emision = $idpe INNER JOIN moneda ON moneda.id_moneda = empresa.id_moneda WHERE (proveedor.nombre LIKE '%$buscar%' OR proveedor.email LIKE '%$buscar%' OR proveedor.telefono LIKE '%$buscar%' OR proveedor.identificacion LIKE '%$buscar%' OR nota_credito_compra.respuesta LIKE '%$buscar%' OR nota_credito_compra.clave_acceso LIKE '%$buscar%') AND nota_credito_compra.id_empresa = $idempresa AND nota_credito_compra.modo = 1 ORDER BY nota_credito_compra.fecha_emision DESC");
+            $recupera = DB::select("SELECT nota_credito_compra.*,nota_credito_compra.estado AS estadof, nota_credito_compra.fmodifica AS fecha_autorizacion, empresa.*, proveedor.*, moneda.nomb_moneda AS moneda, nota_credito_compra.descuento AS descuentototal, establecimiento.codigo AS codigoes, punto_emision.codigo AS codigope, establecimiento.direccion AS direccion_establecimiento FROM nota_credito_compra INNER JOIN empresa ON empresa.id_empresa = $idempresa INNER JOIN proveedor ON proveedor.id_proveedor = nota_credito_compra.id_proveedor INNER JOIN establecimiento ON establecimiento.id_establecimiento = $ide INNER JOIN punto_emision ON punto_emision.id_punto_emision = $idpe INNER JOIN moneda ON moneda.id_moneda = empresa.id_moneda WHERE (proveedor.nombre_proveedor LIKE '%$buscar%' OR proveedor.email LIKE '%$buscar%' OR proveedor.telefono_prov LIKE '%$buscar%' OR proveedor.identif_proveedor LIKE '%$buscar%' OR nota_credito_compra.respuesta LIKE '%$buscar%' OR nota_credito_compra.clave_acceso LIKE '%$buscar%') AND nota_credito_compra.id_empresa = $idempresa AND nota_credito_compra.modo = 1 ORDER BY nota_credito_compra.fecha_emision DESC");
         }
         return [
             'recupera' => $recupera
@@ -692,6 +692,7 @@ class NotacreditoCompraController extends Controller
 
 
         }
+
         $productos=DB::select("SELECT detalle_nota_credito_compra.total,if(detalle_nota_credito_compra.id_iva=2,'doce','cero') as iva,if(producto.sector=1,'producto','servicio')  as sector,producto.id_linea_producto,proyecto.id_proyecto,proyecto.descripcion,
         if(producto.sector=1,linea_producto.id_plan_cuentas_compras_iva,null) as id_plan_cuentas_iva_12,
         if(producto.sector=1,linea_producto.id_plan_cuentas_compras_iva_0,null) as id_plan_cuentas_iva_0,
@@ -710,6 +711,7 @@ class NotacreditoCompraController extends Controller
         LEFT JOIN plan_cuentas
         ON producto.id_plan_cuentas=plan_cuentas.id_plan_cuentas
         where detalle_nota_credito_compra.id_nota_credito_compra={$id}");
+
         $iva_asiento=DB::select("SELECT detalle_nota_credito_compra.total,proyecto.descripcion,proyecto.id_proyecto,CONCAT(plan_cuentas.codcta,'-',plan_cuentas.nomcta) as nombre_cuenta,plan_cuentas.id_plan_cuentas,null as debe,round(if(detalle_nota_credito_compra.id_iva=2,(detalle_nota_credito_compra.total)*(12/100),0),2) as haber
         from nota_credito_compra,retencion,plan_cuentas,detalle_nota_credito_compra
                        LEFT JOIN proyecto

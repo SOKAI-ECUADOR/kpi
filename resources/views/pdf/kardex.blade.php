@@ -114,8 +114,9 @@
 
 <body>
     <?php
-        ini_set('max_execution_time', 53200);
-        ini_set('memory_limit','3000M');
+        //ini_set('max_execution_time', 53200);
+        ini_set('max_execution_time', 3000);
+        ini_set('memory_limit','4000M');
     ?>
     <!--<div>{{var_dump($kardex)}}</div>-->
     @foreach ($kardex as $kardexs)

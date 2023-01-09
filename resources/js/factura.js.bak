@@ -55,23 +55,6 @@ function lectura_firma() {
     };
 }
 
-function hexToDec(s) {
-    var i, j, digits = [0], carry;
-    for (i = 0; i < s.length; i += 1) {
-        carry = parseInt(s.charAt(i), 16);
-        for (j = 0; j < digits.length; j += 1) {
-            digits[j] = digits[j] * 16 + carry;
-            carry = digits[j] / 10 | 0;
-            digits[j] %= 10;
-        }
-        while (carry > 0) {
-            digits.push(carry % 10);
-            carry = carry / 10 | 0;
-        }
-    }
-    return digits.reverse().join('');
-}
-
 function firmar_comprobante() {
     const getAll = ({contenido, password, comprobante, id_factura, tipo}) => {
         return new Promise(async (resolve, reject) => {
@@ -120,7 +103,7 @@ function firmar_comprobante() {
                         entidad = 'UANATACA'
                         var certBags = p12.getBags({bagType: forge.pki.oids.certBag})
                         var cert = certBags[forge.oids.certBag][0].cert;
-                        var issuerName = '2.5.4.97=VATES-A66721499,CN=UANATACA CA2 2016,OU=TSP-UANATACA,O=UANATACA S.A.,L=Barcelona (see current address at www.uanataca.com/address),C=ES';
+                        var issuerName = '2.5.4.97=#0c0f56415445532d413636373231343939,CN=UANATACA CA2 2016,OU=TSP-UANATACA,O=UANATACA S.A.,L=Barcelona (see current address at www.uanataca.com/address),C=ES';
                     }
                     else{
                     // actualizacion Banco Central y security data Danny 06/10/2021
@@ -236,7 +219,7 @@ function firmar_comprobante() {
                 
                         //  actualizacion agregar archivo HexToTin Danny 06/10/2021
                     //Serial Number
-                    /*if(entidad == 'CONSEJO DE LA JUDICATURA'  ){
+                    if(entidad == 'CONSEJO DE LA JUDICATURA' || entidad == 'ANF' || entidad == 'UANATACA'  ){
                         // axios.post("/api/hexToInt",{
                         //     hex: cert.serialNumber,
                         //     id_comprobante:id_factura,
@@ -245,13 +228,9 @@ function firmar_comprobante() {
                         //     X509SerialNumber="1013266204098971572897353243";
                         // });
                         X509SerialNumber="2248920180628776086";
-                    }
-                    else*/ 
-                    if(entidad == 'UANATACA' || entidad == 'ANF' || entidad == 'CONSEJO DE LA JUDICATURA'){
-                        X509SerialNumber=hexToDec(cert.serialNumber);
-                    }
-                    else{
-                        X509SerialNumber = parseInt(cert.serialNumber, 16);
+                    }else{
+                            
+                            X509SerialNumber = parseInt(cert.serialNumber, 16);
                     }
                     
                     var exponent = hexToBase64(key.e.data[0].toString(16));

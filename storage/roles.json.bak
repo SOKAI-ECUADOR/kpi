@@ -756,6 +756,17 @@
         "editar": 1,
         "crear": 1,
         "eliminar": 1
+    },
+    {
+        "id_roles": 69,
+        "nombre": "Convenio",
+        "value": 73,
+        "tipo" :52,
+        "lugar": 3,
+        "ver": 1,
+        "editar": 1,
+        "crear": 1,
+        "eliminar": 1
     }
     
 ]

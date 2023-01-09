@@ -1901,40 +1901,7 @@ class LiquidacionCompraController extends Controller
 
     }
 
-    public function liquidacion_compra_pdf($id, $tipo)
-    {
-        //Selecciona la factura que va enviar
-        $facturas = DB::select("SELECT *,(select id_retencion_liquidacion_compra from retencion_liquidacion_compra where id_liquidacion_compra={$id}) as exist_retencion FROM liquidacion_compra WHERE id_liquidacion_compra = $id");
-        $id_cliente = $facturas[0]->id_proveedor;
-        $id_empresa = $facturas[0]->id_empresa;
-        $id_punto_emision = $facturas[0]->id_punto_emision;
-        $id_establecimiento = $facturas[0]->id_establecimiento;
-        $clave_acceso = $facturas[0]->descripcion;
-        $clave_acceso_2 = $facturas[0]->clave_acceso;
-
-        //selecciona los clientes, empresa, los productos, pagos y clientes para crear en pdf
-        $clientes = DB::select("SELECT * FROM proveedor WHERE id_proveedor = $id_cliente");
-        $empresas = DB::select("SELECT em.*, es.urlweb FROM empresa em INNER JOIN establecimiento es ON es.id_establecimiento = $id_establecimiento INNER JOIN punto_emision pe ON pe.id_punto_emision = $id_punto_emision WHERE em.id_empresa = $id_empresa");
-        $detalles = DB::select("SELECT det.*, pr.cod_principal, pr.cod_alterno, pr.total_ice as total_ice_pr FROM detalle_liquidacion_compra as det INNER JOIN producto pr ON det.id_producto=pr.id_producto WHERE det.id_liquidacion_compra = $id");
-        $pagos = DB::select("SELECT fp.*, fps.descripcion, fpag.descripcion AS descripcionfp FROM liquidacion_compra_pagos fp LEFT JOIN forma_pagos fpag ON fp.id_formas_pagos=fpag.id_forma_pagos LEFT JOIN forma_pagos_sri fps ON fps.id_forma_pagos_sri=fpag.id_forma_pagos_sri WHERE fp.id_liquidacion_compra=$id");
-        $cliente = $clientes[0];
-        $empresa = $empresas[0];
-        $factura = $facturas[0];
-        //envia a la vista de factura_venta los datos almacenados en las variables  mdiante compact
-        $pdf = \PDF::loadView('pdf/liquidacion_compra', compact("factura", "cliente", "empresa", "detalles", "clave_acceso","clave_acceso_2", "pagos"));
-        $carpeta2 = constant("DATA_EMPRESA") . "$id_empresa/comprobantes/liquidacion_compra";
-        if (!file_exists($carpeta2)) {
-            mkdir($carpeta2, 0755, true);
-        }
-        //si la url tiene d va a descargar caso contrario solo va a ser una vista
-        if ($tipo == 'd') {
-            return $pdf->setWarnings(false)->save(constant("DATA_EMPRESA") . "$id_empresa/comprobantes/liquidacion_compra/$factura->clave_acceso.pdf")->download("$clave_acceso.pdf");
-        } else {
-            return $pdf->setWarnings(false)->save(constant("DATA_EMPRESA") . "$id_empresa/comprobantes/liquidacion_compra/$factura->clave_acceso.pdf")->stream("$clave_acceso.pdf");
-        }
-        //envia a la vista de factura_venta los datos almacenados en las variables  mdiante compact
-
-    }
+    
     public function liquidacion_comprastotales(Request $request){
         $queries = [];
         $inners = [];

@@ -166,6 +166,7 @@ class GuiaController extends Controller
                 
             $detguia = new DetalleGuiaRemision();
                 $detguia->codigo_interno = $request->productos[$a]["id_producto"];
+                $detguia->item = $request->productos[$a]["item"];
                 $detguia->descripcion = $request->productos[$a]["nombre"];
                 $detguia->cantidad = $request->productos[$a]["cantidad"];
                 $detguia->id_producto = $request->productos[$a]["id_producto"];
@@ -241,6 +242,7 @@ class GuiaController extends Controller
                     }else{
                         $detguia = new DetalleGuiaRemision();
                         $detguia->codigo_interno = $request->productos[$a]["id_producto"];
+                        $detguia->item = $request->productos[$a]["item"];
                         $detguia->descripcion = $request->productos[$a]["nombre"];
                         $detguia->cantidad = $request->productos[$a]["cantidad"];
                         $detguia->id_producto = $request->productos[$a]["id_producto"];

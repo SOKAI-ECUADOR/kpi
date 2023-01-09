@@ -1,17 +1,80 @@
 <template>
     <div id="ag-grid-demo">
         <vx-card>
-            <div class="flex flex-wrap justify-between items-center mb-3">
-                <!-- ITEMS PER PAGE -->
-                <div class="mb-4 md:mb-0 mr-4 ag-grid-table-actions-left"></div>
-                <div
-                    class="flex flex-wrap items-center justify-between ag-grid-table-actions-right"
-                >
-                    <vs-input
-                        class="mb-4 md:mb-0 mr-4"
-                        v-model="buscar"
-                        @keyup="listar(1, buscar)"
-                    />
+
+            <center><b><h3>BUSCADOR DE INMUEBLES </h3></b></center>            
+            <br />
+            
+            <vs-row vs-w="12">
+
+                <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-lg="12" vs-sm="4" vs-xs="12">
+
+
+                    <div class="vs-component vs-con-input-label vs-input selectExample w-full  normal vs-input-primary">
+                        <label for="" class="vs-input--label"># DE INMUEBLE:</label>
+                        <div class="vs-con-input">
+                            <input type="number" :value="acta_inmueble_numero_inmueble" @input="event => acta_inmueble_numero_inmueble = event.target.value" label="# DE INMUEBLE:" class="selectExample w-full acta_inmueble_numero_inmueble  vs-inputx  normal" style="border: 1px solid rgba(0, 0, 0, 0.2);"/>
+                        </div>
+                    </div>
+                    &nbsp;
+                    <div class="vs-component vs-con-input-label vs-input w-full vs-input-primary">
+                        <label class="vs-input--label">ESTADO:</label>
+                        <div class="vs-con-input">
+                            <select :value="acta_inmueble_estado" class="selectExample w-full acta_inmueble_estado vs-inputx vs-input--input normal" style="border: 1px solid rgba(0, 0, 0, 0.2);" v-on:change="cambiar_estado($event.target.value)">
+                                <option value="">Seleccione </option>
+                                <option v-for="datos in acta_inmueble_estados" :value="datos.id">{{datos.nombre}}</option>
+                            </select>
+                        </div>
+                    </div> 
+                    &nbsp;               
+                    <div class="vs-component vs-con-input-label vs-input w-full vs-input-primary">
+                        <label class="vs-input--label">EMPRESA:</label>
+                        <div class="vs-con-input">
+                            <select :value="acta_inmueble_empresa" class="selectExample w-full acta_inmueble_empresa vs-inputx vs-input--input normal" style="border: 1px solid rgba(0, 0, 0, 0.2);" v-on:change="cambiar_empresa($event.target.value)">
+                                <option value="">Seleccione </option>
+                                <option v-for="datos in acta_inmueble_empresas" :value="datos.id">{{datos.nombre_empresa}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                </vs-col>
+                
+
+            </vs-row>
+
+            <vs-row vs-w="12">
+                <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-lg="2" vs-sm="4" vs-xs="12" >
+                    &nbsp;
+                </vs-col>
+                <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-lg="8" vs-sm="4" vs-xs="12">
+                    
+                    <div class="vs-component vs-con-input-label vs-input selectExample w-full  normal vs-input-primary">
+                        <label for="" class="vs-input--label">FECHA DE INICIO:</label>
+                        <div class="vs-con-input">
+                            <input type="date" :value="acta_inmueble_fecha_inicio" @input="event => acta_inmueble_fecha_inicio = event.target.value"  class="selectExample w-full acta_inmueble_fecha_inicio  vs-inputx  normal" style="border: 1px solid rgba(0, 0, 0, 0.2);"/>
+                        </div>
+                    </div>&nbsp;
+                    <div class="vs-component vs-con-input-label vs-input selectExample w-full  normal vs-input-primary">
+                        <label for="" class="vs-input--label">FECHA FIN:</label>
+                        <div class="vs-con-input">
+                            <input type="date" :value="acta_inmueble_fecha_fin" @input="event => acta_inmueble_fecha_fin = event.target.value"  class="selectExample w-full acta_inmueble_fecha_fin  vs-inputx  normal" style="border: 1px solid rgba(0, 0, 0, 0.2);"/>
+                        </div>
+                    </div>
+                    
+                </vs-col>
+                <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-lg="2" vs-sm="4" vs-xs="12">
+                    &nbsp;
+                </vs-col>
+            </vs-row>
+            <br />
+            <vs-row vs-w="12">
+                
+                <vs-col vs-type="flex" vs-justify="center" vs-align="center" vs-lg="12"  vs-xs="12">
+                <div class="flex flex-wrap items-center justify-between ">
+                    <vs-button class="btnx" type="filled" @click.prevent="buscar_inmuebles" >BUSCAR </vs-button>
+                    &nbsp;
+                    <vs-button class="btnx" type="filled" to="/verificacion_activos/agregar_inmueble">CREAR</vs-button>
+                    &nbsp;
                     <!--botón de herramientas-->
                     <div class="dropdown-button-container mr-3">
                         <vs-dropdown>
@@ -104,9 +167,15 @@
                         </vs-dropdown>
                     </div>
                     <!--Fin de bóton de herramientas-->
-                    <vs-button class="btnx" type="filled" to="/verificacion_activos/agregar_inmueble">Crear Inmueble</vs-button>
+                    
+                </div>    
+                </vs-col>
+            </vs-row>
 
-                </div>
+            <div class="flex flex-wrap justify-between items-center mb-3">
+                <!-- ITEMS PER PAGE -->
+                <div class="mb-4 md:mb-0 mr-4 ag-grid-table-actions-left"></div>
+                
             </div>
             <vs-table stripe max-items=25 pagination :data="contenido">
                 <template slot="thead">
@@ -1984,14 +2053,12 @@
 </template>
 <script>
 import { AgGridVue } from "ag-grid-vue";
-import ImportExcel from "@/components/excel/ImportExcel.vue";
 import $ from "jquery";
 import vSelect from "vue-select";
 const axios = require("axios");
 export default {
     components: {
         AgGridVue,
-        ImportExcel,
         vSelect
     },
     data() {
@@ -2000,6 +2067,15 @@ export default {
             popup_reporte_inmueble: false,
             popup_reporte_inmueble_titulo: 'VISUALIZACION DE REPORTE ',
             acta_inmueble_url_reporte: '',
+
+            acta_inmueble_numero_inmueble: '',
+            acta_inmueble_estado: '',
+            acta_inmueble_estados: [],
+            acta_inmueble_empresa: '',
+            acta_inmueble_empresas: [],
+            acta_inmueble_fecha_inicio: '',
+            acta_inmueble_fecha_fin: '',
+
 
 
 
@@ -2065,13 +2141,6 @@ export default {
         }
     },
     methods: {
-        listar(page1, buscar) {
-            var url ="/api/buscaractainmuebles/"+this.usuario.id_empresa +"?page=" +page1;
-            axios.get(url).then(res => {
-                var respuesta = res.data;
-                this.contenido = respuesta.recupera;
-            });
-        },
         editar(id) {
             this.$router.push(`/verificacion_activos/agregar_inmueble/${id}/editar`); 
         },
@@ -2079,6 +2148,62 @@ export default {
             this.acta_inmueble_url_reporte = "/api/reporte_inmueble_pdf/"+acta_inmueble_id;
             this.popup_reporte_inmueble = true;
         },
+        buscar_inmuebles() {
+
+            this.acta_inmueble_numero_inmueble = this.$el.querySelectorAll('.acta_inmueble_numero_inmueble')[0].value;
+            this.acta_inmueble_estado = this.$el.querySelectorAll('.acta_inmueble_estado')[0].value;
+            this.acta_inmueble_empresa = this.$el.querySelectorAll('.acta_inmueble_empresa')[0].value;
+            this.acta_inmueble_fecha_inicio = this.$el.querySelectorAll('.acta_inmueble_fecha_inicio')[0].value;
+            this.acta_inmueble_fecha_fin = this.$el.querySelectorAll('.acta_inmueble_fecha_fin')[0].value;
+
+            if(this.acta_inmueble_numero_inmueble == undefined && this.acta_inmueble_estado=='' && this.acta_inmueble_empresa=='' && this.acta_inmueble_fecha_inicio == undefined && this.acta_inmueble_fecha_fin == undefined){
+                alert('Seleccione al menos 1 criterio de búsqueda');
+                return false;
+            }       
+
+
+             axios.post("/api/buscaractainmuebles/"+"?page=" +1, {
+                    acta_inmueble_numero_inmueble: this.acta_inmueble_numero_inmueble == undefined ? '': this.acta_inmueble_numero_inmueble,
+                    acta_inmueble_estado: this.acta_inmueble_estado,
+                    acta_inmueble_empresa: this.acta_inmueble_empresa,
+                    acta_inmueble_fecha_inicio: this.acta_inmueble_fecha_inicio == undefined ? '': this.acta_inmueble_fecha_inicio,
+                    acta_inmueble_fecha_fin: this.acta_inmueble_fecha_fin == undefined ? '': this.acta_inmueble_fecha_fin,
+                })
+                .then(res => {
+                    var respuesta = res.data;
+                    this.contenido = respuesta.recupera;
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
+        },
+        listar_estado_inmuebles(page1, buscar1) {
+            var url = "/api/actaestado/INMUEBLE?page=" + page1 + "&buscar=" + buscar1;
+            axios.get(url).then(res => {
+                var respuesta = res.data;
+                this.acta_inmueble_estados = respuesta.recupera;
+            });
+        },
+        listar_empresas() {
+            axios.get("/api/lista/empresas").then(({ data }) => {
+                this.acta_inmueble_empresas = data;
+            }).catch(error => {
+                console.log(error);
+            });
+        },
+        cambiar_estado($event){
+            this.acta_inmueble_estado = $event; 
+        },
+        cambiar_empresa($event){
+            this.acta_inmueble_empresa = $event; 
+        },
+
+
+
+
+
+
 
 
 
@@ -3177,7 +3302,11 @@ export default {
         },
     },
     mounted() {
-        this.listar(1);
+        this.listar_estado_inmuebles(1,'');
+        this.listar_empresas();
+
+
+
         this.listartipoactivo(1, this.buscar1);
         this.listarmarca(1, this.buscar1);
         this.listarmodelo(1, this.buscar1);

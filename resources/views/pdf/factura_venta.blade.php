@@ -247,23 +247,11 @@
                 ?>
                 @foreach($detalles as $detalle)
                 <tr>
-                    
-                @if($empresa->nombre_empresa!=="QUIMPEC QUIMICAS CIA. LTDA.")
                     @if($detalle->cod_alterno!==null)
                         <td style="width:35px !important;">{{$detalle->cod_alterno}}</td>
                     @else
                         <td style="width:35px !important;" class="text-center">{{$detalle->cod_principal}}</td>
                     @endif
-                @else
-                    @if($detalle->codigo_barras!==null)
-                        <td style="width:35px !important;" class="text-center">{{$detalle->codigo_barras}}</td>
-                    @elseif($detalle->cod_alterno!==null)
-                        <td style="width:35px !important;" class="text-center">{{$detalle->cod_alterno}}</td>
-                    @elseif($detalle->cod_principal!==null)
-                        <td style="width:35px !important;" class="text-center">{{$detalle->cod_principal}}</td>
-                    @endif
-                @endif
-                    
                     
                     
                     
@@ -314,7 +302,7 @@
                     <div style="width: 100%; display: inline-block;border:1px solid #000;margin-top:5px">
                         <div style="width:100%;border-bottom: 1px solid #000;">
                             <span class="bold" style="font-size:9px;width: 60%;top: 15;display: inline-block;padding-left:8px;">SUBTOTAL SIN IMPUESTOS:</span>
-                            <span class="titulo3 nobold" style="width: 30%;display: inline-block;text-align:right">${{number_format($factura->subtotal_sin_impuesto,2,".",",")}}</span>
+                            <span class="titulo3 nobold" style="width: 30%;display: inline-block;text-align:right">${{number_format($factura->subtotal_sin_impuesto+$factura->descuento,2,".",",")}}</span>
                         </div>
                         @if($ice>0)
                         <div style="width:100%;border-bottom: 1px solid #000;">
@@ -334,16 +322,7 @@
                             <span class="titulo3 nobold" style="width: 30%;display: inline-block;text-align:right">${{number_format($factura->subtotal_no_obj_iva,2,".",",")}}</span>
                         </div>
                         @endif
-                        @if($factura->subtotal_12>0 && $factura->existe_iva_8>0)
-                        <div style="width:100%;border-bottom: 1px solid #000;">
-                            <span class="bold" style="font-size:9px;width: 60%;display: inline-block;padding-left:8px;">SUBTOTAL 8%:</span>
-                            <span class="titulo3 nobold" style="width: 30%;display: inline-block;text-align:right">${{number_format($factura->subtotal_12,2,".",",")}}</span>
-                        </div>
-                        <div style="width:100%;border-bottom: 1px solid #000;">
-                            <span class="bold" style="font-size:9px;width: 60%;display: inline-block;padding-left:8px;">IVA 8% :</span>
-                            <span class="titulo3 nobold" style="width: 30%;display: inline-block;text-align:right">${{number_format($factura->iva_12,2,".",",")}}</span>
-                        </div>
-                        @else
+                        @if($factura->subtotal_12>0)
                         <div style="width:100%;border-bottom: 1px solid #000;">
                             <span class="bold" style="font-size:9px;width: 60%;display: inline-block;padding-left:8px;">SUBTOTAL 12%:</span>
                             <span class="titulo3 nobold" style="width: 30%;display: inline-block;text-align:right">${{number_format($factura->subtotal_12,2,".",",")}}</span>

@@ -581,12 +581,6 @@ if (
                     i18n: "Usuarios"
                 },
                 {
-                    url: "/administrar/proyecto",
-                    name: "Proyecto",
-                    slug: "proyecto",
-                    i18n: "Proyectos"
-                },
-                {
                     url: "/administrar/cobranzas",
                     name: "Cobranzas",
                     slug: "Cobranzas",
@@ -598,86 +592,14 @@ if (
                     slug: "Mora",
                     i18n: "Mora"
                 },
-                {
-                    url: "/administrar/forma_pagos",
-                    name: "Forma_pagos",
-                    slug: "Forma_pagos",
-                    i18n: "Forma_pagos"
-                },
+            
                 {
                     url: "/administrar/forma_cobros",
                     name: "Forma_cobros",
                     slug: "Forma_cobros",
                     i18n: "Forma_cobros"
                 },
-                {
-                    url: null,
-                    name: "Sri",
-                    // icon: "EditIcon",
-                    i18n: "Sri",
-                    submenu: [{
-                            url: "/administrar/sri/codigo-impuesto",
-                            name: "Codigo_Impuesto",
-                            slug: "codigo-impuesto",
-                            icon: "BriefcaseIcon",
-                            i18n: "Codigo_Impuesto"
-                        },
-                        {
-                            url: "/administrar/sri/codigo-ice",
-                            name: "Codigo_ICE",
-                            slug: "codigo-ice",
-                            icon: "BriefcaseIcon",
-                            i18n: "Codigo_ICE"
-                        },
-                        {
-                            url: "/administrar/sri/tipo-comprobante",
-                            name: "Comprobantes",
-                            slug: "tipcomprobante",
-                            icon: "BriefcaseIcon",
-                            i18n: "Tipo_Comprobante"
-                        },
-                        {
-                            url: "/administrar/sri/impuestos-rentenciones",
-                            name: "ImpRetencion",
-                            slug: "imprentenciones",
-                            icon: "BriefcaseIcon",
-                            i18n: "Retenciones"
-                        },
-                        {
-                            url: "/administrar/sri/tipo-sustento",
-                            name: "Sustento",
-                            slug: "tiposustento",
-                            icon: "BriefcaseIcon",
-                            i18n: "Tipo_Sustento"
-                        },
-                        {
-                            url: "/administrar/sri/forma_pagos_sri",
-                            name: "forma_pagos_sri",
-                            slug: "forma_pagos_sri",
-                            i18n: "forma_pagos_sri"
-                        }
-                    ]
-                },
-                {
-                    url: null,
-                    name: "CierreContable",
-                    // icon: "EditIcon",
-                    i18n: "Cierre_Contable",
-                    submenu: [{
-                            url: "/administrar/cierre_contable/ejercicio_contable",
-                            name: "ejercicio_contable",
-                            slug: "ejercicio_contable",
-                            i18n: "ejercicio_contable"
-                        },
-                        {
-                            url: "/administrar/cierre_contable/balance_inicial",
-                            name: "balance_inicial",
-                            slug: "balance_inicial",
-                            i18n: "balance_inicial"
-                        }
-                        
-                    ]
-                }
+                
             ]
         });
     }

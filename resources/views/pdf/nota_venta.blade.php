@@ -670,7 +670,8 @@
                                 <div style="display:block;font-size:11px;text-align:center"><a href = "mailto: pagos@sokai.com.ec">pagos@sokai.com.ec</a></div>
                             </div>
                         </div>
-                    @elseif($empresa->id_empresa==58 && $empresa->nombre_empresa=='SOLMO CONTADORES & AUDITORES AREDOM S.A.S.')
+
+                    @elseif($empresa->nombre_empresa=='SOLMO CONTADORES & AUDITORES AREDOM S.A.S.')
                    
                     <div style="border: 1px solid #000;margin-top:15px;">
                             <div style="width:100%;margin-bottom:0px;border-bottom:1px solid #000;padding: 2px 5px;">
