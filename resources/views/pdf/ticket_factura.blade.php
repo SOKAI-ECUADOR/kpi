@@ -212,8 +212,7 @@ $logo='logos/'.$empresas->logo;
 <table border="0"   style="width:115%;margin-left:-2em!important">
                 <thead>
                     <tr>
-                        <th style="width:5px;text-align:left;" ><FONT SIZE=2>Cod.</FONT></th>
-                        <th style="width:40px;text-align:left;" ><FONT SIZE=2>Descripcion</FONT></th>
+                        <th style="width:45px;text-align:left;" ><FONT SIZE=2>Descripcion</FONT></th>
                         <th style="width:1px;text-align:right;" ><FONT SIZE=2>Cant.</FONT></th>
                         <th style="width:5px;text-align:right;" ><FONT SIZE=2>P.U</FONT></th>
                         <th style="width:5px;text-align:right;" ><FONT SIZE=2>Subtotal</FONT></th>
@@ -226,8 +225,7 @@ $logo='logos/'.$empresas->logo;
                     ?>
                     @foreach($detalle as $detalle)
                         <tr>
-                            <td style="width:5px;" ><FONT SIZE=2>{{$detalle->cod_alterno}}</FONT></td>
-                            <td style="width:40px;" ><FONT SIZE=2>{{$detalle->nombre}}</FONT></td>
+                            <td style="width:45px" ><FONT SIZE=2>{{$detalle->nombre}}</FONT></td>
                             <td style="width:1px;text-align:right;"  ><FONT SIZE=2>{{$detalle->cantidad}}</FONT></td>
                             <td style="width:5px;text-align:right;"   ><FONT SIZE=2>{{number_format($detalle->precio,2,".","")}}</FONT></td>
                             <td  style="width:5px;text-align:right;"  ><FONT SIZE=2>{{number_format($detalle->total,2,".","")}}</FONT></td>

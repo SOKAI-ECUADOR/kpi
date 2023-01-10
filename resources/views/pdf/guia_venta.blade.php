@@ -223,24 +223,6 @@
                             
                         </div>
         @endif
-        @if($empresa->ruc_empresa=='1792640105001')
-            <div style="display: inline-block; margin-top: 100px;">
-                <div style="width: 50%; float: left; margin-left: 50px;">
-                    <div style="font-size: 12px; color: #000;">______________________________________</div>
-                    <div style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Transportista Responsable</div>
-                    <div style="font-size: 12px;"><b>Nombre:</b> {{$guia->razon_social_tr}}</div>
-                    <div style="font-size: 12px;"><b>C.I:</b> {{$guia->identificacion_tr}}</div>
-                    <div style="font-size: 12px;"><b>Fecha y Hora:</b> </div>
-                </div>
-                <div style="width: 50%; float: right; margin-right: -50px;">
-                    <div style="font-size: 12px; color: #000;">______________________________________</div>
-                    <div style="font-size: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cliente Recib&iacute; Conforme</div>
-                    <div style="font-size: 12px;"><b>Nombre:</b></div>
-                    <div style="font-size: 12px;"><b>C.I:</b></div>
-                    <div style="font-size: 12px;"><b>Fecha y Hora:</b> </div>
-                </div>
-            </div>
-        @endif
                         
     </body>
 </html>

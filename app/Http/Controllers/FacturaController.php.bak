@@ -73,7 +73,9 @@ class FacturaController extends Controller
 {
     public function index(Request $request)
     {
+ini_set('memory_limit', '4000M');
         //dd($request);
+        $recupera=[];
         $buscar = str_replace(array(" ", "_", "-"), "%", $request->buscar);
         $rol = DB::select("SELECT user.*,rol.nombre,empresa.nombre_empresa from user,rol,empresa where user.id_empresa=empresa.id_empresa and rol.id_rol=user.id_rol and  id={$request->datos["id"]}");
         if ($rol[0]->nombre_empresa == 'GRUPO SOLIS INGENIERIA ESPECIALIZADA' || $rol[0]->nombre_empresa == 'QUIMALCO CIA LTDA') {
@@ -116,27 +118,73 @@ class FacturaController extends Controller
                         AND `factura`.`id_empresa` = {$request->datos["id_empresa"]}  and `factura`.`modo` = 1 and `factura`.`modo_acumulado` is null ORDER BY factura.fecha_emision DESC, SUBSTR(factura.clave_acceso,25,15) DESC");
                 }
             }else{
-                if ($buscar == '') {
-                    $recupera = DB::select("SELECT `factura`.*,factura.migo as migo_factura,factura.created_by as  created_by_factura,factura.updated_by as updated_by_factura,factura.id_vendedor as id_vendedor_factura, factura.estado as estadof, if(`factura`.`fecha_factura` is null,`factura`.`fmodifica`,`factura`.`fecha_factura`) as `fecha_autorizacion`, `empresa`.*, `cliente`.*, `moneda`.`nomb_moneda` as `moneda`, `factura`.`descuento` as `descuentototal`, `establecimiento`.`codigo` as `codigoes`, `punto_emision`.`codigo` as `codigope`, `establecimiento`.`direccion` as `direccion_establecimiento`, (SELECT id_guia FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS guia, (SELECT respuesta FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS respuesta_guia, (SELECT clave_acceso FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS clave_acceso_guia, (SELECT fecha_inicio_tr FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS fecha_inicio_tr 
-                                            from `factura` 
-                                            inner join `empresa` on `empresa`.`id_empresa` = `factura`.`id_empresa` 
-                                            inner join `cliente` on `cliente`.`id_cliente` = `factura`.`id_cliente` 
-                                            inner join `establecimiento` on `establecimiento`.`id_establecimiento` = `factura`.`id_establecimiento` 
-                                            inner join `punto_emision` on `punto_emision`.`id_punto_emision` = `factura`.`id_punto_emision` 
-                                            inner join `moneda` on `moneda`.`id_moneda` = `empresa`.`id_moneda` 
-                                            where `factura`.`id_empresa` = {$request->datos["id_empresa"]} and `factura`.`modo` = 1 and `factura`.`modo_acumulado` is null and `factura`.`id_punto_emision`={$request->datos["id_punto_emision"]}
-                                            ORDER BY factura.fecha_emision DESC,SUBSTR(factura.clave_acceso,25,15) desc");
-                } else {
-                    $recupera = DB::select("SELECT `factura`.*,factura.migo as migo_factura,factura.created_by as  created_by_factura,factura.updated_by as updated_by_factura,factura.id_vendedor as id_vendedor_factura,factura.estado as estadof, if(`factura`.`fecha_factura` is null,`factura`.`fmodifica`,`factura`.`fecha_factura`) as `fecha_autorizacion`, `empresa`.*, `cliente`.*, `moneda`.`nomb_moneda` as `moneda`, `factura`.`descuento` as `descuentototal`, `establecimiento`.`codigo` as `codigoes`, `punto_emision`.`codigo` as `codigope`, `establecimiento`.`direccion` as `direccion_establecimiento`, (SELECT id_guia FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS guia, (SELECT respuesta FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS respuesta_guia, (SELECT clave_acceso FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS clave_acceso_guia, (SELECT fecha_inicio_tr FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS fecha_inicio_tr 
-                    from `factura` 
-                    inner join `empresa` on `empresa`.`id_empresa` = `factura`.`id_empresa` 
-                    inner join `cliente` on `cliente`.`id_cliente` = `factura`.`id_cliente` 
-                    inner join `establecimiento` on `establecimiento`.`id_establecimiento` = `factura`.`id_establecimiento` 
-                    inner join `punto_emision` on `punto_emision`.`id_punto_emision` = `factura`.`id_punto_emision` 
-                    inner join `moneda` on `moneda`.`id_moneda` = `empresa`.`id_moneda` 
-                    where (cliente.nombre like '%$buscar%' OR cliente.email like '%$buscar%' OR cliente.telefono like '%$buscar%' OR cliente.identificacion like '%$buscar%' OR factura.respuesta like '%$buscar%' OR factura.clave_acceso like '%$buscar%') 
-                        AND `factura`.`id_empresa` = {$request->datos["id_empresa"]} and `factura`.`id_punto_emision`={$request->datos["id_punto_emision"]} and `factura`.`modo` = 1 and `factura`.`modo_acumulado` is null ORDER BY factura.fecha_emision DESC,SUBSTR(factura.clave_acceso,25,15) desc");
+                if($rol[0]->nombre_empresa == 'ESPECIALIDADES MEDICAS Y DE FISIOTERAPIA ESMEDICFISIO S.A.'){
+                    if ($rol[0]->nombre !== 'Usuario') {
+                        if ($buscar == '') {
+                            $recupera = DB::select("SELECT `factura`.*,factura.migo as migo_factura,factura.created_by as  created_by_factura,factura.updated_by as updated_by_factura,factura.id_vendedor as id_vendedor_factura, factura.estado as estadof, if(`factura`.`fecha_factura` is null,`factura`.`fmodifica`,`factura`.`fecha_factura`) as `fecha_autorizacion`, `empresa`.*, `cliente`.*, `moneda`.`nomb_moneda` as `moneda`, `factura`.`descuento` as `descuentototal`, `establecimiento`.`codigo` as `codigoes`, `punto_emision`.`codigo` as `codigope`, `establecimiento`.`direccion` as `direccion_establecimiento`, (SELECT id_guia FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS guia, (SELECT respuesta FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS respuesta_guia, (SELECT clave_acceso FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS clave_acceso_guia, (SELECT fecha_inicio_tr FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS fecha_inicio_tr 
+                                                    from `factura` 
+                                                    inner join `empresa` on `empresa`.`id_empresa` = `factura`.`id_empresa` 
+                                                    inner join `cliente` on `cliente`.`id_cliente` = `factura`.`id_cliente` 
+                                                    inner join `establecimiento` on `establecimiento`.`id_establecimiento` = `factura`.`id_establecimiento` 
+                                                    inner join `punto_emision` on `punto_emision`.`id_punto_emision` = `factura`.`id_punto_emision` 
+                                                    inner join `moneda` on `moneda`.`id_moneda` = `empresa`.`id_moneda` 
+                                                    where `factura`.`id_empresa` = {$request->datos["id_empresa"]} and `factura`.`modo` = 1 and `factura`.`modo_acumulado` is null 
+                                                    ORDER BY factura.fecha_emision DESC,SUBSTR(factura.clave_acceso,25,15) desc");
+                        } else {
+                            $recupera = DB::select("SELECT `factura`.*,factura.migo as migo_factura,factura.created_by as  created_by_factura,factura.updated_by as updated_by_factura,factura.id_vendedor as id_vendedor_factura,factura.estado as estadof, if(`factura`.`fecha_factura` is null,`factura`.`fmodifica`,`factura`.`fecha_factura`) as `fecha_autorizacion`, `empresa`.*, `cliente`.*, `moneda`.`nomb_moneda` as `moneda`, `factura`.`descuento` as `descuentototal`, `establecimiento`.`codigo` as `codigoes`, `punto_emision`.`codigo` as `codigope`, `establecimiento`.`direccion` as `direccion_establecimiento`, (SELECT id_guia FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS guia, (SELECT respuesta FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS respuesta_guia, (SELECT clave_acceso FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS clave_acceso_guia, (SELECT fecha_inicio_tr FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS fecha_inicio_tr 
+                            from `factura` 
+                            inner join `empresa` on `empresa`.`id_empresa` = `factura`.`id_empresa` 
+                            inner join `cliente` on `cliente`.`id_cliente` = `factura`.`id_cliente` 
+                            inner join `establecimiento` on `establecimiento`.`id_establecimiento` = `factura`.`id_establecimiento` 
+                            inner join `punto_emision` on `punto_emision`.`id_punto_emision` = `factura`.`id_punto_emision` 
+                            inner join `moneda` on `moneda`.`id_moneda` = `empresa`.`id_moneda` 
+                            where (cliente.nombre like '%$buscar%' OR cliente.email like '%$buscar%' OR cliente.telefono like '%$buscar%' OR cliente.identificacion like '%$buscar%' OR factura.respuesta like '%$buscar%' OR factura.clave_acceso like '%$buscar%') 
+                                AND `factura`.`id_empresa` = {$request->datos["id_empresa"]}  and `factura`.`modo` = 1 and `factura`.`modo_acumulado` is null ORDER BY factura.fecha_emision DESC,SUBSTR(factura.clave_acceso,25,15) desc");
+                        }
+                    }else{
+                        if ($buscar == '') {
+                            $recupera = DB::select("SELECT `factura`.*,factura.migo as migo_factura,factura.created_by as  created_by_factura,factura.updated_by as updated_by_factura,factura.id_vendedor as id_vendedor_factura, factura.estado as estadof, if(`factura`.`fecha_factura` is null,`factura`.`fmodifica`,`factura`.`fecha_factura`) as `fecha_autorizacion`, `empresa`.*, `cliente`.*, `moneda`.`nomb_moneda` as `moneda`, `factura`.`descuento` as `descuentototal`, `establecimiento`.`codigo` as `codigoes`, `punto_emision`.`codigo` as `codigope`, `establecimiento`.`direccion` as `direccion_establecimiento`, (SELECT id_guia FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS guia, (SELECT respuesta FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS respuesta_guia, (SELECT clave_acceso FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS clave_acceso_guia, (SELECT fecha_inicio_tr FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS fecha_inicio_tr 
+                                                    from `factura` 
+                                                    inner join `empresa` on `empresa`.`id_empresa` = `factura`.`id_empresa` 
+                                                    inner join `cliente` on `cliente`.`id_cliente` = `factura`.`id_cliente` 
+                                                    inner join `establecimiento` on `establecimiento`.`id_establecimiento` = `factura`.`id_establecimiento` 
+                                                    inner join `punto_emision` on `punto_emision`.`id_punto_emision` = `factura`.`id_punto_emision` 
+                                                    inner join `moneda` on `moneda`.`id_moneda` = `empresa`.`id_moneda` 
+                                                    where `factura`.`id_empresa` = {$request->datos["id_empresa"]} and `factura`.`modo` = 1 and `factura`.`modo_acumulado` is null and `factura`.`id_punto_emision`={$request->datos["id_punto_emision"]}
+                                                    ORDER BY factura.fecha_emision DESC,SUBSTR(factura.clave_acceso,25,15) desc");
+                        } else {
+                            $recupera = DB::select("SELECT `factura`.*,factura.migo as migo_factura,factura.created_by as  created_by_factura,factura.updated_by as updated_by_factura,factura.id_vendedor as id_vendedor_factura,factura.estado as estadof, if(`factura`.`fecha_factura` is null,`factura`.`fmodifica`,`factura`.`fecha_factura`) as `fecha_autorizacion`, `empresa`.*, `cliente`.*, `moneda`.`nomb_moneda` as `moneda`, `factura`.`descuento` as `descuentototal`, `establecimiento`.`codigo` as `codigoes`, `punto_emision`.`codigo` as `codigope`, `establecimiento`.`direccion` as `direccion_establecimiento`, (SELECT id_guia FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS guia, (SELECT respuesta FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS respuesta_guia, (SELECT clave_acceso FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS clave_acceso_guia, (SELECT fecha_inicio_tr FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS fecha_inicio_tr 
+                            from `factura` 
+                            inner join `empresa` on `empresa`.`id_empresa` = `factura`.`id_empresa` 
+                            inner join `cliente` on `cliente`.`id_cliente` = `factura`.`id_cliente` 
+                            inner join `establecimiento` on `establecimiento`.`id_establecimiento` = `factura`.`id_establecimiento` 
+                            inner join `punto_emision` on `punto_emision`.`id_punto_emision` = `factura`.`id_punto_emision` 
+                            inner join `moneda` on `moneda`.`id_moneda` = `empresa`.`id_moneda` 
+                            where (cliente.nombre like '%$buscar%' OR cliente.email like '%$buscar%' OR cliente.telefono like '%$buscar%' OR cliente.identificacion like '%$buscar%' OR factura.respuesta like '%$buscar%' OR factura.clave_acceso like '%$buscar%') 
+                                AND `factura`.`id_empresa` = {$request->datos["id_empresa"]} and `factura`.`id_punto_emision`={$request->datos["id_punto_emision"]} and `factura`.`modo` = 1 and `factura`.`modo_acumulado` is null ORDER BY factura.fecha_emision DESC,SUBSTR(factura.clave_acceso,25,15) desc");
+                        }
+                    }
+                }else{
+                    if ($buscar == '' || $buscar == null) {
+//if($request->datos["id_empresa"]==68){
+//$recupera = DB::select("SELECT factura.*,factura.migo as migo_factura,factura.created_by as  created_by_factura,factura.updated_by as updated_by_factura,factura.id_vendedor as id_vendedor_factura, factura.estado as estadof, if(factura.fecha_factura is null,factura.fmodifica,factura.fecha_factura) as fecha_autorizacion, empresa.*, (select nombre from cliente c where c.id_cliente=cliente.id_cliente) as nombre, cliente.id_cliente as id_cliente, cliente.codigo as codigo, cliente.nombre_adicional as nombre_adicional, cliente.identificacion as identificacion, cliente.email as email, cliente.telefono as telefono, cliente.id_codigo_pais, moneda.nomb_moneda as moneda, factura.descuento as descuentototal, establecimiento.codigo as codigoes, punto_emision.codigo as codigope, establecimiento.direccion as direccion_establecimiento, (SELECT id_guia FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS guia, (SELECT respuesta FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS respuesta_guia, (SELECT clave_acceso FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS clave_acceso_guia, (SELECT fecha_inicio_tr FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS fecha_inicio_tr from factura inner join empresa on empresa.id_empresa = factura.id_empresa inner join cliente on cliente.id_cliente = factura.id_cliente inner join establecimiento on establecimiento.id_establecimiento = factura.id_establecimiento inner join punto_emision on punto_emision.id_punto_emision = factura.id_punto_emision inner join moneda on moneda.id_moneda = empresa.id_moneda where factura.id_empresa = {$request->datos["id_empresa"]} and factura.modo = 1 and factura.modo_acumulado is null and factura.id_punto_emision={$request->datos["id_punto_emision"]} ORDER BY factura.fecha_emision DESC,SUBSTR(factura.clave_acceso,25,15) desc");
+//}
+//else{
+			            $recupera = DB::select("SELECT factura.*,factura.migo as migo_factura,factura.created_by as  created_by_factura,factura.updated_by as updated_by_factura,factura.id_vendedor as id_vendedor_factura, factura.estado as estadof, if(factura.fecha_factura is null,factura.fmodifica,factura.fecha_factura) as fecha_autorizacion, empresa.*, (select nombre from cliente c where c.id_cliente=cliente.id_cliente) as nombre, cliente.id_cliente, cliente.codigo, cliente.nombre_adicional, cliente.identificacion, cliente.direccion, cliente.email as email, cliente.telefono, cliente.contacto, cliente.estado, cliente.comentario, cliente.descuento, cliente.num_pago, cliente.id_codigo_pais, cliente.grupo_tributario, cliente.parte_relacionada, cliente.obligado_contabilidad, cliente.lista_precios, cliente.limite_credito, cliente.regimen_contribuyente, cliente.fcrea, cliente.fmodifica, cliente.umodifica, cliente.ucrea, cliente.id_forma_pagos, cliente.id_grupo_cliente, cliente.id_empresa, cliente.created_by, cliente.updated_by, cliente.id_tipo_cliente, cliente.id_plan_cuentas, cliente.id_provincia, cliente.id_cuidad, cliente.id_parroquia, cliente.id_seguro, cliente.id_plan_seguro, moneda.nomb_moneda as moneda, factura.descuento as descuentototal, establecimiento.codigo as codigoes, punto_emision.codigo as codigope, establecimiento.direccion as direccion_establecimiento, (SELECT id_guia FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS guia, (SELECT respuesta FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS respuesta_guia, (SELECT clave_acceso FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS clave_acceso_guia, (SELECT fecha_inicio_tr FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS fecha_inicio_tr from factura inner join empresa on empresa.id_empresa = factura.id_empresa inner join cliente on cliente.id_cliente = factura.id_cliente inner join establecimiento on establecimiento.id_establecimiento = factura.id_establecimiento inner join punto_emision on punto_emision.id_punto_emision = factura.id_punto_emision inner join moneda on moneda.id_moneda = empresa.id_moneda where factura.id_empresa = {$request->datos["id_empresa"]} and factura.modo = 1 and factura.modo_acumulado is null and factura.id_punto_emision={$request->datos["id_punto_emision"]} ORDER BY factura.fecha_emision DESC,SUBSTR(factura.clave_acceso,25,15) desc");
+//}
+		            } else {
+                        $recupera = DB::select("SELECT `factura`.*,factura.migo as migo_factura,factura.created_by as  created_by_factura,factura.updated_by as updated_by_factura,factura.id_vendedor as id_vendedor_factura,factura.estado as estadof, if(`factura`.`fecha_factura` is null,`factura`.`fmodifica`,`factura`.`fecha_factura`) as `fecha_autorizacion`, `empresa`.*, `cliente`.*, `moneda`.`nomb_moneda` as `moneda`, `factura`.`descuento` as `descuentototal`, `establecimiento`.`codigo` as `codigoes`, `punto_emision`.`codigo` as `codigope`, `establecimiento`.`direccion` as `direccion_establecimiento`, (SELECT id_guia FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS guia, (SELECT respuesta FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS respuesta_guia, (SELECT clave_acceso FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS clave_acceso_guia, (SELECT fecha_inicio_tr FROM guia_remision WHERE id_factura = factura.id_factura LIMIT 1) AS fecha_inicio_tr 
+                        from `factura` 
+                        inner join `empresa` on `empresa`.`id_empresa` = `factura`.`id_empresa` 
+                        inner join `cliente` on `cliente`.`id_cliente` = `factura`.`id_cliente` 
+                        inner join `establecimiento` on `establecimiento`.`id_establecimiento` = `factura`.`id_establecimiento` 
+                        inner join `punto_emision` on `punto_emision`.`id_punto_emision` = `factura`.`id_punto_emision` 
+                        inner join `moneda` on `moneda`.`id_moneda` = `empresa`.`id_moneda` 
+                        where (cliente.nombre like '%$buscar%' OR cliente.email like '%$buscar%' OR cliente.telefono like '%$buscar%' OR cliente.identificacion like '%$buscar%' OR factura.respuesta like '%$buscar%' OR factura.clave_acceso like '%$buscar%') 
+                            AND `factura`.`id_empresa` = {$request->datos["id_empresa"]} and `factura`.`id_punto_emision`={$request->datos["id_punto_emision"]} and `factura`.`modo` = 1 and `factura`.`modo_acumulado` is null ORDER BY factura.fecha_emision DESC,SUBSTR(factura.clave_acceso,25,15) desc");
+                    }
                 }
+                
             }
             
         }
@@ -153,6 +201,7 @@ class FacturaController extends Controller
     }
     public function index_acumulada(Request $request)
     {
+        ini_set('memory_limit', '4000M');
         $buscar = str_replace(array(" ", "_", "-"), "%", $request->buscar);
         if ($buscar == '') {
             $recupera = DB::select("SELECT `nota_venta`.*,nota_venta.created_by as created_by_nota_venta,nota_venta.updated_by as updated_by_nota_venta,nota_venta.id_vendedor as id_vendedor_nota_venta, nota_venta.estado as estadof, if(`nota_venta`.`fecha_nota_venta` is null,`nota_venta`.`fmodifica`,`nota_venta`.`fecha_nota_venta`) as `fecha_autorizacion`, `empresa`.*, `cliente`.*, `moneda`.`nomb_moneda` as `moneda`, `nota_venta`.`descuento` as `descuentototal`, `establecimiento`.`codigo` as `codigoes`, `punto_emision`.`codigo` as `codigope`, `establecimiento`.`direccion` as `direccion_establecimiento`, (SELECT id_guia FROM guia_remision WHERE id_nota_venta = nota_venta.id_nota_venta LIMIT 1) AS guia, (SELECT respuesta FROM guia_remision WHERE id_nota_venta = nota_venta.id_nota_venta LIMIT 1) AS respuesta_guia, (SELECT clave_acceso FROM guia_remision WHERE id_nota_venta = nota_venta.id_nota_venta LIMIT 1) AS clave_acceso_guia, (SELECT fecha_inicio_tr FROM guia_remision WHERE id_nota_venta = nota_venta.id_nota_venta LIMIT 1) AS fecha_inicio_tr from `nota_venta` inner join `empresa` on `empresa`.`id_empresa` = " . $request->datos["id_empresa"] . " inner join `cliente` on `cliente`.`id_cliente` = `nota_venta`.`id_cliente` inner join `establecimiento` on `establecimiento`.`id_establecimiento` = " . $request->datos["id_establecimiento"] . " inner join `punto_emision` on `punto_emision`.`id_punto_emision` = " . $request->datos["id_punto_emision"] . " inner join `moneda` on `moneda`.`id_moneda` = `empresa`.`id_moneda` where `nota_venta`.`id_empresa` = " . $request->datos["id_empresa"] . " and `nota_venta`.`modo` = 1 and `nota_venta`.`modo_acumulado` is null ORDER BY nota_venta.fecha_emision DESC, nota_venta.id_nota_venta DESC");
@@ -4135,7 +4184,7 @@ class FacturaController extends Controller
         user v ON v.id = f.id_user
         where f.id_factura= " . $request->id_factura;
         //dd($query);
-        $proformas = DB::select("SELECT e.logo,e.nombre_empresa,e.ruc_empresa,e.direccion_empresa,e.email_facturacion,
+        $proformas = DB::select("SELECT e.logo,e.nombre_empresa,e.ruc_empresa,e.direccion_empresa,e.email_facturacion, e.telefono as telefono_empresa,
         c.identificacion,f.fecha_emision,c.nombre as cliente,p.cod_principal,p.cod_alterno,df.p_descuento, 
         u.nombre as ciudad, c.contacto,c.direccion,c.email,c.telefono,p.imagen,p.nombre,p.descripcion,p.caracteristicas,p.normativa,p.uso,
         m.nombre as marca,tm.nombre as tipo_medida,um.nombre as unidad_medida,df.color,df.detalle as detalle_cortina,df.mando,df.alto,df.ancho,df.cantidad,df.precio,df.total as total_pro,df.tiempo_entrega,df.cpc,
@@ -4330,7 +4379,6 @@ class FacturaController extends Controller
         $factura->descuento = $request->descuento;
         $factura->valor_ice = 0;
         $factura->valor_irbpnr = 0;
-        $factura->existe_iva_8 = $request->existe_iva_8;
         $factura->iva_12 = $request->valor12;
         $factura->propina = $request->propinapr;
         $factura->pp_descuento = $request->pp_descuento;
@@ -5368,10 +5416,6 @@ class FacturaController extends Controller
             $empresa_data = DB::select("SELECT * FROM empresa where id_empresa={$request->usuario["id_empresa"]}");
             $ce_1 = strpos($empresa_data[0]->nombre_empresa, "C.E. FUEGOS");
             $ce_2 = strpos($empresa_data[0]->nombre_empresa, "C.E.FUEGOS");
-            $exist_iva8=0;
-            if($request->existe_iva_8==true){
-                $exist_iva8=1;
-            }
             //actualiza la factura cabecera
             $factura = Factura::findOrFail($request->factura["id_factura"]);
             $factura->modo = 1;
@@ -5388,7 +5432,6 @@ class FacturaController extends Controller
             $factura->descuento = $request->descuento;
             $factura->valor_ice = 0;
             $factura->valor_irbpnr = 0;
-            $factura->existe_iva_8 = $exist_iva8;
             $factura->iva_12 = $request->valor12;
             $factura->propina = $request->propinapr;
             $factura->pp_descuento = $request->pp_descuento;
@@ -8909,59 +8952,6 @@ class FacturaController extends Controller
             'cuota_extra' => $cuotas
         ];
     }
-    public function imprimirTicket($id, $tipo)
-    {
-        date_default_timezone_set('America/Bogota');
-        $fecha = date('d/m/Y', time());
-        $hora = date('h:i:s', time());
-        $factura = DB::select("SELECT factura.*,CONCAT(SUBSTR(clave_acceso,25,3),'-',SUBSTR(clave_acceso,28,3),'-',SUBSTR(clave_acceso,31,9)) as nro_factura,vendedor.nombre_vendedor from factura LEFT JOIN vendedor ON vendedor.id_vendedor=factura.id_vendedor where  factura.id_factura=$id");
-        $detalle = DB::select("SELECT detalle.*,producto.descripcion as descripcion_producto from detalle,producto where producto.id_producto=detalle.id_producto and detalle.id_factura=$id");
-        $detalle_comida = DB::select("SELECT detalle.*,producto.descripcion as descripcion_producto,if(producto.descripcion like '%COMIDA%','comida','bebida') as tipo_pedido from detalle,producto where producto.id_producto=detalle.id_producto and (producto.descripcion like '%COMIDA%' or producto.descripcion like '%BEBIDA%') and detalle.id_factura=$id");
-        $empresa = DB::select("SELECT * from empresa where id_empresa={$factura[0]->id_empresa}");
-        $user = DB::select("SELECT * from user,establecimiento where establecimiento.id_establecimiento=user.id_establecimiento and user.id={$factura[0]->id_user}");
-        $cliente = DB::select("SELECT * from cliente where id_cliente={$factura[0]->id_cliente}");
-        $pagos = DB::select("SELECT descripcion,total,estado from factura_pagos INNER JOIN forma_pagos on forma_pagos.id_forma_pagos=factura_pagos.id_forma_pagos where factura_pagos.estado=1 and id_factura=$id");
-        // return [
-        //     'factura'=>$factura[0],
-        //     'productos' => $detalle,
-        //     'cliente' => $cliente[0],
-        //     'pagos' => $pagos,
-        //     'empresa'=>$empresa[0],
-        //     'user'=>$user[0],
-        //     'fecha'=>$fecha,
-        //     'hora'=>$hora
-        // ];
-
-        $facturas = $factura[0];
-        $clientes = $cliente[0];
-        $empresas = $empresa[0];
-        $users = $user[0];
-        $carpeta = constant("DATA_EMPRESA") . $empresa[0]->id_empresa . '/comprobantes/factura_ticket';
-        if (!file_exists($carpeta)) {
-            mkdir($carpeta, 0755, true);
-        }
-        if ($factura[0]->id_empresa == 60) {
-
-            $pdf = \PDF::loadView('pdf/ticket_factura', compact("facturas", "clientes", "empresas", "users", "detalle", "pagos", "fecha", "hora", "detalle_comida", "pagos"))->setPaper(array(0, 0, 230, 3276)); //->setPaper(array(0, 0,230,3276), 'portrait');
-        } else {
-            $pdf = \PDF::loadView('pdf/ticket_factura', compact("facturas", "clientes", "empresas", "users", "detalle", "pagos", "fecha", "hora", "detalle_comida", "pagos"))->setPaper(array(0, 0, 230, 1076)); //->setPaper(array(0, 0,230,3276), 'portrait');
-        }
-        //$pdf = \PDF::loadView('pdf/ticket_factura', compact("facturas", "clientes", "empresas", "users", "detalle", "pagos", "fecha", "hora", "detalle_comida", "pagos"))->setPaper(array(0, 0, 230, 3276)); //->setPaper(array(0, 0,230,3276), 'portrait');
-        if ($tipo == 'd') {
-
-            return $pdf->setWarnings(false)->save(constant("DATA_EMPRESA") . "{$empresa[0]->id_empresa}/comprobantes/factura_ticket/{$factura[0]->clave_acceso}.pdf")->stream("{$factura[0]->clave_acceso}.pdf");
-        } else {
-
-            return $pdf->setWarnings(false)->stream("{$factura[0]->clave_acceso}.pdf");
-        }
-
-        //$ticket=new imprimiTicket();
-        //$ticket->factura_venta_ticket($factura[0],$detalle,$empresa[0],$user[0],$cliente[0],$pagos,$request->nombre_impresora,$fecha,$hora);
-        // $pdf=new generarReportes();
-        // $strPDF=$pdf->imprimirFactura($factura[0],$detalle,$empresa[0],$user[0],$cliente[0],$pagos,$request->nombre_impresora,$fecha,$hora,$ruta);
-        // return response($strPDF, 200)->header('Content-Type', 'application/pdf');
-        //return response($strPDF, 200)->header('Content-Type', 'application/pdf');
-    }
     public function factura_fisica(Request $request)
     {
         // se ejecutara los select de la factura,los productos y pagos
@@ -8992,52 +8982,7 @@ class FacturaController extends Controller
         $ticket = new imprimiTicket();
         $ticket->factura_venta_ticket($factura[0], $detalle, $empresa[0], $user[0], $cliente[0], $pagos, $request->nombre_impresora, $fecha, $hora);
     }
-    public function imprimirTicketNotaVenta($id, $tipo)
-    {
-        date_default_timezone_set('America/Bogota');
-        $fecha = date('d/m/Y', time());
-        $hora = date('h:i:s', time());
-        $factura = DB::select("SELECT factura.*,CONCAT(SUBSTR(clave_acceso,25,3),'-',SUBSTR(clave_acceso,28,3),'-',SUBSTR(clave_acceso,31,9)) as nro_factura,vendedor.nombre_vendedor from nota_venta as factura LEFT JOIN vendedor ON vendedor.id_vendedor=factura.id_vendedor where  factura.id_nota_venta=$id");
-        $detalle = DB::select("SELECT * from detalle_nota_venta where id_nota_venta=$id");
-        $empresa = DB::select("SELECT * from empresa where id_empresa={$factura[0]->id_empresa}");
-        $user = DB::select("SELECT * from user,establecimiento where establecimiento.id_establecimiento=user.id_establecimiento and user.id={$factura[0]->id_user}");
-        $cliente = DB::select("SELECT * from cliente where id_cliente={$factura[0]->id_cliente}");
-        $pagos = DB::select("SELECT descripcion,total from nota_venta_pagos INNER JOIN forma_pagos on forma_pagos.id_forma_pagos=nota_venta_pagos.id_forma_pagos where nota_venta_pagos.estado=1 and id_nota_venta=$id");
-        // return [
-        //     'factura'=>$factura[0],
-        //     'productos' => $detalle,
-        //     'cliente' => $cliente[0],
-        //     'pagos' => $pagos,
-        //     'empresa'=>$empresa[0],
-        //     'user'=>$user[0],
-        //     'fecha'=>$fecha,
-        //     'hora'=>$hora
-        // ];
-
-        $facturas = $factura[0];
-        $clientes = $cliente[0];
-        $empresas = $empresa[0];
-        $users = $user[0];
-        $carpeta = constant("DATA_EMPRESA") . $empresa[0]->id_empresa . '/comprobantes/nota_venta_ticket';
-        if (!file_exists($carpeta)) {
-            mkdir($carpeta, 0755, true);
-        }
-        $pdf = \PDF::loadView('pdf/ticket_nota_venta', compact("facturas", "clientes", "empresas", "users", "detalle", "pagos", "fecha", "hora"))->setPaper(array(0, 0, 230, 1076)); //->setPaper(array(0, 0, 230, 3276)); //->setPaper(array(0, 0,230,3276), 'portrait');
-        if ($tipo == 'd') {
-
-            return $pdf->setWarnings(false)->save(constant("DATA_EMPRESA") . "{$empresa[0]->id_empresa}/comprobantes/nota_venta_ticket/{$factura[0]->clave_acceso}.pdf")->stream("{$factura[0]->clave_acceso}.pdf");
-        } else {
-
-            return $pdf->setWarnings(false)->stream("{$factura[0]->clave_acceso}.pdf");
-        }
-
-        //$ticket=new imprimiTicket();
-        //$ticket->factura_venta_ticket($factura[0],$detalle,$empresa[0],$user[0],$cliente[0],$pagos,$request->nombre_impresora,$fecha,$hora);
-        // $pdf=new generarReportes();
-        // $strPDF=$pdf->imprimirFactura($factura[0],$detalle,$empresa[0],$user[0],$cliente[0],$pagos,$request->nombre_impresora,$fecha,$hora,$ruta);
-        // return response($strPDF, 200)->header('Content-Type', 'application/pdf');
-        //return response($strPDF, 200)->header('Content-Type', 'application/pdf');
-    }
+    
     public function productos_anterior(Request $request)
     {
         $pto_emision = DB::select("SELECT * from punto_emision where id_bodega is not null  and  id_punto_emision={$request->id_pto_emision}");

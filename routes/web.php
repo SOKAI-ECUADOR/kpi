@@ -630,10 +630,10 @@ Route::get('/api/listarclave/{id}', 'FacturaController@clave');
 Route::post('/api/eliminarfactura', 'FacturaController@eliminar');
 Route::get('/api/productos_reporte/{id}', 'FacturaController@productos_reporte');
 
-Route::get('/api/imprimir/ticket/{id}/{tipo}', 'FacturacionController@imprimirTicket');
+Route::get('/api/imprimir/ticket/{id}/{tipo}', 'FacturaController@imprimirTicket');
 Route::get('/api/imprimir/ejemplo_ticket/{id}', 'FacturaController@ejemplo_ticket');
 Route::get('/api/factura/fisica', 'FacturaController@factura_fisica');
-Route::get('/api/imprimir/ticket/nota_venta/{id}/{tipo}', 'FacturacionController@imprimirTicketNotaVenta');
+Route::get('/api/imprimir/ticket/nota_venta/{id}/{tipo}', 'FacturaController@imprimirTicketNotaVenta');
 
 
 
@@ -834,7 +834,7 @@ Route::post('/api/liquid/agregar/asiento', 'LiquidacionController@agregarAsiento
 Route::post('/api/liquid/agregar/asiento_detalle', 'LiquidacionController@agregarAsientoDetalle');
 
 
-Route::get('/api/creacion_liquidacion_import_pdf/{id}', 'FacturacionController@PdfLiquidacion');
+Route::get('/api/creacion_liquidacion_import_pdf/{id}', 'LiquidacionController@PdfLiquidacion');
 
 
 //Produccion
@@ -1178,7 +1178,7 @@ Route::post('/api/factura_compra/agregar/asiento', 'FacturacompraController@agre
 Route::post('/api/factura_compra/agregar/asiento_detalle', 'FacturacompraController@agregarAsientoDetalle');
 Route::post('/api/factura_compra/guardar_factura_clave', 'FacturacompraController@guardar_factura_clave');
 Route::post('/api/factura_compra/listar_productoxml', 'FacturacompraController@listar_productoxml');
-Route::get('/api/creacion_factura_compra_pdf/{id}/{tipo}', 'FacturacionController@factura_compra_pdf');
+Route::get('/api/creacion_factura_compra_pdf/{id}/{tipo}', 'FacturacompraController@factura_compra_pdf');
 Route::post('/api/savefilesfactcompra', 'FacturacompraController@savefilesfactcompra');
 Route::get('/api/dowloadxmlfactcompra', 'FacturacompraController@downloadxmlfactcompra');
 Route::get('/api/dowloadpdffactcompra', 'FacturacompraController@downloadpdffactcompra');
@@ -1273,7 +1273,7 @@ Route::get('/api/liquidacion_compravercontabilidad/{id}', 'LiquidacionCompraCont
 Route::post('/api/liquidacion_compra/agregar/asiento', 'LiquidacionCompraController@agregarAsiento');
 Route::post('/api/liquidacion_compra/agregar/asiento_detalle', 'LiquidacionCompraController@agregarAsientoDetalle');
 Route::get('/api/liquidcomp/tipcomprob', 'LiquidacionCompraController@vertipcomprob');
-Route::get('/api/creacion_liquidacion_compra_pdf/{id}/{tipo}', 'FacturacionController@liquidacion_compra_dompdf');
+Route::get('/api/creacion_liquidacion_compra_pdf/{id}/{tipo}', 'LiquidacionCompraController@liquidacion_compra_pdf');
 Route::get('/api/reportes/liquidacion_compra', 'LiquidacionCompraController@liquidacion_comprastotales');
 
 //ejemplos

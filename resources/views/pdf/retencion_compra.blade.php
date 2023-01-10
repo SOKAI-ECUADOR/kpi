@@ -138,12 +138,7 @@
                 <div style="width:100%" class="mb-1"><span class="titulo1">NÚMERO DE AUTORIZACIÓN:</span></div>
                 <div style="width:100%" class="mb-1"><span class="titulo2">{{$factura->observacion}}</span></div>
                 <div style="width:100%" class="mb-1"><span class="titulo1">FECHA Y HORA DE AUTORIZACION:</span></div>
-                @if(isset($factura->fecha_factura))
-                    <div style="width:100%" class="mb-3"><span class="titulo1-1">{{$factura->fecha_factura}}</span></div>
-                @else
-                    <div style="width:100%" class="mb-3"><span class="titulo1-1">{{$factura->fecha_envio}}</span></div>
-                @endif
-                
+                <div style="width:100%" class="mb-3"><span class="titulo1-1">{{$factura->fecha_factura}}</span></div>
 
                 @if($empresa->ambiente==2)
                     <div style="width:100%" class="mb-1"><span class="titulo1">AMBIENTE:</span> <span class="titulo1-1 mr-4">PRODUCCION</span> </div>
@@ -197,12 +192,7 @@
                     @foreach($retenciones as $retencion)
                         @if($retencion->cantidadrenta)
                             <tr>
-                            @if(isset($factura->id_liquidacion_compra))
-                                <td class="text-center">LIQUIDACION COMPRA</td>
-                            @else
                                 <td class="text-center">FACTURA</td>
-                            @endif
-                                
                                 <td class="text-center">{{substr($retencion->descripcion,0,3)}}-{{substr($retencion->descripcion,3,3)}}-{{substr($retencion->descripcion,6,15)}}</td>
                                 <td class="text-center">{{$retencion->dia}}-{{$retencion->mes}}-{{$retencion->anio}}</td>
                                 <td class="text-center">${{$retencion->baserenta}}</td>
@@ -220,12 +210,7 @@
                                 $p_iva = intval(str_replace("%", '', $retencion->porcentajeiva));
                             ?>
                             <tr>
-                            
-                            @if(isset($factura->id_liquidacion_compra))
-                                <td class="text-center">LIQUIDACION COMPRA</td>
-                            @else
                                 <td class="text-center">FACTURA</td>
-                            @endif
                                 <td class="text-center">{{substr($retencion->descripcion,0,3)}}-{{substr($retencion->descripcion,3,3)}}-{{substr($retencion->descripcion,6,15)}}</td>
                                 <td class="text-center">{{$retencion->dia}}-{{$retencion->mes}}-{{$retencion->anio}}</td>
                                 <td class="text-center">${{ number_format(($retencion->cantidadiva * 100) / $p_iva, 2, '.', '') }}</td>

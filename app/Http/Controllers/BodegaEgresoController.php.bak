@@ -24,15 +24,32 @@ class BodegaEgresoController extends Controller
     {
         $buscar = $request->buscar;
         if ($buscar == '') {
-            $recupera = BodegaEgreso::select("*")->where("id_empresa", "=", $ide)->where("id_bodega", "=", $idb)->orderByRaw('id_bodega_egreso DESC')->get();
+            //$recupera = BodegaEgreso::select("*")->where("id_empresa", "=", $ide)->where("id_bodega", "=", $idb)->orderByRaw('id_bodega_egreso DESC')->get();
+            $recupera = DB::table('bodega_egreso')
+                            ->leftJoin('factura', 'bodega_egreso.id_factura', '=', 'factura.id_factura')
+                            ->where("bodega_egreso.id_empresa", "=", $ide)
+                            ->where("id_bodega", "=", $idb)
+                            ->orderByRaw('id_bodega_egreso DESC')
+                            ->get();
         } else {
-            $recupera = BodegaEgreso::select('*')
+            /*$recupera = BodegaEgreso::select('*')
                 ->where(function ($q) use ($buscar) {
                     $q->where('num_egreso', 'like', '%' . $buscar . '%')
                         ->orWhere('fecha_egreso', 'like', '%' . $buscar . '%')
                         ->orWhere('tipo_egreso', 'like', '%' . $buscar . '%');
                 })
-                ->where("id_empresa", "=", $ide)->where("id_bodega", "=", $idb)->orderByRaw('id_bodega_egreso DESC')->get();
+                ->where("id_empresa", "=", $ide)->where("id_bodega", "=", $idb)->orderByRaw('id_bodega_egreso DESC')->get();*/
+            $recupera = DB::table('bodega_egreso')
+                            ->leftJoin('factura', 'bodega_egreso.id_factura', '=', 'factura.id_factura')
+                            ->where(function ($q) use ($buscar) {
+                                $q->where('num_egreso', 'like', '%' . $buscar . '%')
+                                    ->orWhere('fecha_egreso', 'like', '%' . $buscar . '%')
+                                    ->orWhere('tipo_egreso', 'like', '%' . $buscar . '%');
+                            })
+                            ->where("bodega_egreso.id_empresa", "=", $ide)
+                            ->where("id_bodega", "=", $idb)
+                            ->orderByRaw('id_bodega_egreso DESC')
+                            ->get();
         }
         return [
             'recupera' => $recupera

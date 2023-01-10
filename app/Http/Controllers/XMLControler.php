@@ -43,7 +43,7 @@ class XMLControler extends Controller
 
         $xml->startElement('factura');
         $xml->writeAttribute("id", "comprobante");
-        $xml->writeAttribute("version", "1.1.0");
+        $xml->writeAttribute("version", "1.0.0");
 
         $sel_empresa = DB::select("SELECT * from empresa where id_empresa={$re->id_empresa}");
         $xml->startElement("infoTributaria");
@@ -226,11 +226,11 @@ class XMLControler extends Controller
         $xml->endElement();
         if($re->financiamiento>0 && $re->financiamiento!==null){
             $xml->startElement("totalSinImpuestos");
-            $xml->text(number_format($re->subtotal_sin_impuesto+$re->financiamiento,2,".",""));
+            $xml->text(number_format($re->subtotal_sin_impuesto+$re->financiamiento,4,".",""));
             $xml->endElement();
         }else{
             $xml->startElement("totalSinImpuestos");
-            $xml->text(number_format($re->subtotal_sin_impuesto,2,".",""));
+            $xml->text(number_format($re->subtotal_sin_impuesto,4,".",""));
             $xml->endElement();
         }
         
@@ -290,7 +290,7 @@ class XMLControler extends Controller
                 $xml->endElement();
             }
             $xml->startElement("baseImponible");
-            $xml->text(number_format($result[$i]->total, 2, '.', ''));
+            $xml->text(number_format($result[$i]->total, 4, '.', ''));
             $xml->endElement();
             if ($result[$i]->codigo_iva == 2) {
 				if($re->existe_iva_8>0){
@@ -298,14 +298,14 @@ class XMLControler extends Controller
 					$xml->text(8);
 					$xml->endElement();
 					$xml->startElement("valor");
-					$xml->text(number_format((($result[$i]->total) * 0.08), 2, '.', ''));
+					$xml->text(number_format((($result[$i]->total) * 0.08), 4, '.', ''));
 					$xml->endElement();
 				}else{
 					$xml->startElement("tarifa");
 					$xml->text(12);
 					$xml->endElement();
 					$xml->startElement("valor");
-					$xml->text(number_format((($result[$i]->total) * 0.12), 2, '.', ''));
+					$xml->text(number_format((($result[$i]->total) * 0.12), 4, '.', ''));
 					$xml->endElement();
 				}
             } else {
@@ -337,7 +337,7 @@ class XMLControler extends Controller
             $xml->endElement();
 
             $xml->startElement("baseImponible");
-            $xml->text(number_format($detices[$i]->total, 2, '.', ''));
+            $xml->text(number_format($detices[$i]->total, 4, '.', ''));
             $xml->endElement();
 
             $xml->startElement("tarifa");
@@ -345,7 +345,7 @@ class XMLControler extends Controller
             $xml->endElement();
 
             $xml->startElement("valor");
-            $xml->text(number_format(($detices[$i]->valor), 2, '.', ''));
+            $xml->text(number_format(($detices[$i]->valor), 4, '.', ''));
             $xml->endElement();
 
             $xml->endElement();
@@ -361,7 +361,7 @@ class XMLControler extends Controller
             $xml->endElement();
 
             $xml->startElement("baseImponible");
-            $xml->text(number_format($re->financiamiento, 2, '.', ''));
+            $xml->text(number_format($re->financiamiento, 4, '.', ''));
             $xml->endElement();
 
             $xml->startElement("tarifa");
@@ -412,7 +412,7 @@ class XMLControler extends Controller
             }
             $xml->startElement("total");
             if($re->financiamiento>0 && $re->financiamiento!==null && ($cxc[$i]["estado"]==2 || $cxc[$i]["estado"]=="2")){
-                $xml->text(number_format($cxc[$i]["total"]+$re->financiamiento,2,".",""));
+                $xml->text(number_format($cxc[$i]["total"]+$re->financiamiento,4,".",""));
             }else{
                 $xml->text($cxc[$i]["total"]);
             }
@@ -494,7 +494,7 @@ class XMLControler extends Controller
             $xml->text(str_replace(array('/', '"', ",", ":", "¨", "-", "–", "é", "á", "í", "ó", "ú", "ñ", "Á", "É", "Í", "Ó", "Ú", "Ñ",";","|","°"), array(' ', '', ' ', " ", "", " ", " ", "e", "a", "i", "o", "u", "n", "A", "E", "I", "O", "U", "N","","",""), $detalles_producto[$i]->nombre));
             $xml->endElement();
             $xml->startElement('cantidad');
-            $xml->text(number_format($detalles_producto[$i]->cantidad,4,".",""));
+            $xml->text(number_format($detalles_producto[$i]->cantidad,2,".",""));
             $xml->endElement();
             $xml->startElement('precioUnitario');
             $xml->text(number_format($detalles_producto[$i]->precio,4,".",""));
@@ -502,10 +502,10 @@ class XMLControler extends Controller
             if ($detalles_producto[$i]->descuento) {
                 $xml->startElement('descuento');
                 if ($detalles_producto[$i]->p_descuento == 1) {
-                    $xml->text(number_format($detalles_producto[$i]->descuento, 2, '.', ''));
+                    $xml->text(number_format($detalles_producto[$i]->descuento, 4, '.', ''));
                 } else {
                     if (isset($detalles_producto[$i]->descuento)) {
-                        $xml->text(number_format((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad * $detalles_producto[$i]->descuento) / 100), 2, '.', ''));
+                        $xml->text(number_format((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad * $detalles_producto[$i]->descuento) / 100), 4, '.', ''));
                     } else {
                         $xml->text(0);
                     }
@@ -518,12 +518,12 @@ class XMLControler extends Controller
             }
             $xml->startElement('precioTotalSinImpuesto');
             if ($detalles_producto[$i]->p_descuento == 1) {
-                $xml->text(number_format((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - $detalles_producto[$i]->descuento), 2, '.', ''));
+                $xml->text(number_format((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - $detalles_producto[$i]->descuento), 4, '.', ''));
             } else {
                 if (isset($detalles_producto[$i]->descuento)) {
-                    $xml->text(number_format(($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - (($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad * $detalles_producto[$i]->descuento) / 100), 2, '.', ''));
+                    $xml->text(number_format(($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - (($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad * $detalles_producto[$i]->descuento) / 100), 4, '.', ''));
                 } else {
-                    $xml->text(number_format(($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad), 2, '.', ''));
+                    $xml->text(number_format(($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad), 4, '.', ''));
                 }
             }
             $xml->endElement();
@@ -575,12 +575,12 @@ class XMLControler extends Controller
                 }
                 $xml->startElement('baseImponible');
                 if ($detalles_producto[$i]->p_descuento == 1) {
-                    $xml->text(number_format((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - $detalles_producto[$i]->descuento) + ($detalles_producto[$i]->total_ice * $detalles_producto[$i]->cantidad), 2, '.', ''));
+                    $xml->text(number_format((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - $detalles_producto[$i]->descuento) + ($detalles_producto[$i]->total_ice * $detalles_producto[$i]->cantidad), 4, '.', ''));
                 } else {
                     if (isset($detalles_producto[$i]->descuento)) {
-                        $xml->text(number_format((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - (($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad * $detalles_producto[$i]->descuento) / 100)) + ($detalles_producto[$i]->total_ice * $detalles_producto[$i]->cantidad), 2, '.', ''));
+                        $xml->text(number_format((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - (($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad * $detalles_producto[$i]->descuento) / 100)) + ($detalles_producto[$i]->total_ice * $detalles_producto[$i]->cantidad), 4, '.', ''));
                     } else {
-                        $xml->text(number_format(($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) + ($detalles_producto[$i]->total_ice * $detalles_producto[$i]->cantidad), 2, '.', ''));
+                        $xml->text(number_format(($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) + ($detalles_producto[$i]->total_ice * $detalles_producto[$i]->cantidad), 4, '.', ''));
                     }
                 }
 
@@ -600,12 +600,12 @@ class XMLControler extends Controller
 						$xml->startElement("valor");
 						//$xml->text(number_format(( ((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - $detalles_producto[$i]->descuento) + ($detalles_producto[$i]->total_ice * $detalles_producto[$i]->cantidad)) * 0.08), 2, '.', ''));
 						if ($detalles_producto[$i]->p_descuento == 1) {
-							$xml->text(number_format((((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - $detalles_producto[$i]->descuento) + ($detalles_producto[$i]->total_ice * $detalles_producto[$i]->cantidad)) * 0.08), 2, '.', ''));
+							$xml->text(number_format((((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - $detalles_producto[$i]->descuento) + ($detalles_producto[$i]->total_ice * $detalles_producto[$i]->cantidad)) * 0.08), 4, '.', ''));
 						} else {
 							if (isset($detalles_producto[$i]->descuento)) {
-								$xml->text(number_format(((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - (($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad * $detalles_producto[$i]->descuento) / 100) + ($detalles_producto[$i]->total_ice * $detalles_producto[$i]->cantidad)) * 0.08), 2, '.', ''));
+								$xml->text(number_format(((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - (($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad * $detalles_producto[$i]->descuento) / 100) + ($detalles_producto[$i]->total_ice * $detalles_producto[$i]->cantidad)) * 0.08), 4, '.', ''));
 							} else {
-								$xml->text(number_format(((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) + ($detalles_producto[$i]->total_ice * $detalles_producto[$i]->cantidad)) * 0.08), 2, '.', ''));
+								$xml->text(number_format(((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) + ($detalles_producto[$i]->total_ice * $detalles_producto[$i]->cantidad)) * 0.08), 4, '.', ''));
 							}
 						}
 						$xml->endElement();
@@ -613,12 +613,12 @@ class XMLControler extends Controller
 						$xml->startElement("valor");
 						//$xml->text(number_format(( ((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - $detalles_producto[$i]->descuento) + ($detalles_producto[$i]->total_ice * $detalles_producto[$i]->cantidad)) * 0.12), 2, '.', ''));
 						if ($detalles_producto[$i]->p_descuento == 1) {
-							$xml->text(number_format((((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - $detalles_producto[$i]->descuento) + ($detalles_producto[$i]->total_ice * $detalles_producto[$i]->cantidad)) * 0.12), 2, '.', ''));
+							$xml->text(number_format((((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - $detalles_producto[$i]->descuento) + ($detalles_producto[$i]->total_ice * $detalles_producto[$i]->cantidad)) * 0.12), 4, '.', ''));
 						} else {
 							if (isset($detalles_producto[$i]->descuento)) {
-								$xml->text(number_format(((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - (($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad * $detalles_producto[$i]->descuento) / 100) + ($detalles_producto[$i]->total_ice * $detalles_producto[$i]->cantidad)) * 0.12), 2, '.', ''));
+								$xml->text(number_format(((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - (($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad * $detalles_producto[$i]->descuento) / 100) + ($detalles_producto[$i]->total_ice * $detalles_producto[$i]->cantidad)) * 0.12), 4, '.', ''));
 							} else {
-								$xml->text(number_format(((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) + ($detalles_producto[$i]->total_ice * $detalles_producto[$i]->cantidad)) * 0.12), 2, '.', ''));
+								$xml->text(number_format(((($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) + ($detalles_producto[$i]->total_ice * $detalles_producto[$i]->cantidad)) * 0.12), 4, '.', ''));
 							}
 						}
 						$xml->endElement();
@@ -648,12 +648,12 @@ class XMLControler extends Controller
 
                     $xml->startElement('baseImponible');
                     if ($detalles_producto[$i]->p_descuento == 1) {
-                        $xml->text(number_format(($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - $detalles_producto[$i]->descuento, 2, '.', ''));
+                        $xml->text(number_format(($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - $detalles_producto[$i]->descuento, 4, '.', ''));
                     } else {
                         if (isset($detalles_producto[$i]->descuento)) {
-                            $xml->text(number_format(($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - (($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad * $detalles_producto[$i]->descuento) / 100), 2, '.', ''));
+                            $xml->text(number_format(($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad) - (($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad * $detalles_producto[$i]->descuento) / 100), 4, '.', ''));
                         } else {
-                            $xml->text(number_format(($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad), 2, '.', ''));
+                            $xml->text(number_format(($detalles_producto[$i]->precio * $detalles_producto[$i]->cantidad), 4, '.', ''));
                         }
                     }
                     $xml->endElement();

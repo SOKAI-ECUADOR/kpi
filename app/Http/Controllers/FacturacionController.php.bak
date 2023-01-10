@@ -916,7 +916,7 @@ class FacturacionController extends Controller
         //selecciona los clientes, empresa, los productos, pagos y clientes para crear en pdf
         $clientes = DB::select("SELECT * FROM cliente WHERE id_cliente = $id_cliente");
         $empresas = DB::select("SELECT em.*, es.urlweb,es.id_establecimiento FROM empresa em INNER JOIN establecimiento es ON es.id_establecimiento = $id_establecimiento INNER JOIN punto_emision pe ON pe.id_punto_emision = $id_punto_emision WHERE em.id_empresa = $id_empresa");
-        $detalles = DB::select("SELECT det.*, pr.cod_principal,pr.cod_alterno,pr.codigo_barras, pr.total_ice as total_ice_pr,pr.descripcion as descripcion_producto FROM detalle det INNER JOIN producto pr ON det.id_producto=pr.id_producto WHERE det.id_factura = $id");
+        $detalles = DB::select("SELECT det.*, pr.cod_principal,pr.cod_alterno, pr.total_ice as total_ice_pr,pr.descripcion as descripcion_producto FROM detalle det INNER JOIN producto pr ON det.id_producto=pr.id_producto WHERE det.id_factura = $id");
         $pagos = DB::select("SELECT fp.*, fps.descripcion, fpag.descripcion AS descripcionfp FROM factura_pagos fp LEFT JOIN forma_pagos fpag ON fp.id_forma_pagos=fpag.id_forma_pagos LEFT JOIN forma_pagos_sri fps ON fps.id_forma_pagos_sri=fpag.id_forma_pagos_sri WHERE fp.id_factura=$id");
         $cliente = $clientes[0];
         $empresa = $empresas[0];
@@ -990,7 +990,7 @@ class FacturacionController extends Controller
     {
         try{
             if($doc=='fc'){
-                    $facturas = DB::select("SELECT * FROM factura_compra WHERE id_factcompra = $id");
+                    $facturas = DB::select("SELECT *,null as fecha_envio FROM factura_compra WHERE id_factcompra = $id");
                     $id_proveedor = $facturas[0]->id_proveedor;
                     $id_empresa = $facturas[0]->id_empresa;
                     $id_punto_emision = $facturas[0]->id_punto_emision;
@@ -1069,6 +1069,73 @@ class FacturacionController extends Controller
         //recupera los datos de factura mediante el id de factura
         
     }
+    public function factura_compra_pdf($id, $tipo)
+    {
+        //Selecciona la factura que va enviar
+        $facturas = DB::select("SELECT *,(select id_retfactcompra from retencion_factura_comp where id_factura={$id}) as exist_retencion FROM factura_compra WHERE id_factcompra = $id");
+        $id_cliente = $facturas[0]->id_proveedor;
+        $id_empresa = $facturas[0]->id_empresa;
+        $id_punto_emision = $facturas[0]->id_punto_emision;
+        $id_establecimiento = $facturas[0]->id_establecimiento;
+        $clave_acceso = $facturas[0]->descripcion;
+
+        //selecciona los clientes, empresa, los productos, pagos y clientes para crear en pdf
+        $clientes = DB::select("SELECT * FROM proveedor WHERE id_proveedor = $id_cliente");
+        $empresas = DB::select("SELECT em.*, es.urlweb FROM empresa em INNER JOIN establecimiento es ON es.id_establecimiento = $id_establecimiento INNER JOIN punto_emision pe ON pe.id_punto_emision = $id_punto_emision WHERE em.id_empresa = $id_empresa");
+        $detalles = DB::select("SELECT det.*, pr.cod_principal, pr.cod_alterno, pr.total_ice as total_ice_pr FROM detalle_factura_compra as det INNER JOIN producto pr ON det.id_producto=pr.id_producto WHERE det.id_factura = $id");
+        $pagos = DB::select("SELECT fp.*, fps.descripcion, fpag.descripcion AS descripcionfp FROM factura_compra_pagos fp LEFT JOIN forma_pagos fpag ON fp.id_forma_pagos=fpag.id_forma_pagos LEFT JOIN forma_pagos_sri fps ON fps.id_forma_pagos_sri=fpag.id_forma_pagos_sri WHERE fp.id_factura_compra=$id");
+        $cliente = $clientes[0];
+        $empresa = $empresas[0];
+        $factura = $facturas[0];
+        //envia a la vista de factura_venta los datos almacenados en las variables  mdiante compact
+        $pdf = \PDF::loadView('pdf/factura_compra', compact("factura", "cliente", "empresa", "detalles", "clave_acceso", "pagos"));
+        $carpeta2 = constant("DATA_EMPRESA") . "$id_empresa/comprobantes/factura_compra_pdf";
+        if (!file_exists($carpeta2)) {
+            mkdir($carpeta2, 0755, true);
+        }
+        //si la url tiene d va a descargar caso contrario solo va a ser una vista
+        if ($tipo == 'd') {
+            return $pdf->setWarnings(false)->save(constant("DATA_EMPRESA") . "$id_empresa/comprobantes/factura_compra_pdf/$factura->id_factcompra.pdf")->download("$clave_acceso.pdf");
+        } else {
+            return $pdf->setWarnings(false)->save(constant("DATA_EMPRESA") . "$id_empresa/comprobantes/factura_compra_pdf/$factura->id_factcompra.pdf")->stream("$clave_acceso.pdf");
+        }
+        //envia a la vista de factura_venta los datos almacenados en las variables  mdiante compact
+
+    }
+    public function liquidacion_compra_pdf($id, $tipo)
+    {
+        //Selecciona la factura que va enviar
+        $facturas = DB::select("SELECT *,(select id_retencion_liquidacion_compra from retencion_liquidacion_compra where id_liquidacion_compra={$id}) as exist_retencion FROM liquidacion_compra WHERE id_liquidacion_compra = $id");
+        $id_cliente = $facturas[0]->id_proveedor;
+        $id_empresa = $facturas[0]->id_empresa;
+        $id_punto_emision = $facturas[0]->id_punto_emision;
+        $id_establecimiento = $facturas[0]->id_establecimiento;
+        $clave_acceso = $facturas[0]->descripcion;
+        $clave_acceso_2 = $facturas[0]->clave_acceso;
+
+        //selecciona los clientes, empresa, los productos, pagos y clientes para crear en pdf
+        $clientes = DB::select("SELECT * FROM proveedor WHERE id_proveedor = $id_cliente");
+        $empresas = DB::select("SELECT em.*, es.urlweb FROM empresa em INNER JOIN establecimiento es ON es.id_establecimiento = $id_establecimiento INNER JOIN punto_emision pe ON pe.id_punto_emision = $id_punto_emision WHERE em.id_empresa = $id_empresa");
+        $detalles = DB::select("SELECT det.*, pr.cod_principal, pr.cod_alterno, pr.total_ice as total_ice_pr FROM detalle_liquidacion_compra as det INNER JOIN producto pr ON det.id_producto=pr.id_producto WHERE det.id_liquidacion_compra = $id");
+        $pagos = DB::select("SELECT fp.*, fps.descripcion, fpag.descripcion AS descripcionfp FROM liquidacion_compra_pagos fp LEFT JOIN forma_pagos fpag ON fp.id_formas_pagos=fpag.id_forma_pagos LEFT JOIN forma_pagos_sri fps ON fps.id_forma_pagos_sri=fpag.id_forma_pagos_sri WHERE fp.id_liquidacion_compra=$id");
+        $cliente = $clientes[0];
+        $empresa = $empresas[0];
+        $factura = $facturas[0];
+        //envia a la vista de factura_venta los datos almacenados en las variables  mdiante compact
+        $pdf = \PDF::loadView('pdf/liquidacion_compra', compact("factura", "cliente", "empresa", "detalles", "clave_acceso","clave_acceso_2", "pagos"));
+        $carpeta2 = constant("DATA_EMPRESA") . "$id_empresa/comprobantes/liquidacion_compra";
+        if (!file_exists($carpeta2)) {
+            mkdir($carpeta2, 0755, true);
+        }
+        //si la url tiene d va a descargar caso contrario solo va a ser una vista
+        if ($tipo == 'd') {
+            return $pdf->setWarnings(false)->save(constant("DATA_EMPRESA") . "$id_empresa/comprobantes/liquidacion_compra/$factura->clave_acceso.pdf")->download("$clave_acceso.pdf");
+        } else {
+            return $pdf->setWarnings(false)->save(constant("DATA_EMPRESA") . "$id_empresa/comprobantes/liquidacion_compra/$factura->clave_acceso.pdf")->stream("$clave_acceso.pdf");
+        }
+        //envia a la vista de factura_venta los datos almacenados en las variables  mdiante compact
+
+    }
     public function guiapdf($id, $tipo, $doc)
     {
         //La guia recupera los datos mediante el id
@@ -1144,7 +1211,153 @@ class FacturacionController extends Controller
             }
         }
     }
-    public function liquidacion_compra_pdf($id, $tipo)
+    public function imprimirTicket($id, $tipo)
+    {
+        date_default_timezone_set('America/Bogota');
+        $fecha = date('d/m/Y', time());
+        $hora = date('h:i:s', time());
+        $factura = DB::select("SELECT factura.*,CONCAT(SUBSTR(clave_acceso,25,3),'-',SUBSTR(clave_acceso,28,3),'-',SUBSTR(clave_acceso,31,9)) as nro_factura,vendedor.nombre_vendedor from factura LEFT JOIN vendedor ON vendedor.id_vendedor=factura.id_vendedor where  factura.id_factura=$id");
+        $detalle = DB::select("SELECT detalle.*,producto.descripcion as descripcion_producto, IF(producto.cod_alterno IS NULL, producto.cod_principal, producto.cod_alterno) as cod_alterno from detalle,producto where producto.id_producto=detalle.id_producto and detalle.id_factura=$id");
+        $detalle_comida = DB::select("SELECT detalle.*,producto.descripcion as descripcion_producto,if(producto.descripcion like '%COMIDA%','comida','bebida') as tipo_pedido from detalle,producto where producto.id_producto=detalle.id_producto and (producto.descripcion like '%COMIDA%' or producto.descripcion like '%BEBIDA%') and detalle.id_factura=$id");
+        $empresa = DB::select("SELECT * from empresa where id_empresa={$factura[0]->id_empresa}");
+        $user = DB::select("SELECT * from user,establecimiento where establecimiento.id_establecimiento=user.id_establecimiento and user.id={$factura[0]->id_user}");
+        $cliente = DB::select("SELECT * from cliente where id_cliente={$factura[0]->id_cliente}");
+        $pagos = DB::select("SELECT descripcion,total,estado from factura_pagos INNER JOIN forma_pagos on forma_pagos.id_forma_pagos=factura_pagos.id_forma_pagos where factura_pagos.estado=1 and id_factura=$id");
+        // return [
+        //     'factura'=>$factura[0],
+        //     'productos' => $detalle,
+        //     'cliente' => $cliente[0],
+        //     'pagos' => $pagos,
+        //     'empresa'=>$empresa[0],
+        //     'user'=>$user[0],
+        //     'fecha'=>$fecha,
+        //     'hora'=>$hora
+        // ];
+
+        $facturas = $factura[0];
+        $clientes = $cliente[0];
+        $empresas = $empresa[0];
+        $users = $user[0];
+        $carpeta = constant("DATA_EMPRESA") . $empresa[0]->id_empresa . '/comprobantes/factura_ticket';
+        if (!file_exists($carpeta)) {
+            mkdir($carpeta, 0755, true);
+        }
+        if ($factura[0]->id_empresa == 60) {
+
+            $pdf = \PDF::loadView('pdf/ticket_factura', compact("facturas", "clientes", "empresas", "users", "detalle", "pagos", "fecha", "hora", "detalle_comida", "pagos"))->setPaper(array(0, 0, 230, 3276)); //->setPaper(array(0, 0,230,3276), 'portrait');
+        } else {
+            $pdf = \PDF::loadView('pdf/ticket_factura', compact("facturas", "clientes", "empresas", "users", "detalle", "pagos", "fecha", "hora", "detalle_comida", "pagos"))->setPaper(array(0, 0, 230, 1076)); //->setPaper(array(0, 0,230,3276), 'portrait');
+        }
+        //$pdf = \PDF::loadView('pdf/ticket_factura', compact("facturas", "clientes", "empresas", "users", "detalle", "pagos", "fecha", "hora", "detalle_comida", "pagos"))->setPaper(array(0, 0, 230, 3276)); //->setPaper(array(0, 0,230,3276), 'portrait');
+        if ($tipo == 'd') {
+
+            return $pdf->setWarnings(false)->save(constant("DATA_EMPRESA") . "{$empresa[0]->id_empresa}/comprobantes/factura_ticket/{$factura[0]->clave_acceso}.pdf")->stream("{$factura[0]->clave_acceso}.pdf");
+        } else {
+
+            return $pdf->setWarnings(false)->stream("{$factura[0]->clave_acceso}.pdf");
+        }
+
+        //$ticket=new imprimiTicket();
+        //$ticket->factura_venta_ticket($factura[0],$detalle,$empresa[0],$user[0],$cliente[0],$pagos,$request->nombre_impresora,$fecha,$hora);
+        // $pdf=new generarReportes();
+        // $strPDF=$pdf->imprimirFactura($factura[0],$detalle,$empresa[0],$user[0],$cliente[0],$pagos,$request->nombre_impresora,$fecha,$hora,$ruta);
+        // return response($strPDF, 200)->header('Content-Type', 'application/pdf');
+        //return response($strPDF, 200)->header('Content-Type', 'application/pdf');
+    }
+    public function imprimirTicketNotaVenta($id, $tipo)
+    {
+        date_default_timezone_set('America/Bogota');
+        $fecha = date('d/m/Y', time());
+        $hora = date('h:i:s', time());
+        $factura = DB::select("SELECT factura.*,CONCAT(SUBSTR(clave_acceso,25,3),'-',SUBSTR(clave_acceso,28,3),'-',SUBSTR(clave_acceso,31,9)) as nro_factura,vendedor.nombre_vendedor from nota_venta as factura LEFT JOIN vendedor ON vendedor.id_vendedor=factura.id_vendedor where  factura.id_nota_venta=$id");
+        $detalle = DB::select("SELECT * from detalle_nota_venta where id_nota_venta=$id");
+        $empresa = DB::select("SELECT * from empresa where id_empresa={$factura[0]->id_empresa}");
+        $user = DB::select("SELECT * from user,establecimiento where establecimiento.id_establecimiento=user.id_establecimiento and user.id={$factura[0]->id_user}");
+        $cliente = DB::select("SELECT * from cliente where id_cliente={$factura[0]->id_cliente}");
+        $pagos = DB::select("SELECT descripcion,total from nota_venta_pagos INNER JOIN forma_pagos on forma_pagos.id_forma_pagos=nota_venta_pagos.id_forma_pagos where nota_venta_pagos.estado=1 and id_nota_venta=$id");
+        // return [
+        //     'factura'=>$factura[0],
+        //     'productos' => $detalle,
+        //     'cliente' => $cliente[0],
+        //     'pagos' => $pagos,
+        //     'empresa'=>$empresa[0],
+        //     'user'=>$user[0],
+        //     'fecha'=>$fecha,
+        //     'hora'=>$hora
+        // ];
+
+        $facturas = $factura[0];
+        $clientes = $cliente[0];
+        $empresas = $empresa[0];
+        $users = $user[0];
+        $carpeta = constant("DATA_EMPRESA") . $empresa[0]->id_empresa . '/comprobantes/nota_venta_ticket';
+        if (!file_exists($carpeta)) {
+            mkdir($carpeta, 0755, true);
+        }
+        $pdf = \PDF::loadView('pdf/ticket_nota_venta', compact("facturas", "clientes", "empresas", "users", "detalle", "pagos", "fecha", "hora"))->setPaper(array(0, 0, 230, 1076)); //->setPaper(array(0, 0, 230, 3276)); //->setPaper(array(0, 0,230,3276), 'portrait');
+        if ($tipo == 'd') {
+
+            return $pdf->setWarnings(false)->save(constant("DATA_EMPRESA") . "{$empresa[0]->id_empresa}/comprobantes/nota_venta_ticket/{$factura[0]->clave_acceso}.pdf")->stream("{$factura[0]->clave_acceso}.pdf");
+        } else {
+
+            return $pdf->setWarnings(false)->stream("{$factura[0]->clave_acceso}.pdf");
+        }
+
+        //$ticket=new imprimiTicket();
+        //$ticket->factura_venta_ticket($factura[0],$detalle,$empresa[0],$user[0],$cliente[0],$pagos,$request->nombre_impresora,$fecha,$hora);
+        // $pdf=new generarReportes();
+        // $strPDF=$pdf->imprimirFactura($factura[0],$detalle,$empresa[0],$user[0],$cliente[0],$pagos,$request->nombre_impresora,$fecha,$hora,$ruta);
+        // return response($strPDF, 200)->header('Content-Type', 'application/pdf');
+        //return response($strPDF, 200)->header('Content-Type', 'application/pdf');
+    }
+    public function PdfLiquidacion($id){
+        $facturas = DB::select("SELECT sum(detalle_factura_compra.total) as total,detalle_factura_compra.nombre,factura_compra.id_factcompra,factura_compra.id_importacion
+         from detalle_factura_compra,factura_compra
+          where detalle_factura_compra.id_factura=factura_compra.id_factcompra
+           and detalle_factura_compra.importacion=1 and factura_compra.id_importacion=".$id." "."GROUP BY detalle_factura_compra.id_producto");
+        $importacion=DB::select("SELECT * from importacion where id_importacion=$id");
+        $prod_importacion= DB::select("SELECT producto_importacion.id_prodimp,producto_importacion.codigo,producto_importacion.nombre,producto_importacion.cantidad,producto_importacion.precio,bodega.nombre as nombrebodega,producto.sector,producto_importacion.id_iva as iva,producto_importacion.id_ice as ice,producto_importacion.id_bodega,producto_importacion.id_proyecto as proyecto,producto_importacion.id_producto_bodega,producto_importacion.id_producto,proyecto.descripcion,producto_importacion.total,producto_importacion.cantidad_liquidacion,producto_importacion.precio_liquidacion,producto_importacion.total_liquidacion,0 as nuevo_costo,producto.cod_alterno 
+        FROM `producto_importacion` 
+        LEFT JOIN bodega
+        on bodega.id_bodega=producto_importacion.id_bodega
+        LEFT JOIN producto
+        on producto.id_producto=producto_importacion.id_producto
+				LEFT JOIN proyecto
+        on proyecto.id_proyecto=producto_importacion.id_proyecto
+        WHERE id_importacion ={$id} order by bodega.nombre asc");
+        $total_cantidad=0;
+        for ($b=0; $b < count($prod_importacion) ; $b++) { 
+            $total_cantidad+=number_format($prod_importacion[$b]->cantidad,2,".","");
+        }
+        
+        $array_cabecera=[];
+        $array_datos=[];
+        for ($i=0; $i < count($facturas); $i++) { 
+            array_push($array_cabecera,$facturas[$i]->nombre);
+            array_push($array_datos,$facturas[$i]->total);
+        }
+        $empresa=DB::select("SELECT * from empresa where id_empresa=".$importacion[0]->id_empresa);
+        $empresa=$empresa[0];
+        
+        $proveedores = DB::select("SELECT * FROM proveedor_importacion WHERE id_importacion = ".$id);
+        //$datos_empresa=$empresa[0];
+        //$logo_empresa="http://localhost:8000/".$datos_empresa->id_empresa."/imagen/".$datos_empresa->logo;
+        
+        for ($a=0; $a < count($array_datos) ; $a++) { 
+            if($importacion[0]->forma_liquidacion==1){
+                //$dato=number_format($array_datos[$a],);
+                $array_datos[$a]=number_format($array_datos[$a]/$total_cantidad,2,".","");
+            }
+        }
+        $importacion=$importacion[0];
+        //dd($array_datos);
+        
+        
+        
+        $pdf = \PDF::loadView('pdf/liquidacion_import',compact('array_cabecera','array_datos','facturas','prod_importacion','importacion','proveedores','empresa'));
+        return $pdf->stream('liquidacion.pdf');
+    }
+    public function liquidacion_compra_dompdf($id, $tipo)
     {
         //Selecciona la factura que va enviar
         $facturas = DB::select("SELECT *,(select id_retencion_liquidacion_compra from retencion_liquidacion_compra where id_liquidacion_compra={$id}) as exist_retencion FROM liquidacion_compra WHERE id_liquidacion_compra = $id");
